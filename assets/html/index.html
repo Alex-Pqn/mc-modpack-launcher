@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <!--Language & UTF-->
+        <meta charset='utf-8'>
+        <meta name='google' content='notranslate'>
+        <meta name='robots' content='noindex,nofollow'>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <!--CDN Fonts-->
+        <!--Importations & Responsive-->
+        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' type='text/css' href='../css/style.css'>
+        <!--Icon & Style-->
+        <link rel='icon' href=''>
+        <meta name='theme-color' content='#5DC8A8'>
+        <title id="title">Marie-Madeleine Launcher</title>
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <div class="header__title">
+                    <img src="../img/icon/png/icon.png">
+                    <h3 id="titleNav">
+                        <!--Generate JS Content-->
+                    </h3>
+                </div>
+                <nav class="header__nav">
+                    <ul>
+                        <li id="minimize">
+                            -
+                        </li>
+                        <li id="maximize">
+                            +
+                        </li>
+                        <li id="close">
+                            &times;
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main">
+            <div class="main__nav">
+                <h3>
+                    Navigation
+                </h3>
+                <ul>
+                    <li>
+                        <a href="">
+                            Accueil
+                        </a>
+                    </li>
+                    <li>
+                        <a href="options.html">
+                            Options
+                        </a>
+                    </li>
+                    <li>
+                        <a href="mods.html">
+                            Mods
+                        </a>
+                    </li>
+                    <li>
+                        <a href="about.html">
+                            À propos
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="main__content">
+                <div class="main__content__login-form">
+                    <div class="main__content__login-form__title">
+                        <h3>
+                            Compte Mojang
+                        </h3>
+                    </div>
+                    <!--username-->
+                    <label for="username">
+                        E-mail / Pseudo
+                    </label>
+                    <input type="text" id="username" name="username" spellcheck="false" required minlength="3" maxlength="25" size="15">
+                    <!--password-->
+                    <label for="password">
+                        Mot de passe
+                    </label>
+                    <input type="password" id="password" name="password" required minlength="3" maxlength="32" size="15">
+                    <!--error-->
+                    <p id="error-form">
+                        <!--Generate JS Content-->
+                    </p>
+                    <!--send-->
+                    <input type="submit" id="submit" value="Se connecter">
+                </div>
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+        <script src="../js/authenticator.js"></script>
+        <script src="../js/navBarButtons.js"></script>
+        <script src="../js/title.js"></script>
+    </body>
+</html>
