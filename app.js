@@ -36,7 +36,8 @@ createWindow = () => {
   });
 
   win.openDevTools();
-
+  
+  // win.loadURL('https://url.com')
   win.loadURL(url.format({
     pathname: path.join(__dirname, ASSET_DIR, 'index.html'),
     protocol: 'file:',
@@ -60,12 +61,18 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('close', () => {
+app.on('close', (e) => {
   win = null;
+  e.preventDefault()
+  app.hide()
+  return false
 });
 
 app.on('closed', () => {
   win = null;
+  e.preventDefault()
+  app.hide()
+  return false
 });
 
 

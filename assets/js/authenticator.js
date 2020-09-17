@@ -45,7 +45,7 @@ if (localStorage.getItem('auth') === null) {
     displayAuthInformations();
 }
 
-button.addEventListener('click', e => {
+button.addEventListener('click', () => {
     username = usernameInput.value;
     password = passwordInput.value;
 
@@ -66,7 +66,7 @@ button.addEventListener('click', e => {
         }
     ]
     formValidation = () => {
-        argumentsList.forEach(expression => {
+        argumentsList.reverse().forEach(expression => {
             if (expression.value.length < expression.minLength) {
                 displayStatusFormOne(expression.name + " doit contenir au minimum " + expression.minLength + " caractères.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
             }
@@ -83,7 +83,6 @@ button.addEventListener('click', e => {
     }
     formValidation();
 })
-
 
 ipc.on('err', (data) => {
     button.style.display = 'initial';
