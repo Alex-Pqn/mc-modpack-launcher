@@ -1,7 +1,9 @@
 
-.main {
+.index {
     height: 100%;
     display: flex;
+    align-items: flex-end;
+
     &__content {
         display: flex;
         align-items: flex-end;

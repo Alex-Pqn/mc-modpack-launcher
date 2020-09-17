@@ -23,8 +23,8 @@ let ASSET_DIR = '/assets/html/'
 
 createWindow = () => {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 900,
+    height: 650,
     icon: path.join(__dirname, IMG_DIR, 'icon.png'),
     frame: false,
     webPreferences: {

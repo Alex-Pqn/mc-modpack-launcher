@@ -4,10 +4,9 @@ header {
     display: flex;
     flex-direction: column;
     & .header {
-        // -webkit-app-region: drag;
         display: flex;
         width: 100%;
-        background-color: white;
+        background-color: rgba(211, 211, 211, 0.6);
         &__title {
             -webkit-app-region: drag;
             display: flex;
@@ -16,11 +15,12 @@ header {
             align-items: center;
             & img {
                 display: flex;
-                width: 43px;
-                margin-top: 4px;
+                width: 30px;
+                margin-left: 12px;
+                margin-right: 6px;
             }
             & h3 {
-                margin-left: 13px;
+                margin: 10px;
                 font-size: .95em;
             }
         }
@@ -31,10 +31,21 @@ header {
             align-items: center;
             & ul {
                 display: flex;
+                justify-content: center;
+                padding-right: 7px;
+                & #minimize {
+                    font-size: 1.1em;
+                }
+                & #maximize i {
+                    font-size: .77em;
+                }
+                & #close i {
+                    font-size: .83em;
+                }
                 & li {
                     cursor: pointer;
+                    margin-right: 18px;
                     font-size: 1.5em;
-                    margin-right: 15px;
                 }
             }
         }
@@ -43,16 +54,5 @@ header {
         display: flex;
         width: 100%;
         background-color: rgb(168, 168, 168);
-    }
-}
-
-.main {
-    &__nav {
-        position: absolute;
-        font-size: 1.3em;
-        background-color: rgba(177, 177, 177, 0.6);
-        line-height: 35px;
-        padding: 20px;
-        height: 100%;
     }
 }

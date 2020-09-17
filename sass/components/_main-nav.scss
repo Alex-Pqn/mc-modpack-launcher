@@ -1,0 +1,22 @@
+
+.main-nav {
+    display: flex;
+    flex-direction: column;
+    border-top-left-radius: .4em;
+    border-top-right-radius: .8em;
+    background-color: rgba(148, 148, 148, 0.8);
+    border-top: 2px solid rgba(177, 177, 177, 0.8);
+    line-height: 40px;
+    padding: 8px 20px;
+    letter-spacing: 1px;
+    margin-left: 25px;
+    & h3 {
+        font-size: 1.3em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid black;
+        margin-bottom: 7px;
+    }
+    & li {
+        font-size: 1.05em;
+    }
+}

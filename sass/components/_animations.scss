@@ -1,5 +1,6 @@
 
-.main {
+//Index
+.index {
     &__content {
         &__login-form {
             & input:focus, textarea:focus {
@@ -30,6 +31,78 @@
                     color: white;
                 }
             }
+        }
+    }
+}
+
+//Header
+header {
+    & .header {
+        &__nav {
+            & ul {
+                & #minimize {
+                    transition-property: all;
+                    transition-duration: 150ms;
+                    transform: scale(1);
+                    &:hover {
+                        transform: scale(.9);
+                        margin-bottom: -4px;
+                        color: rgb(255, 123, 0);
+                    }
+                }
+                & #maximize {
+                    transition-property: all;
+                    transition-duration: 250ms;
+                    transform: rotateZ(0deg);
+                    &:hover {
+                        transform: rotateZ(180deg);
+                        margin-bottom: -1px;
+                        color: rgb(0, 106, 177);
+                    }
+                }
+                & #close {
+                    transition-property: all;
+                    transition-duration: 300ms;
+                    transform: rotateY(0deg);
+                    &:hover {
+                        transform: rotateY(180deg);
+                        color: rgb(207, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Main-nav 
+
+.main-nav {
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    height: 17.1%;
+    &:hover {
+        height: 70%;
+    }
+    & a {
+        transition-property: padding, margin, color;
+        transition-duration: 300ms;
+        transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        padding-left: 0px;
+        margin-left: 0px;
+        color: black;
+        &:hover {
+            margin-left: 3px;
+            border-left: 2px solid black;
+            padding-left: 7px;
+        }
+    }
+    &__active {
+        & span {
+            color: white;
+            margin-left: 3px;
+            border-left: 2px solid white;
+            padding-left: 7px;
         }
     }
 }

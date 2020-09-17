@@ -3,12 +3,17 @@ const ipc = require('electron').ipcRenderer
 const { Client, Authenticator } = require('minecraft-launcher-core');
 const launcher = new Client();
 
+let username;
+let password;
+
 const button = document.getElementById('submit');
+const usernameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
 
 displayAuthInformations = () => {
     const authStorage = (localStorage.getItem('auth'))
-    document.getElementById('username').setAttribute('value', JSON.parse(authStorage)[0].u)
-    document.getElementById('password').setAttribute('value', JSON.parse(authStorage)[1].p)
+    usernameInput.setAttribute('value', JSON.parse(authStorage)[0].u)
+    passwordInput.setAttribute('value', JSON.parse(authStorage)[1].p)
 }
 
 displayStatusFormOne = (statusValue, textColor, backgroundColor) => {
@@ -27,22 +32,22 @@ displayStatusFormTwo = (statusValue, textColor, backgroundColor) => {
     textStatusTwo.style.padding = "5px";
 }
 
+authStorage = (u, p) => {
+    const auth = [
+        { u: u },
+        { p: p }
+    ]
+    localStorage.setItem('auth', JSON.stringify(auth));
+};
+
 if (localStorage.getItem('auth') === null) {
 }else{
     displayAuthInformations();
 }
 
 button.addEventListener('click', e => {
-    let username = document.getElementById('username').value;
-    let password = document.getElementById('password').value;
-    
-    authStorage = (u, p) => {
-        const auth = [
-            { u: u },
-            { p: p }
-        ]
-        localStorage.setItem('auth', JSON.stringify(auth));
-    };
+    username = usernameInput.value;
+    password = passwordInput.value;
 
     let argumentsList = [
         {
@@ -76,17 +81,22 @@ button.addEventListener('click', e => {
             }
         })
     }
-    authStorage(username, password);
     formValidation();
 })
 
+
 ipc.on('err', (data) => {
     button.style.display = 'initial';
+    usernameInput.disabled = false;
+    passwordInput.disabled = false;
     console.error("Auth error : " + data.er);
     displayStatusFormOne("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
   })
   
 ipc.on('done', () => {
     button.style.display = 'none';
+    usernameInput.disabled = true;
+    passwordInput.disabled = true;
     displayStatusFormOne("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
+    authStorage(username, password);
 })
