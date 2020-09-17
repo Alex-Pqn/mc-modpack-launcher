@@ -1,4 +1,7 @@
 
+const { remote } = require('electron');
+var win = remote.getCurrentWindow();
+
 document.getElementById('minimize').addEventListener('click', function() {
     win.minimize();
 })
