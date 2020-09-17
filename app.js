@@ -55,7 +55,11 @@ app.on('window-all-closed', () => {
 })
 
 app.on('close', () => {
-  popWindow = null;
+  win = null;
+});
+
+app.on('closed', () => {
+  win = null;
 });
 
 ipcMain.on('login', (event, data) => {

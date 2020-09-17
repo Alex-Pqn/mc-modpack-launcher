@@ -35,7 +35,7 @@ if (localStorage.getItem('auth') === null) {
 button.addEventListener('click', e => {
     let username = document.getElementById('username').value;
     let password = document.getElementById('password').value;
-
+    
     authStorage = (u, p) => {
         const auth = [
             { u: u },
@@ -81,7 +81,7 @@ button.addEventListener('click', e => {
 })
 
 ipc.on('err', (data) => {
-    console.error("Authentification error : " + data.er);
+    console.error("Auth error : " + data.er);
     displayStatusFormOne("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
   })
   
