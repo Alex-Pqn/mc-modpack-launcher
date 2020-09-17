@@ -18,9 +18,15 @@
             padding: 10px;
             color: rgba(255, 255, 255, 0.904);
             width: 208px;
-            & #error-form {
-                color: rgb(236, 0, 0);
-                margin: 8px 0 10px;
+            & #status-form-one, #status-form-two {
+                line-height: 18px;
+                font-size: .9em;
+            }
+            & #status-form-one {
+                margin-top: 8px;
+            }
+            & #status-form-two {
+                margin-top: 7px;
             }
             & label, input {
                 width: 185px;
@@ -34,6 +40,10 @@
             }
             & #username {
                 margin-bottom: 10px;
+                font-size: .75em;
+            }
+            & #submit {
+                margin-top: 10px;
                 font-size: .75em;
             }
             &__title {
