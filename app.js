@@ -1,4 +1,6 @@
 
+//declarations & imports
+
 require('electron-reload')(__dirname, {
   electron: require(`${__dirname}/node_modules/electron`)
 });
@@ -17,7 +19,9 @@ let win;
 let IMG_DIR = '/assets/img/icon/png/'
 let ASSET_DIR = '/assets/html/'
 
-async function createWindow(){
+//main window launcher creation
+
+createWindow = () => {
   win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -48,6 +52,8 @@ app.whenReady().then(() => {
   })
 })
 
+//app compatibility
+
 app.on('window-all-closed', () => {
   if(process.plateform !== 'darwin'){
     app.quit();
@@ -61,6 +67,9 @@ app.on('close', () => {
 app.on('closed', () => {
   win = null;
 });
+
+
+//login, auth, launch & opts minecraft launcher
 
 ipcMain.on('login', (event, data) => {
   Authenticator.getAuth(data.u, data.p).then(() => {

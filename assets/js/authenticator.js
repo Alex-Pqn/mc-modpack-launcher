@@ -81,6 +81,7 @@ button.addEventListener('click', e => {
 })
 
 ipc.on('err', (data) => {
+    button.style.display = 'initial';
     console.error("Auth error : " + data.er);
     displayStatusFormOne("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
   })
