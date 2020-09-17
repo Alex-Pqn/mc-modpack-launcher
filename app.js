@@ -73,9 +73,6 @@ ipcMain.on('login', (event, data) => {
       memory: {
           max: "8000M",
           min: "4000M"
-      },
-      window: {
-        fullscreen: true
       }
   }
    
