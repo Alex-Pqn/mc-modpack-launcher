@@ -24,8 +24,10 @@ async function createWindow(){
     icon: path.join(__dirname, IMG_DIR, 'icon.png'),
     frame: false,
     webPreferences: {
+      preload: path.join(app.getAppPath(), 'preload.js'),
       nodeIntegration: true,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      worldSafeExecuteJavaScript: true
   }
   });
 
@@ -52,6 +54,10 @@ app.on('window-all-closed', () => {
   }
 })
 
+app.on('close', () => {
+  popWindow = null;
+});
+
 ipcMain.on('login', (event, data) => {
   Authenticator.getAuth(data.u, data.p).then(() => {
     event.sender.send('done')
@@ -65,18 +71,32 @@ ipcMain.on('login', (event, data) => {
       },
       forge: 'C:/Users/'+OSname+'/AppData/Roaming/.MarieMadeleineLauncher/forge.jar',
       memory: {
-          max: "8G",
-          min: "4G"
+          max: "8000M",
+          min: "4000M"
       },
+      window: {
+        fullscreen: true
+      }
   }
    
-  launcher.launch(opts);
-   
-  launcher.on('debug', (e) => console.log(e));
-  launcher.on('data', (e) => console.log(e));
-  launcher.on('progress', (e) => console.log(e));
-  }).catch((err) => {
+  launcher.launch(opts).then(() => {
+    win.webContents.send('game-launched')
+    setTimeout(() => {
+      app.quit();
+    }, 15000);
+  });
+
+  launcher.on('debug', (e) => {
+    win.webContents.send('log', e);
+  });
+  launcher.on('data', (e) => {
+      win.webContents.send('log', e);
+  });
+  launcher.on('progress', (e) => {
+    win.webContents.send('progress', e);
+  });
+  })
+  .catch((err) => {
     event.sender.send('err', { er: err })
-    event.sender.send("progression :", e)
   })
 })

@@ -5,8 +5,7 @@
         <meta charset='utf-8'>
         <meta name='google' content='notranslate'>
         <meta name='robots' content='noindex,nofollow'>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
         <!--CDN Fonts-->
         <!--Importations & Responsive-->
         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
@@ -87,17 +86,22 @@
                     </label>
                     <input type="password" id="password" name="password" required minlength="3" maxlength="32" size="15">
                     <!--error-->
-                    <p id="error-form">
+                    <p id="status-form-one">
+                        <!--Generate JS Content-->
+                    </p>
+                    <p id="status-form-two">
                         <!--Generate JS Content-->
                     </p>
                     <!--send-->
-                    <input type="submit" id="submit" value="Se connecter">
+                    <input type="submit" id="submit" value="Se connecter | Lancer le Jeu">
                 </div>
             </div>
         </main>
         <footer>
 
         </footer>
+        <script src="../../preload.js"></script>
+        <script src="../js/consoleWarn.js"></script>
         <script src="../js/authenticator.js"></script>
         <script src="../js/navBarButtons.js"></script>
         <script src="../js/title.js"></script>
