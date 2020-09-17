@@ -67,13 +67,13 @@ ipcMain.on('login', (event, data) => {
     event.sender.send('done')
     let opts = {
       clientPackage: 'C:/Users/'+OSname+'/Desktop/Dev Web/clientPackage/clientPackage.zip',
-      authorization: Authenticator.getAuth(data.u, data.p),
-      root: 'C:/Users/'+OSname+'/AppData/Roaming/.MarieMadeleineLauncher',
+      authorization: Authenticator.getAuth('', ''),
+      root: app.getPath('appData') + '/.MMLauncher/',
       version: {
           number: "1.8.9",
           type: "release"
       },
-      forge: 'C:/Users/'+OSname+'/AppData/Roaming/.MarieMadeleineLauncher/forge.jar',
+      forge: app.getPath('appData') + '/.MMLauncher/forge.jar',
       memory: {
           max: "8000M",
           min: "4000M"
