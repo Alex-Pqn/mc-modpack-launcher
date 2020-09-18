@@ -16,9 +16,28 @@
     }
 }
 
+//About
+
+.about {
+    &__content {
+        &__cgu {
+            &__start {
+                font-family: 'Karla', sans-serif;
+            }
+            &__parts {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        }
+    }
+}
+
 //Main-nav
 
 .main-nav {
-    font-family: 'Karla', sans-serif;
-    font-size: 1.3em;
+    &__top {
+        font-family: 'Karla', sans-serif;
+    }
+    &__bottom {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
 }

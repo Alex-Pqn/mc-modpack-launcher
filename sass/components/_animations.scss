@@ -35,39 +35,53 @@
     }
 }
 
+//About
+.about {
+    &__content {
+        &__cgu {
+            &__parts {
+                & a {
+                    color: rgb(0, 62, 112);
+                    &:hover {
+                        opacity: .75;
+                    } 
+                }
+            }
+        }
+    }
+}
+
 //Header
-header {
-    & .header {
-        &__nav {
-            & ul {
-                & #minimize {
-                    transition-property: all;
-                    transition-duration: 150ms;
-                    transform: scale(1);
-                    &:hover {
-                        transform: scale(.9);
-                        margin-bottom: -4px;
-                        color: rgb(211, 211, 211);
-                    }
+.header {
+    &__nav {
+        & ul {
+            & #minimize {
+                transition-property: all;
+                transition-duration: 150ms;
+                transform: scale(1);
+                &:hover {
+                    transform: scale(.92);
+                    margin-bottom: -4px;
+                    color: rgb(82, 82, 82);
                 }
-                & #maximize {
-                    transition-property: all;
-                    transition-duration: 250ms;
-                    transform: rotateZ(0deg);
-                    &:hover {
-                        transform: rotateZ(180deg);
-                        margin-bottom: -1px;
-                        color: rgb(0, 106, 177);
-                    }
+            }
+            & #maximize {
+                transition-property: all;
+                transition-duration: 250ms;
+                transform: rotateZ(0deg);
+                &:hover {
+                    transform: rotateZ(180deg);
+                    margin-bottom: -1px;
+                    color: rgb(0, 106, 177);
                 }
-                & #close {
-                    transition-property: all;
-                    transition-duration: 300ms;
-                    transform: rotateY(0deg);
-                    &:hover {
-                        transform: rotateY(180deg);
-                        color: rgb(207, 0, 0);
-                    }
+            }
+            & #close {
+                transition-property: all;
+                transition-duration: 300ms;
+                transform: rotateY(0deg);
+                &:hover {
+                    transform: rotateY(180deg);
+                    color: rgb(207, 0, 0);
                 }
             }
         }
@@ -75,7 +89,6 @@ header {
 }
 
 //Main-nav 
-
 .main-nav {
     transition-property: all;
     transition-duration: 500ms;

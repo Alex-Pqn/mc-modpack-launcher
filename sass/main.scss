@@ -2,12 +2,14 @@
 
 @import './components/animations';
 @import './components/main-nav';
+@import './components/scrollbar';
 
 @import './layout/footer';
 @import './layout/header';
 
 @import './pages/index';
 @import './pages/options';
+@import './pages/about';
 
 @import './utils/fonts';
 @import './utils/mixins';
