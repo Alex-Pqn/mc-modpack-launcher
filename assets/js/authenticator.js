@@ -45,7 +45,7 @@ if (localStorage.getItem('auth') === null) {
     displayAuthInformations();
 }
 
-button.addEventListener('click', () => {
+button.addEventListener('click', e => {
     username = usernameInput.value;
     password = passwordInput.value;
 
@@ -83,6 +83,7 @@ button.addEventListener('click', () => {
     }
     formValidation();
 })
+
 
 ipc.on('err', (data) => {
     button.style.display = 'initial';

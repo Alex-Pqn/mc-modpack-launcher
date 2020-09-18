@@ -15,8 +15,8 @@ header {
             align-items: center;
             & img {
                 display: flex;
-                width: 30px;
-                margin-left: 12px;
+                align-self: flex-end;
+                width: 47px;
                 margin-right: 6px;
             }
             & h3 {

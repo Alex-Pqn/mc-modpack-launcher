@@ -19,6 +19,7 @@ let win;
 let IMG_DIR = '/assets/img/icon/png/'
 let ASSET_DIR = '/assets/html/'
 
+
 //main window launcher creation
 
 createWindow = () => {
@@ -45,6 +46,8 @@ createWindow = () => {
   }));
 }
 
+app.on("ready", createWindow);
+
 app.whenReady().then(() => {
   createWindow()
   
@@ -52,6 +55,7 @@ app.whenReady().then(() => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
 })
+
 
 //app compatibility
 
@@ -68,12 +72,12 @@ app.on('close', (e) => {
   return false
 });
 
-app.on('closed', () => {
-  win = null;
-  e.preventDefault()
-  app.hide()
-  return false
-});
+// app.on('closed', () => {
+//   win = null;
+//   e.preventDefault()
+//   app.hide()
+//   return false
+// });
 
 
 //login, auth, launch & opts minecraft launcher

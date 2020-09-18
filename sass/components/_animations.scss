@@ -47,7 +47,7 @@ header {
                     &:hover {
                         transform: scale(.9);
                         margin-bottom: -4px;
-                        color: rgb(255, 123, 0);
+                        color: rgb(211, 211, 211);
                     }
                 }
                 & #maximize {
@@ -90,8 +90,9 @@ header {
         transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
         padding-left: 0px;
         margin-left: 0px;
-        color: black;
+        color: rgba(0, 0, 0, 0.85);
         &:hover {
+            color: black;
             margin-left: 3px;
             border-left: 2px solid black;
             padding-left: 7px;

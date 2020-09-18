@@ -1,16 +1,24 @@
 
-displayBackground = (key) => {
-    document.body.style.backgroundImage = `url(../img/background` + key + `.jpg)`
+const backgroundKey = {
+  key: -1
 }
 
-intNumberGenerator = (key) => {
-  const result = Math.floor(Math.random() * Math.floor(key));
-  if (localStorage.getItem('lastBackgroundKey') === result) {
-    intNumberGenerator(15)
-  } else {
-    localStorage.setItem('lastBackgroundKey', result)
-    displayBackground(result)
+if (localStorage.getItem('backgroundKey') === null) {
+  localStorage.setItem('backgroundKey', JSON.stringify(backgroundKey))
+} else {
+  if (JSON.parse(localStorage.getItem('backgroundKey')).key === 14) {
+    localStorage.setItem('backgroundKey', JSON.stringify(backgroundKey))
+  } 
+}
+
+reSetKeyLocalstorage = (actualKey) => {
+  const backgroundKey = {
+    key: actualKey
   }
+  localStorage.setItem('backgroundKey', JSON.stringify(backgroundKey))
 }
 
-intNumberGenerator(15)
+const actualKey = JSON.parse(localStorage.getItem('backgroundKey')).key + 1
+reSetKeyLocalstorage(actualKey)
+
+document.getElementById('main-container').style.backgroundImage = `url(../img/background` + JSON.parse(localStorage.getItem('backgroundKey')).key + `.jpg)`

@@ -1,10 +1,27 @@
+
+@keyframes test {
+    from {
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+}
+
 html, body {
     height: 100%;
     margin: 0;
     overflow: hidden;
 }
-body {
+
+#main-container {
     background-size: cover;
+}
+
+body {
+    background-color: rgb(145, 145, 145);
+    animation: fadein 2s;
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation-name: test;
     font-style: normal;
     color:#000;
     & ul li {
@@ -18,7 +35,6 @@ body {
         outline: none !important;
     }
 }
-
 
 * {
     margin: 0;
