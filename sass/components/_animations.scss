@@ -38,13 +38,21 @@
 //About
 .about {
     &__content {
+        &__credits {
+            & a {
+                color: rgb(0, 81, 105);
+                &:hover {
+                    color: rgb(0, 44, 58);
+                }
+            }
+        }
         &__cgu {
             &__parts {
                 & a {
                     color: rgb(0, 62, 112);
                     &:hover {
                         opacity: .75;
-                    } 
+                    }
                 }
             }
         }

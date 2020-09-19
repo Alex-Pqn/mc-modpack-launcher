@@ -26,3 +26,11 @@ ipcRenderer.on('game-launched', (event, data) => {
     displayStatusFormOne("Téléchargement des mises à jour terminé.", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
     displayStatusFormTwo('Tentative de lancement du jeu en cours...', 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
 });
+
+let shell = require('electron').shell
+document.addEventListener('click', function (event) {
+  if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
+    event.preventDefault()
+    shell.openExternal(event.target.href)
+  }
+})
