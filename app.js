@@ -12,7 +12,6 @@ const url = require('url');
 const { Client, Authenticator } = require('minecraft-launcher-core');
 const launcher = new Client();
 
-const fs = require('fs');
 let OSname = require("os").userInfo().username;
 
 let win;
@@ -49,8 +48,6 @@ createWindow = () => {
 app.on("ready", createWindow);
 
 app.whenReady().then(() => {
-  createWindow()
-  
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
@@ -65,19 +62,10 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('close', (e) => {
-  win = null;
-  e.preventDefault()
-  app.hide()
-  return false
-});
-
-// app.on('closed', () => {
-//   win = null;
-//   e.preventDefault()
-//   app.hide()
-//   return false
-// });
+app.on('close', function (event) {
+  app.hide();
+  event.preventDefault();
+})
 
 
 //login, auth, launch & opts minecraft launcher
