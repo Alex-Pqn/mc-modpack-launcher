@@ -1,4 +1,17 @@
 
+#game-launched {
+    display: none;
+    margin: 60px 15px;
+    width: 100%;
+    & p {
+        font-size: 1.3em;
+        & span {
+            background-color: rgba(255, 255, 255, 0.75);
+            padding: 5px 10px;
+        }
+    }
+}
+
 .index {
     height: 100%;
     display: flex;
@@ -18,14 +31,14 @@
             padding: 13px;
             color: rgba(255, 255, 255, 0.9);
             width: 235px;
-            & #status-form-one, #status-form-two {
+            & #status-form, #info-form {
                 line-height: 18px;
                 font-size: .9em;
             }
-            & #status-form-one {
+            & #status-form {
                 margin-top: 8px;
             }
-            & #status-form-two {
+            & #info-form {
                 margin-top: 6px;
             }
             & label, input {
@@ -39,7 +52,7 @@
                 height: 32px;
                 padding: 5px;
             }
-            & #username {
+            & #u {
                 margin-bottom: 15px;
                 font-size: .8em;
                 letter-spacing: .5px;

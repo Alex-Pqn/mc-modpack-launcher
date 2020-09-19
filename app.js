@@ -9,6 +9,9 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require('path');
 const url = require('url');
 
+const Store = require('electron-store');
+const store = new Store();
+
 const { Client, Authenticator } = require('minecraft-launcher-core');
 const launcher = new Client();
 
@@ -67,12 +70,16 @@ app.on('close', function (event) {
   event.preventDefault();
 })
 
-
 //login, auth, launch & opts minecraft launcher
 
 ipcMain.on('login', (event, data) => {
+
+  const maxRamUser = store.get('minecraftOptionMaxRam');
+  const minRamUser = store.get('minecraftOptionMinRam');
+
   Authenticator.getAuth(data.u, data.p).then(() => {
     event.sender.send('done')
+
     let opts = {
       clientPackage: 'C:/Users/'+OSname+'/Desktop/Dev Web/clientPackage/clientPackage.zip',
       authorization: Authenticator.getAuth('', ''),
@@ -83,9 +90,10 @@ ipcMain.on('login', (event, data) => {
       },
       forge: app.getPath('appData') + '/.MMLauncher/forge.jar',
       memory: {
-          max: "8000M",
-          min: "4000M"
-      }
+          max: maxRamUser,
+          min: minRamUser
+      },
+      timeout: 3500
   }
    
   launcher.launch(opts).then(() => {

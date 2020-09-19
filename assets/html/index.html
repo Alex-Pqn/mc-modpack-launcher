@@ -44,12 +44,12 @@
                 </div>
             </header>
             <main class="index">
-                <div class="main-nav">
+                <div id="main-nav" class="main-nav">
                     <div class="main-nav__top">
                         <h3>
                             Navigation
                         </h3>
-                        <ul>
+                        <ul> 
                             <li class="main-nav__active">
                                 <span>
                                     Accueil
@@ -78,6 +78,13 @@
                         </p>
                     </div>
                 </div>
+                <div id="game-launched">
+                    <p>
+                        <span>
+                            Lancement du jeu en cours...
+                        </span>
+                    </p>
+                </div>
                 <div class="index__content">
                     <div class="index__content__login-form">
                         <div class="index__content__login-form__title">
@@ -89,17 +96,17 @@
                         <label for="username">
                             E-mail / Pseudo
                         </label>
-                        <input type="text" id="username" name="username" spellcheck="false" required minlength="3" maxlength="25" size="15">
+                        <input type="text" id="u" name="username" spellcheck="false" required minlength="3" maxlength="25" size="15">
                         <!--password-->
                         <label for="password">
                             Mot de passe
                         </label>
-                        <input type="password" id="password" name="password" required minlength="3" maxlength="32" size="15">
+                        <input type="password" id="p" name="password" required minlength="3" maxlength="32" size="15">
                         <!--error-->
-                        <p id="status-form-one">
+                        <p id="status-form">
                             <!--Generate JS Content-->
                         </p>
-                        <p id="status-form-two">
+                        <p id="info-form">
                             <!--Generate JS Content-->
                         </p>
                         <!--send-->
@@ -109,6 +116,8 @@
             </main>
         </div>
         <script src="../../preload.js"></script>
+        <script src="../js/localStorage.js"></script>
+        <script src="../js/minecraftOptions.js"></script>
         <script src="../js/randomBckgrnd.js"></script>
         <script src="../js/consoleWarn.js"></script>
         <script src="../js/authenticator.js"></script>

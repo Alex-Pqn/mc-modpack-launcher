@@ -3,39 +3,38 @@ const ipc = require('electron').ipcRenderer
 const { Client, Authenticator } = require('minecraft-launcher-core');
 const launcher = new Client();
 
-let username;
-let password;
-
 const button = document.getElementById('submit');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
+const uInput = document.getElementById('u');
+const pInput = document.getElementById('p');
+const mainNav = document.getElementById('main-nav');
+const gameLaunchedText = document.getElementById('game-launched');
 
 displayAuthInformations = () => {
     const authStorage = (localStorage.getItem('auth'))
-    usernameInput.setAttribute('value', JSON.parse(authStorage)[0].u)
-    passwordInput.setAttribute('value', JSON.parse(authStorage)[1].p)
+    uInput.setAttribute('value', JSON.parse(authStorage)[0].u)
 }
 
-displayStatusFormOne = (statusValue, textColor, backgroundColor) => {
-    const textStatusOne = document.getElementById('status-form-one');
-    textStatusOne.innerHTML = statusValue;
-    textStatusOne.style.color = textColor;
-    textStatusOne.style.backgroundColor = backgroundColor;
-    textStatusOne.style.padding = "5px";
+displayStatusForm = (statusValue, textColor, backgroundColor) => {
+    const textStatus = document.getElementById('status-form');
+    textStatus.innerHTML = statusValue;
+    textStatus.style.color = textColor;
+    textStatus.style.backgroundColor = backgroundColor;
+    textStatus.style.padding = "5px";
 }
 
-displayStatusFormTwo = (statusValue, textColor, backgroundColor) => {
-    const textStatusTwo = document.getElementById('status-form-two');
-    textStatusTwo.innerHTML = statusValue;
-    textStatusTwo.style.color = textColor;
-    textStatusTwo.style.backgroundColor = backgroundColor;
-    textStatusTwo.style.padding = "5px";
+displayInfoForm = (statusValue, textColor, backgroundColor) => {
+    const textInfo = document.getElementById('info-form');
+    textInfo.innerHTML = statusValue;
+    textInfo.style.color = textColor;
+    textInfo.style.backgroundColor = backgroundColor;
+    textInfo.style.padding = "5px";
 }
 
-authStorage = (u, p) => {
+authStorage = (u) => {
     const auth = [
-        { u: u },
-        { p: p }
+        { 
+            u: u,
+        },
     ]
     localStorage.setItem('auth', JSON.stringify(auth));
 };
@@ -46,19 +45,19 @@ if (localStorage.getItem('auth') === null) {
 }
 
 button.addEventListener('click', e => {
-    username = usernameInput.value;
-    password = passwordInput.value;
+    let u = uInput.value;
+    let p = pInput.value;
 
     let argumentsList = [
         {
-            value: username,
+            value: u,
             name: 'Votre e-mail/pseudo',
             stepValidation: false,
             minLength: 3,
             maxLength: 24
         },
         {
-            value: password,
+            value: p,
             name: 'Votre mot de passe',
             stepValidation: false, 
             minLength: 5,
@@ -68,15 +67,15 @@ button.addEventListener('click', e => {
     formValidation = () => {
         argumentsList.reverse().forEach(expression => {
             if (expression.value.length < expression.minLength) {
-                displayStatusFormOne(expression.name + " doit contenir au minimum " + expression.minLength + " caractères.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
+                displayStatusForm(expression.name + " doit contenir au minimum " + expression.minLength + " caractères.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
             }
             else if (expression.value.length > expression.maxLength) {
-                displayStatusFormOne(expression.name + " doit contenir au maximum " + expression.maxLength + " caractères.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
+                displayStatusForm(expression.name + " doit contenir au maximum " + expression.maxLength + " caractères.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
             }
             else {
                 expression.stepValidation = true;
                 if (argumentsList[0].stepValidation === true && argumentsList[1].stepValidation === true) {
-                    ipc.send('login', { u: username, p: password })
+                    ipc.send('login', { u: u, p: p })
                 }
             }
         })
@@ -87,16 +86,20 @@ button.addEventListener('click', e => {
 
 ipc.on('err', (data) => {
     button.style.display = 'initial';
-    usernameInput.disabled = false;
-    passwordInput.disabled = false;
+    uInput.disabled = false;
+    pInput.disabled = false;
+    gameLaunchedText.style.display = 'none';
+    mainNav.style.display = 'initial';
     console.error("Auth error : " + data.er);
-    displayStatusFormOne("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
+    displayStatusForm("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
   })
   
 ipc.on('done', () => {
+    mainNav.style.display = 'none';
+    gameLaunchedText.style.display = 'block';
     button.style.display = 'none';
-    usernameInput.disabled = true;
-    passwordInput.disabled = true;
-    displayStatusFormOne("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
-    authStorage(username, password);
+    uInput.disabled = true;
+    pInput.disabled = true;
+    displayStatusForm("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
+    authStorage(uInput.value);
 })
