@@ -1,2 +1,2 @@
 # electron-launcher
-Minecraft Launcher with Electron framework !
+Minecraft Launcher with Electron framework.
