@@ -32,8 +32,7 @@
                 }
             }
             &__ram {
-                input::-webkit-outer-spin-button,
-                input::-webkit-inner-spin-button {
+                input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
                     -webkit-appearance: none;
                     margin: 0;
                 }
@@ -61,21 +60,35 @@
                     font-size: 1.3em;
                     -moz-appearance: textfield;
                 }
-                & #error-ram {
-                    font-size: .85em;
-                    margin-top: 5px;
-                    margin-bottom: 0;
-                }
                 & button {
-                    font-size: .95em;
+                    font-size: .93em;
                     padding: 5px 7px;
-                    margin-top: 10px;
+                    margin-top: 8px;
                     border-radius: .3em;
                     color: white;
                     border: 1px solid white;
                 }
                 & #button-reset-ram {
                     margin-left: 5px;
+                }
+                &__status {
+                    height: 0;
+                    display: flex;
+                    margin-top: 5px;
+                    align-items: center;
+                    & #status-ram {
+                        font-size: .85em;
+                        margin-bottom: 0;
+                        width: 100%;
+                    }
+                    & #close-status-ram {
+                        font-size: 1.25em;
+                        margin-bottom: 0;
+                        text-align: right;
+                        margin-right: 10px;
+                        padding: 1px 5px;
+                        cursor: pointer;
+                    }
                 }
             }
         }

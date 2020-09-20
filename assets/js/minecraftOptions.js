@@ -5,6 +5,10 @@ const store = new Store();
 const buttonMinRam = document.getElementById('min-ram');
 const buttonMaxRam = document.getElementById('max-ram');
 
+const paragraphStatusRam = document.getElementById('status-ram');
+const closeStatusRam = document.getElementById('close-status-ram');
+const containerStatusRam = document.getElementById('container-status-ram');
+
 let defaultMaxRam = 3584;
 let defaultMinRam = 2048;
 
@@ -15,11 +19,30 @@ buttonMinRam.value = getMinRam
 buttonMaxRam.value = getMaxRam
 
 displayStatus = (value, background, color) => {
-    const paragraphErrorRam = document.getElementById('error-ram');
-    paragraphErrorRam.textContent = value
-    paragraphErrorRam.style.padding = '3px 8px'
-    paragraphErrorRam.style.backgroundColor = background
-    paragraphErrorRam.style.color = color
+    containerStatusRam.style.height = 0
+    containerStatusRam.style.opacity = 0
+
+    setTimeout(() => {
+        containerStatusRam.style.height = "auto"
+        containerStatusRam.style.opacity = 1
+        containerStatusRam.style.backgroundColor = background;
+    
+        paragraphStatusRam.innerHTML = value;
+        paragraphStatusRam.style.padding = '3px 8px';
+        paragraphStatusRam.style.color = color;
+    
+        closeStatusRam.innerHTML = '×';
+        closeStatusRam.style.color = color;
+    
+        closeStatus(containerStatusRam);
+    }, 200);
+}
+
+closeStatus = () => {
+    document.getElementById('close-status-ram').addEventListener('click', () => {
+        containerStatusRam.style.height = 0
+        containerStatusRam.style.opacity = 0
+    })
 }
 
 if (getMinRam === undefined) {
