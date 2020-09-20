@@ -5,7 +5,7 @@ require('electron-reload')(__dirname, {
   electron: require(`${__dirname}/node_modules/electron`)
 });
 
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, TouchBarSegmentedControl } = require("electron");
 const path = require('path');
 const url = require('url');
 
@@ -74,8 +74,10 @@ app.on('close', function (event) {
 
 ipcMain.on('login', (event, data) => {
 
-  const maxRamUser = store.get('minecraftOptionMaxRam');
-  const minRamUser = store.get('minecraftOptionMinRam');
+  let maxRamUser = store.get('minecraftOptionMaxRam');
+  let minRamUser = store.get('minecraftOptionMinRam');
+  
+  let JVMUser = store.get('minecraftOptionJvm');
 
   Authenticator.getAuth(data.u, data.p).then(() => {
     event.sender.send('done')
@@ -84,6 +86,7 @@ ipcMain.on('login', (event, data) => {
       clientPackage: 'C:/Users/'+OSname+'/Desktop/Dev Web/clientPackage/clientPackage.zip',
       authorization: Authenticator.getAuth('', ''),
       root: app.getPath('appData') + '/.MMLauncher/',
+      customArgs: JVMUser,
       version: {
           number: "1.8.9",
           type: "release"
@@ -98,9 +101,9 @@ ipcMain.on('login', (event, data) => {
    
   launcher.launch(opts).then(() => {
     win.webContents.send('game-launched')
-    setTimeout(() => {
-      app.quit();
-    }, 15000);
+    // setTimeout(() => {
+    //   app.quit();
+    // }, 15000);
   });
 
   launcher.on('debug', (e) => {

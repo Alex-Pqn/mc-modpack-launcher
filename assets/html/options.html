@@ -87,9 +87,6 @@
                             <p>
                                 Vous pouvez ci-dessous définir la RAM minimale et maximale (en Mo) allouée à votre Minecraft, celle-ci doit cependant être définie avant le lancement du jeu.
                             </p>
-                            <p>
-                                Les valeurs par défaut sont les valeurs minimales et obligatoires pour lancer le jeu, vous ne pouvez pas entrer de valeure inférieur à celles-ci.
-                            </p>
 
                             <label for="min-ram">Min.</label>
                             <input id="min-ram" type="number" name="min-ram">
@@ -100,7 +97,7 @@
                             <span>Mo</span>
 
                             <br>
-                            <div id="container-status-ram" class="options__content__container__ram__status">
+                            <div id="container-status-ram" class="options__content__container__parts__status">
                                 <p id="status-ram">
                                     <!--Generate JS Content-->
                                 </p>
@@ -120,6 +117,29 @@
                             <h2>
                                 Arguments de lancement (JVM)
                             </h2>
+                            <p>
+                                Par défaut, Minecraft se démarre avec des arguments JVM (Java) prédéfinis. Vous pouvez cependant en ajouter ou modifier ceux par défaut ci-dessous.
+                            </p>
+                            <p>
+                                Il est conseillé de laisser ce champ vide si vous ne savez pas ce que vous faites.
+                            </p>
+                            <label for="jmv">Arguments JVM : </label>
+                            <input id="jvm" type="text" name="jvm">
+                            <br>
+                            <div id="container-status-jvm" class="options__content__container__parts__status">
+                                <p id="status-jvm">
+                                    <!--Generate JS Content-->
+                                </p>
+                                <p id="close-status-jvm">
+                                    <!--Generate JS Content-->
+                                </p>
+                            </div>
+                            <button id="button-save-jvm">
+                                Sauvegarder
+                            </button>
+                            <button id="button-reset-jvm">
+                                Réinitialiser par défaut
+                            </button>
                         </article>
                         <article class="options__content__container__parts">
                             <h2>

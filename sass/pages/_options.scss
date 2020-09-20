@@ -8,7 +8,7 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        height: 96%;
+        height: 98%;
         &__container {
             display: flex;
             flex-direction: column;
@@ -21,17 +21,14 @@
                 background-color: rgba(255, 255, 255, 0.8);
                 border-radius: .7em;
                 padding: 12.5px 15px;
-                margin: 10px 20px;
+                margin-bottom: 13px;
                 & h2 {
                     border-bottom: 1px solid black;
                     font-size: 1.3em;
                     letter-spacing: 1px;
-                    font-size: 24px;
                     margin-bottom: 8px;
                     padding-bottom: 8px;
                 }
-            }
-            &__ram {
                 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
                     -webkit-appearance: none;
                     margin: 0;
@@ -40,25 +37,10 @@
                     line-height: 22px;
                     margin-bottom: 8px;
                 }
-                & span {
-                    position: relative;
-                    margin-left: -38px;
-                    font-size: .9em;
-                    margin-right: 30px;
-                }
-                & label {
-                    width: 150px;
-                }
                 & input {
                     margin: 5px;
                     height: 1.95em;
-                    width: 9em;
                     padding: 13px 7px;
-                    padding-right: 33px;
-                }
-                & input[type="text"] {
-                    font-size: 1.3em;
-                    -moz-appearance: textfield;
                 }
                 & button {
                     font-size: .93em;
@@ -67,8 +49,9 @@
                     border-radius: .3em;
                     color: white;
                     border: 1px solid white;
+                    cursor: pointer;
                 }
-                & #button-reset-ram {
+                & #button-reset-ram, #button-reset-jvm {
                     margin-left: 5px;
                 }
                 &__status {
@@ -76,12 +59,12 @@
                     display: flex;
                     margin-top: 5px;
                     align-items: center;
-                    & #status-ram {
+                    & #status-ram, #status-jvm {
                         font-size: .85em;
                         margin-bottom: 0;
                         width: 100%;
                     }
-                    & #close-status-ram {
+                    & #close-status-ram, #close-status-jvm {
                         font-size: 1.25em;
                         margin-bottom: 0;
                         text-align: right;
@@ -89,6 +72,27 @@
                         padding: 1px 5px;
                         cursor: pointer;
                     }
+                }
+            }
+            &__jvm {
+                & input {
+                    width: 20em;
+                }
+            }
+            &__ram {
+                & span {
+                    position: relative;
+                    margin-left: -38px;
+                    font-size: .9em;
+                    margin-right: 30px;
+                }
+                & input {
+                    padding-right: 33px;
+                    width: 9em;
+                }
+                & input[type="text"] {
+                    font-size: 1.3em;
+                    -moz-appearance: textfield;
                 }
             }
         }
