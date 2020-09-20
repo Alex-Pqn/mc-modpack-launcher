@@ -78,9 +78,55 @@
                         </p>
                     </div>
                 </div>
+                <div class="options__content">
+                    <div class="options__content__container">
+                        <article class="options__content__container__parts options__content__container__ram">
+                            <h2>
+                                RAM allouée (Mo)
+                            </h2>
+                            <p>
+                                Vous pouvez ci-dessous définir la RAM minimale et maximale (en Mo) allouée à votre Minecraft, celle-ci doit cependant être définie avant le lancement du jeu.
+                            </p>
+                            <p>
+                                Les valeurs inscrites par défaut sont les valeurs minimales et obligatoires pour lancer le jeu, vous ne pouvez pas entrer de valeure inférieur à celles-ci.
+                            </p>
+
+                            <label for="min-ram">Min.</label>
+                            <input id="min-ram" type="number" name="min-ram">
+                            <span>Mo</span>
+
+                            <label for="max-ram">Max.</label>
+                            <input id="max-ram" type="number" name="max-ram">
+                            <span>Mo</span>
+
+                            <br>
+                            <p id="error-ram">
+                                <!--Generate JS Content-->
+                            </p>
+                            <button id="button-save-ram">
+                                Sauvegarder
+                            </button>
+                            <button id="button-reset-ram">
+                                Réinitialiser par défaut
+                            </button>
+                        </article>
+                        
+                        <article class="options__content__container__parts options__content__container__jvm">
+                            <h2>
+                                Arguments de lancement (JVM)
+                            </h2>
+                        </article>
+                        <article class="options__content__container__parts">
+                            <h2>
+                                JSP ENCORE
+                            </h2>
+                        </article>
+                    </div>
+                </div>
             </main>
         </div>
         <script src="../../preload.js"></script>
+        <script src="../js/minecraftOptions.js"></script>
         <script src="../js/randomBckgrnd.js"></script>
         <script src="../js/consoleWarn.js"></script>
         <script src="../js/navBarButtons.js"></script>

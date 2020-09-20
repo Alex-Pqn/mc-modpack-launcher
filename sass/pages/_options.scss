@@ -1,11 +1,83 @@
 
 .options {
-    height: 100%;
     display: flex;
     align-items: flex-end;
+    height: 100%;
     &__content {
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 96%;
+        &__container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 92%;
+            margin-bottom: 60px;
+            border-top-left-radius: .5em;
+            border-bottom-left-radius: .3em;
+            &__parts {
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: .7em;
+                padding: 12.5px 15px;
+                margin: 10px 20px;
+                & h2 {
+                    border-bottom: 1px solid black;
+                    font-size: 1.3em;
+                    letter-spacing: 1px;
+                    font-size: 24px;
+                    margin-bottom: 8px;
+                    padding-bottom: 8px;
+                }
+            }
+            &__ram {
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+                & p {
+                    line-height: 22px;
+                    margin-bottom: 8px;
+                }
+                & span {
+                    position: relative;
+                    margin-left: -38px;
+                    font-size: .9em;
+                    margin-right: 30px;
+                }
+                & label {
+                    width: 150px;
+                }
+                & input {
+                    margin: 5px;
+                    height: 1.95em;
+                    width: 9em;
+                    padding: 13px 7px;
+                    padding-right: 33px;
+                }
+                & input[type="text"] {
+                    font-size: 1.3em;
+                    -moz-appearance: textfield;
+                }
+                & #error-ram {
+                    font-size: .85em;
+                    margin-top: 5px;
+                    margin-bottom: 0;
+                }
+                & button {
+                    font-size: .95em;
+                    padding: 5px 7px;
+                    margin-top: 10px;
+                    border-radius: .3em;
+                    color: white;
+                    border: 1px solid white;
+                }
+                & #button-reset-ram {
+                    margin-left: 5px;
+                }
+            }
+        }
     }
 }

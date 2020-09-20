@@ -90,8 +90,8 @@ ipcMain.on('login', (event, data) => {
       },
       forge: app.getPath('appData') + '/.MMLauncher/forge.jar',
       memory: {
-          max: maxRamUser,
-          min: minRamUser
+          max: maxRamUser+'M',
+          min: minRamUser+'M'
       },
       timeout: 3500
   }

@@ -15,14 +15,14 @@
             width: 92%;
             height: 50%;
             margin-bottom: 20px;
-            background-color: rgba(184, 184, 184, 0.7);
+            background-color: rgba(184, 184, 184, 0.8);
             border-radius: 1em;
             & h1 {
                 font-size: 24px;
                 text-align: center;
                 padding: 7px;
                 margin: 15px 0;
-                background-color: rgba(255, 255, 255, 0.4);
+                background-color: rgba(255, 255, 255, 0.5);
             }
             & p {
                 line-height: 28px;
@@ -37,7 +37,7 @@
             height: 100%;
             width: 92%;
             margin-bottom: 60px;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.4);
             border-top-left-radius: .5em;
             border-bottom-left-radius: .3em;
             &__start {
@@ -47,11 +47,11 @@
                     margin-top: 18px;
                     margin-bottom: 8px;
                     padding: 10px;
-                    background-color: rgba(255, 255, 255, 0.5);
+                    background-color: rgba(255, 255, 255, 0.6);
                 }
             }
             &__parts {
-                background-color: rgba(255, 255, 255, 0.65);
+                background-color: rgba(255, 255, 255, 0.75);
                 border-radius: .7em;
                 padding: 12.5px 15px;
                 margin: 10px 20px;
