@@ -5,7 +5,7 @@ require('electron-reload')(__dirname, {
   electron: require(`${__dirname}/node_modules/electron`)
 });
 
-const { app, BrowserWindow, ipcMain, TouchBarSegmentedControl } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require('path');
 const url = require('url');
 
@@ -31,10 +31,9 @@ createWindow = () => {
     icon: path.join(__dirname, IMG_DIR, 'icon.png'),
     frame: false,
     webPreferences: {
-      preload: path.join(app.getAppPath(), 'preload.js'),
-      nodeIntegration: true,
+      nodeIntegration: false,
       enableRemoteModule: true,
-      worldSafeExecuteJavaScript: true
+      preload: path.join(__dirname, "preload.js"),
   }
   });
 
@@ -66,8 +65,9 @@ app.on('window-all-closed', () => {
 })
 
 app.on('close', function (event) {
-  app.hide();
   event.preventDefault();
+  app.hide();
+  return false;
 })
 
 //login, auth, launch & opts minecraft launcher
@@ -101,9 +101,9 @@ ipcMain.on('login', (event, data) => {
    
   launcher.launch(opts).then(() => {
     win.webContents.send('game-launched')
-    // setTimeout(() => {
-    //   app.quit();
-    // }, 15000);
+    setTimeout(() => {
+      app.quit();
+    }, 15000);
   });
 
   launcher.on('debug', (e) => {

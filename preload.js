@@ -1,36 +1,75 @@
-const { ipcRenderer } = require('electron');
 
+const { ipcRenderer, remote } = require('electron');
+
+//Window
+let win = remote.getCurrentWindow();
+winMinimize = () => {
+    win.minimize();
+}
+winMaximize = () => {
+    if(win.isMaximized()){
+        win.unmaximize();
+    }else{
+        win.maximize();
+    }
+}
+winClose = () => {
+    win.close();
+}
+
+//Modpack downloader
 window.launch = (data) => {
     ipcRenderer.send('launch', data);
 }
-
 ipcRenderer.on('log', (event, data) => {
-    console.log(data);
+    debugLogs(data);
 });
-
 ipcRenderer.on('progress', (event, data) => {
-    if(data.type === 'forge') {
-        displayInfoForm(`Initialisation de forge (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
-    } else if(data.type === 'classes') {
-        displayInfoForm(`Initialisation des classes (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
-    } else if(data.type === 'assets' || data.type === 'assets-copy') {
-        displayInfoForm(`Initialisation des assets (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
-    } else if(data.type === 'natives') {
-        displayInfoForm(`Vérification des natives (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
-    } else {
-        displayInfoForm('Finitions et lancement du jeu...', 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
-    }
+    downloadProgress(data);
 });
-
 ipcRenderer.on('game-launched', (event, data) => {
-    displayStatusForm("Téléchargement des mises à jour terminé.", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
-    displayInfoForm('Tentative de lancement du jeu en cours...', 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
+    downloadFinished();
 });
 
+//Externals links
 let shell = require('electron').shell
 document.addEventListener('click', function (event) {
   if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
     event.preventDefault()
     shell.openExternal(event.target.href)
   }
+})
+
+//Authenticator
+const ipc = require('electron').ipcRenderer
+authSend = (u, p) => {
+    ipc.send('login', { u: u, p: p })
+}
+ipc.on('err', (data) => {
+    authError(data);
+  })
+  
+ipc.on('done', () => {
+    authDone();
+})
+
+//Store
+
+const Store = require('electron-store');
+const store = new Store();
+
+const getMinRam = store.get('minecraftOptionMinRam')
+const getMaxRam = store.get('minecraftOptionMaxRam')
+
+const getJvm = store.get('minecraftOptionJvm')
+
+storeSet = (key, value) => {
+    const Store = require('electron-store');
+    const store = new Store();
+    store.set(key, value)
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    storeRam(getMinRam, getMaxRam)
+    storeJvm(getJvm)
 })

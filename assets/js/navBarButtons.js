@@ -1,19 +1,12 @@
 
-const { remote } = require('electron');
-let win = remote.getCurrentWindow();
-
 document.getElementById('minimize').addEventListener('click', function() {
-    win.minimize();
+    winMinimize();
 })
 
 document.getElementById('maximize').addEventListener('click', function() {
-    if(win.isMaximized()){
-        win.unmaximize();
-    }else{
-        win.maximize();
-    }
+    winMaximize();
 })
 
 document.getElementById('close').addEventListener('click', function() {
-    win.close();
+    winClose();
 })

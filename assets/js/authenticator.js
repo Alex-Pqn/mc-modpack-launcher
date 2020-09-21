@@ -1,7 +1,3 @@
-const ipc = require('electron').ipcRenderer
-
-const { Client, Authenticator } = require('minecraft-launcher-core');
-const launcher = new Client();
 
 const button = document.getElementById('submit');
 const uInput = document.getElementById('u');
@@ -75,7 +71,7 @@ button.addEventListener('click', e => {
             else {
                 expression.stepValidation = true;
                 if (argumentsList[0].stepValidation === true && argumentsList[1].stepValidation === true) {
-                    ipc.send('login', { u: u, p: p })
+                    authSend(u, p);
                 }
             }
         })
@@ -83,18 +79,7 @@ button.addEventListener('click', e => {
     formValidation();
 })
 
-
-ipc.on('err', (data) => {
-    button.style.display = 'initial';
-    uInput.disabled = false;
-    pInput.disabled = false;
-    gameLaunchedText.style.display = 'none';
-    mainNav.style.display = 'initial';
-    console.error("Auth error : " + data.er);
-    displayStatusForm("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
-  })
-  
-ipc.on('done', () => {
+authDone = () => {
     mainNav.style.display = 'none';
     gameLaunchedText.style.display = 'block';
     button.style.display = 'none';
@@ -102,4 +87,37 @@ ipc.on('done', () => {
     pInput.disabled = true;
     displayStatusForm("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
     authStorage(uInput.value);
-})
+}
+
+authError = (data) => {
+    button.style.display = 'initial';
+    uInput.disabled = false;
+    pInput.disabled = false;
+    gameLaunchedText.style.display = 'none';
+    mainNav.style.display = 'initial';
+    console.error("Auth error : " + data.er);
+    displayStatusForm("Les identifiants de connexion Mojang sont incorrects.", 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
+}
+
+downloadProgress = (data) => {
+    if(data.type === 'forge') {
+        displayInfoForm(`Initialisation de forge (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
+    } else if(data.type === 'classes') {
+        displayInfoForm(`Initialisation des classes (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
+    } else if(data.type === 'assets' || data.type === 'assets-copy') {
+        displayInfoForm(`Initialisation des assets (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
+    } else if(data.type === 'natives') {
+        displayInfoForm(`Vérification des natives (${data.task} / ${data.total})`, 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
+    } else {
+        displayInfoForm('Finitions et lancement du jeu...', 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
+    }
+}
+
+downloadFinished = () => {
+    displayStatusForm("Téléchargement des mises à jour terminé.", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
+    displayInfoForm('Tentative de lancement du jeu en cours...', 'rgb(255, 255, 255)', 'rgba(122, 122, 122, 0.616)');
+}
+
+debugLogs = (data) => {
+    console.log(data)
+}
