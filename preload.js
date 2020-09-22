@@ -54,7 +54,6 @@ ipc.on('done', () => {
 })
 
 //Store
-
 const Store = require('electron-store');
 const store = new Store();
 
@@ -73,3 +72,19 @@ window.addEventListener('DOMContentLoaded', () => {
     storeRam(getMinRam, getMaxRam)
     storeJvm(getJvm)
 })
+
+//Cryptr
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotalySecretKey');
+ 
+let uEncrypted;
+
+uEncrypt = (u) => {
+    uEncrypted = cryptr.encrypt(u);
+    uStore(uEncrypted)
+}
+
+uDecrypt = (u) => {
+    const uDecrypted = cryptr.decrypt(u)
+    displayAuthInformations(uDecrypted)
+}

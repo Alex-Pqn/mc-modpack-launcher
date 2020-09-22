@@ -5,9 +5,8 @@ const pInput = document.getElementById('p');
 const mainNav = document.getElementById('main-nav');
 const gameLaunchedText = document.getElementById('game-launched');
 
-displayAuthInformations = () => {
-    const authStorage = (localStorage.getItem('auth'))
-    uInput.setAttribute('value', JSON.parse(authStorage)[0].u)
+displayAuthInformations = (uDecrypted) => {
+    uInput.setAttribute('value', uDecrypted)
 }
 
 displayStatusForm = (statusValue, textColor, backgroundColor) => {
@@ -26,18 +25,20 @@ displayInfoForm = (statusValue, textColor, backgroundColor) => {
     textInfo.style.padding = "5px";
 }
 
-authStorage = (u) => {
+uStore = (uEncrypted) => {
     const auth = [
         { 
-            u: u,
+            u: uEncrypted,
         },
     ]
     localStorage.setItem('auth', JSON.stringify(auth));
-};
+}
 
 if (localStorage.getItem('auth') === null) {
 }else{
-    displayAuthInformations();
+    const uStorage = localStorage.getItem('auth')
+    const uEncrypted = JSON.parse(uStorage)[0].u
+    uDecrypt(uEncrypted)
 }
 
 button.addEventListener('click', e => {
@@ -86,7 +87,7 @@ authDone = () => {
     uInput.disabled = true;
     pInput.disabled = true;
     displayStatusForm("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
-    authStorage(uInput.value);
+    uEncrypt(uInput.value)
 }
 
 authError = (data) => {
