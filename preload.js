@@ -1,6 +1,9 @@
 
 const { ipcRenderer, remote } = require('electron');
 
+const Store = require('electron-store');
+const store = new Store();
+
 //Window
 let win = remote.getCurrentWindow();
 winMinimize = () => {
@@ -31,6 +34,11 @@ ipcRenderer.on('game-launched', (event, data) => {
     downloadFinished();
 });
 
+//Auth
+test = () => {
+    console.log('test')
+}
+
 //Externals links
 let shell = require('electron').shell
 document.addEventListener('click', function (event) {
@@ -54,9 +62,6 @@ ipc.on('done', () => {
 })
 
 //Store
-const Store = require('electron-store');
-const store = new Store();
-
 const getMinRam = store.get('minecraftOptionMinRam')
 const getMaxRam = store.get('minecraftOptionMaxRam')
 
@@ -76,15 +81,28 @@ window.addEventListener('DOMContentLoaded', () => {
 //Cryptr
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
- 
-let uEncrypted;
 
-uEncrypt = (u) => {
-    uEncrypted = cryptr.encrypt(u);
-    uStore(uEncrypted)
+uEncrypt = (u, p) => {
+    const uEncrypted = cryptr.encrypt(u);
+    const pEncrypted = cryptr.encrypt(p);
+    uStore(uEncrypted, pEncrypted)
 }
 
-uDecrypt = (u) => {
+uDecrypt = (u, p) => {
     const uDecrypted = cryptr.decrypt(u)
-    displayAuthInformations(uDecrypted)
+    const pDecrypted = cryptr.decrypt(p)
+    displayAuthInformations(uDecrypted, pDecrypted)
+}
+
+uSetStore = (auth) => {
+    store.set('auth', JSON.stringify(auth))
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const auth = store.get('auth')
+    uGetAuthStore(auth)
+})
+
+authInformationsDelete = () => {
+    store.delete('auth')
 }

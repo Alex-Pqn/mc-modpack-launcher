@@ -2,11 +2,13 @@
 const button = document.getElementById('submit');
 const uInput = document.getElementById('u');
 const pInput = document.getElementById('p');
+const authRemember = document.getElementById('authRemember');
 const mainNav = document.getElementById('main-nav');
 const gameLaunchedText = document.getElementById('game-launched');
 
-displayAuthInformations = (uDecrypted) => {
+displayAuthInformations = (uDecrypted, pDecrypted) => {
     uInput.setAttribute('value', uDecrypted)
+    pInput.setAttribute('value', pDecrypted)
 }
 
 displayStatusForm = (statusValue, textColor, backgroundColor) => {
@@ -25,20 +27,25 @@ displayInfoForm = (statusValue, textColor, backgroundColor) => {
     textInfo.style.padding = "5px";
 }
 
-uStore = (uEncrypted) => {
+uStore = (uEncrypted, pEncrypted) => {
     const auth = [
         { 
             u: uEncrypted,
+            p: pEncrypted
         },
     ]
-    localStorage.setItem('auth', JSON.stringify(auth));
+    uSetStore(auth);
 }
 
-if (localStorage.getItem('auth') === null) {
-}else{
-    const uStorage = localStorage.getItem('auth')
-    const uEncrypted = JSON.parse(uStorage)[0].u
-    uDecrypt(uEncrypted)
+uGetAuthStore = (auth) => {
+    if (auth === undefined) {
+    }else{
+        authRemember.checked = true
+        const authStorage = auth
+        const uEncrypted = JSON.parse(authStorage)[0].u
+        const pEncrypted = JSON.parse(authStorage)[0].p
+        uDecrypt(uEncrypted, pEncrypted)
+    }
 }
 
 button.addEventListener('click', e => {
@@ -87,7 +94,11 @@ authDone = () => {
     uInput.disabled = true;
     pInput.disabled = true;
     displayStatusForm("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
-    uEncrypt(uInput.value)
+    if(authRemember.checked === true) {
+        uEncrypt(uInput.value, pInput.value)
+    }else{
+        authInformationsDelete()
+    }
 }
 
 authError = (data) => {

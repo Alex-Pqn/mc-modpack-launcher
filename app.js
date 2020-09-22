@@ -48,7 +48,6 @@ createWindow = () => {
 }
 
 app.on("ready", createWindow);
-
 app.whenReady().then(() => {
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -110,7 +109,7 @@ ipcMain.on('login', (event, data) => {
     win.webContents.send('log', e);
   });
   launcher.on('data', (e) => {
-      win.webContents.send('log', e);
+    win.webContents.send('log', e);
   });
   launcher.on('progress', (e) => {
     win.webContents.send('progress', e);

@@ -45,7 +45,8 @@
                 width: 100%;
             }
             & label {
-                margin-bottom: 5px;
+                margin-bottom: 6.5px;
+                margin-top: 5px;
                 font-size: 1.05em;
             }
             & input {
@@ -53,7 +54,7 @@
                 padding: 5px;
             }
             & #u {
-                margin-bottom: 15px;
+                margin-bottom: 8px;
                 font-size: .8em;
                 letter-spacing: .5px;
             }
@@ -67,11 +68,26 @@
             }
             &__title {
                 padding-bottom: 7px;
-                margin-bottom: 10px;
+                margin-bottom: 5px;
                 border-bottom: 1px solid white;
                 & h3 {
                     color: white;
                     font-size: 1.4em;
+                }
+            }
+            &__remember {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                margin-top: 10px;
+                background-color: rgba(255, 255, 255, 0.2);
+                & label {
+                    display: flex;
+                    width: 72%;
+                }
+                & input {
+                    display: flex;
+                    width: 17px;
                 }
             }
         }
