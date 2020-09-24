@@ -5,23 +5,36 @@
   "main": "app.js",
   "dependencies": {
     "cryptr": "^6.0.2",
-    "electron": "^10.1.2",
-    "electron-reload": "^1.5.0",
     "electron-store": "^6.0.0",
     "minecraft-launcher-core": "^3.15.0"
   },
   "devDependencies": {
+    "electron": "^10.1.2",
     "electron-builder": "^22.8.1",
     "electron-packager": "^15.1.0",
+    "electron-reload": "^1.5.0",
     "sass": "^1.26.11"
+  },
+  "build": {
+    "appId": "mc.mmlauncher.app",
+    "productName": "Marie Madeleine Launcher",
+    "target": "NSIS",
+    "directories": {
+      "output": "release"
+    },
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "oneClick": false,
+      "deleteAppDataOnUninstall": true
+    }
   },
   "scripts": {
     "start": "electron .",
-    "build": "electron-build",
     "sass": "sass --watch ./sass/main.scss:./assets/css/style.css --style compressed",
     "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/img/icon/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . marie-madeleine-launcher --overwrite --platform=win32 --arch=ia32 --icon=assets/img/icon/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Minecraft\"",
-    "package-linux": "electron-packager . marie-madeleine-launcher --overwrite asar --asar=true --platform=linux --arch=x64 --icon=assets/img/icon/png/icon.png --prune=true --out=release-builds"
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/img/icon/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Shopping List\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/img/icon/png/icon.png --prune=true --out=release-builds",
+    "dist": "electron-builder"
   },
   "repository": {
     "type": "git",

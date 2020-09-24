@@ -1,26 +1,18 @@
 
 //declarations & imports
 
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`)
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`)
+// });
 
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require('path');
 const url = require('url');
 
-const Store = require('electron-store');
-const store = new Store();
-
-const { Client, Authenticator } = require('minecraft-launcher-core');
-const launcher = new Client();
-
-let OSname = require("os").userInfo().username;
-
 let win;
+
 let IMG_DIR = '/assets/img/icon/png/'
 let ASSET_DIR = '/assets/html/'
-
 
 //main window launcher creation
 
@@ -28,16 +20,25 @@ createWindow = () => {
   win = new BrowserWindow({
     width: 900,
     height: 650,
+    minWidth: 900,
+    minHeight: 650,
+    title: 'Marie Madeleine Launcher',
     icon: path.join(__dirname, IMG_DIR, 'icon.png'),
     frame: false,
+    movable: true,
+    resizable: true,
+    fullscreen: false,
+    fullscreenable: true,
+    center: true,
+    backgroundThrottling: false,
+    show: false,
     webPreferences: {
-      nodeIntegration: false,
       enableRemoteModule: true,
+      webSecurity: true,
       preload: path.join(__dirname, "preload.js"),
+      devTools: true
   }
   });
-
-  win.openDevTools();
   
   // win.loadURL('https://url.com')
   win.loadURL(url.format({
@@ -45,12 +46,18 @@ createWindow = () => {
     protocol: 'file:',
     slashes: true
   }));
+
+  win.once('ready-to-show', () => {
+    win.show();
+  });
 }
 
-app.on("ready", createWindow);
 app.whenReady().then(() => {
+  createWindow();
+
   app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) 
+      createWindow()
   })
 })
 
@@ -69,10 +76,18 @@ app.on('close', function (event) {
   return false;
 })
 
+
 //login, auth, launch & opts minecraft launcher
 
 ipcMain.on('login', (event, data) => {
 
+  const Store = require('electron-store');
+  const store = new Store();
+
+  const { Client, Authenticator } = require('minecraft-launcher-core');
+  const launcher = new Client();
+
+  let OSname = require("os").userInfo().username;
   let maxRamUser = store.get('minecraftOptionMaxRam');
   let minRamUser = store.get('minecraftOptionMinRam');
   
@@ -102,7 +117,7 @@ ipcMain.on('login', (event, data) => {
     win.webContents.send('game-launched')
     setTimeout(() => {
       app.quit();
-    }, 15000);
+    }, 5000);
   });
 
   launcher.on('debug', (e) => {
