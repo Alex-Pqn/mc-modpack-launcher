@@ -106,3 +106,10 @@ window.addEventListener('DOMContentLoaded', () => {
 authInformationsDelete = () => {
     store.delete('auth')
 }
+
+//Path
+const appdataUserFolder = store.get('minecraftOptionAppdata');
+
+window.addEventListener('DOMContentLoaded', () => {
+    displayAppdataFolders(appdataUserFolder)
+})

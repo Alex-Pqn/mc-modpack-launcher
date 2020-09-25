@@ -9,6 +9,7 @@ const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require('path');
 const url = require('url');
 
+
 let win;
 
 let IMG_DIR = '/assets/img/icon/png/'
@@ -76,21 +77,21 @@ app.on('close', function (event) {
   return false;
 })
 
-
 //login, auth, launch & opts minecraft launcher
 
 ipcMain.on('login', (event, data) => {
-
   const Store = require('electron-store');
   const store = new Store();
 
   const { Client, Authenticator } = require('minecraft-launcher-core');
   const launcher = new Client();
 
+  const appdataPathUser = app.getPath('appData')
+  store.set('minecraftOptionAppdata', appdataPathUser)
+
   let OSname = require("os").userInfo().username;
   let maxRamUser = store.get('minecraftOptionMaxRam');
   let minRamUser = store.get('minecraftOptionMinRam');
-  
   let JVMUser = store.get('minecraftOptionJvm');
 
   Authenticator.getAuth(data.u, data.p).then(() => {
@@ -99,13 +100,13 @@ ipcMain.on('login', (event, data) => {
     let opts = {
       clientPackage: 'C:/Users/'+OSname+'/Desktop/Dev Web/clientPackage/clientPackage.zip',
       authorization: Authenticator.getAuth('', ''),
-      root: app.getPath('appData') + '/.MMLauncher/',
+      root: appdataPathUser + '/.MMLauncher/',
       customArgs: JVMUser,
       version: {
           number: "1.8.9",
           type: "release"
       },
-      forge: app.getPath('appData') + '/.MMLauncher/forge.jar',
+      forge: appdataPathUser + '/.MMLauncher/forge.jar',
       memory: {
           max: maxRamUser+'M',
           min: minRamUser+'M'
