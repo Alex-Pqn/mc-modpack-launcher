@@ -38,7 +38,7 @@
 //About
 .about {
     &__content {
-        &__credits {
+        &__community {
             & a {
                 color: rgb(0, 81, 105);
                 &:hover {
@@ -105,18 +105,20 @@
     &:hover {
         height: 70%;
     }
-    & a {
-        transition-property: padding, margin, color;
-        transition-duration: 300ms;
-        transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-        padding-left: 0px;
-        margin-left: 0px;
-        color: rgba(0, 0, 0, 0.85);
-        &:hover {
-            color: black;
-            margin-left: 3px;
-            border-left: 2px solid black;
-            padding-left: 7px;
+    &__top {
+        & a {
+            transition-property: padding, margin, color;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+            padding-left: 0px;
+            margin-left: 0px;
+            color: rgba(0, 0, 0, 0.85);
+            &:hover {
+                color: black;
+                margin-left: 3px;
+                border-left: 2px solid black;
+                padding-left: 7px;
+            }
         }
     }
     &__active {
@@ -125,6 +127,25 @@
             margin-left: 3px;
             border-left: 2px solid white;
             padding-left: 7px;
+        }
+    }
+    &__bottom {
+        &__icons {
+            & #discord-icon {
+                color: #7289DA;
+            }
+            & #twitter-icon {
+                color: #1DA1F2;
+            }
+            & #github-icon {
+                color: rgb(26, 26, 26);
+            }
+            & i {
+                opacity: .8;
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
 }

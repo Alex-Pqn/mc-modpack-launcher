@@ -93,6 +93,7 @@ authDone = () => {
     button.style.display = 'none';
     uInput.disabled = true;
     pInput.disabled = true;
+    authRemember.disabled = true;
     displayStatusForm("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
     if(authRemember.checked === true) {
         authEncrypt(uInput.value, pInput.value)
@@ -105,6 +106,7 @@ authError = (data) => {
     button.style.display = 'initial';
     uInput.disabled = false;
     pInput.disabled = false;
+    authRemember.disabled = false;
     gameLaunchedText.style.display = 'none';
     mainNav.style.display = 'initial';
     console.error("Auth error : " + data.er);

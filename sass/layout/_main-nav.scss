@@ -26,17 +26,27 @@
     }
     &__bottom {
         display: flex;
-        justify-content: center;
-        align-items: flex-end;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: column;
         height: 100%;
-        & p {
+        &__icons {
+            display: flex;
+            & i {
+                margin: 0 6px;
+                font-size: .9em;
+            }
+        }
+        &__credit {
             display: flex;
             text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: .7em;
-            letter-spacing: 1px;
+            margin-top: -15px;
             margin-bottom: 30px;
-            margin-left: -7px;
+            & p {
+                color: rgba(214, 214, 214, 0.8);
+                font-size: .7em;
+                letter-spacing: 1px;
+            }
         }
     }
 }

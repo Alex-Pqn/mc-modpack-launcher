@@ -1,7 +1,7 @@
 
 const timeoutStatus = 200;
-const defaultValueMessage = "Les valeurs ont bien été remises par défaut.";
-const changeMessage = "Les changements ont bien été pris en compte.";
+const defaultValueMessage = "Les valeurs ont été remises par défaut.";
+const changeMessage = "Les changements ont été pris en compte.";
 
 //RAM 
 
@@ -146,8 +146,8 @@ storeJvm = (getJvm) => {
 const containerStatusRes = document.getElementById('container-status-res');
 
 storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
-    const inputHeightRes = document.getElementById('width-res');
-    const inputWidthRes = document.getElementById('height-res');
+    const inputHeightRes = document.getElementById('height-res');
+    const inputWidthRes = document.getElementById('width-res');
     const inputFullscreenRes = document.getElementById('fullscreen-res');
 
     const paragraphStatusRes = document.getElementById('status-res');
@@ -212,7 +212,20 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
 }
 
 
-// Other
+// PR
+
+displayAppdataFolders = (appdata) => {
+    //resource-packs
+    const rpText = document.getElementById('rp-option');
+    rpText.textContent = appdata + "\\.MMLauncher\\resourcepacks"
+
+    //shader-packs
+    const spText = document.getElementById('sp-option');
+    spText.textContent = appdata + "\\.MMLauncher\\shaderpacks"
+}
+
+
+// CLOSE STATUS
 
 closeStatus = () => {
     containerStatusRam.style.height = 0

@@ -35,13 +35,9 @@ ipcRenderer.on('game-launched', (event, data) => {
 });
 
 //Externals links
-let shell = require('electron').shell
-document.addEventListener('click', function (event) {
-  if (event.target.tagName === 'A' && event.target.href.startsWith('http')) {
-    event.preventDefault()
-    shell.openExternal(event.target.href)
-  }
-})
+openExternalLink = (link) => {
+    require("electron").shell.openExternal(link);
+}
 
 //Authenticator
 const ipc = require('electron').ipcRenderer

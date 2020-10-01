@@ -1,11 +1,10 @@
 @import './base/base';
 
 @import './components/animations';
-@import './components/main-nav';
 @import './components/scrollbar';
 
-@import './layout/footer';
 @import './layout/header';
+@import './layout/main-nav';
 
 @import './pages/index';
 @import './pages/options';
