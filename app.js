@@ -1,9 +1,9 @@
 
 //declarations & imports
 
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`)
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`)
+// });
 
 const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require('path');
@@ -35,6 +35,7 @@ createWindow = () => {
     show: false,
     webPreferences: {
       enableRemoteModule: true,
+      worldSafeExecuteJavaScript: true,
       webSecurity: true,
       preload: path.join(__dirname, "preload.js"),
       devTools: true
@@ -90,8 +91,14 @@ ipcMain.on('login', (event, data) => {
   store.set('minecraftOptionAppdata', appdataPathUser)
 
   let OSname = require("os").userInfo().username;
+
   let maxRamUser = store.get('minecraftOptionMaxRam');
   let minRamUser = store.get('minecraftOptionMinRam');
+
+  let heightRes = store.get('minecraftOptionHeightRes')
+  let widthRes = store.get('minecraftOptionWidthRes')
+  let fullscreenRes = store.get('minecraftOptionFullscreenRes')
+
   let JVMUser = store.get('minecraftOptionJvm');
 
   Authenticator.getAuth(data.u, data.p).then(() => {
@@ -106,6 +113,11 @@ ipcMain.on('login', (event, data) => {
           number: "1.8.9",
           type: "release"
       },
+      window: {
+        width: widthRes,
+        height: heightRes,
+        fullscreen: fullscreenRes
+      },
       forge: appdataPathUser + '/.MMLauncher/forge.jar',
       memory: {
           max: maxRamUser+'M',
@@ -118,7 +130,7 @@ ipcMain.on('login', (event, data) => {
     win.webContents.send('game-launched')
     setTimeout(() => {
       app.quit();
-    }, 5000);
+    }, 7500);
   });
 
   launcher.on('debug', (e) => {

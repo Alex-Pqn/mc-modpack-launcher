@@ -27,24 +27,24 @@ displayInfoForm = (statusValue, textColor, backgroundColor) => {
     textInfo.style.padding = "5px";
 }
 
-uStore = (uEncrypted, pEncrypted) => {
+authStore = (uEncrypted, pEncrypted) => {
     const auth = [
         { 
             u: uEncrypted,
             p: pEncrypted
         },
     ]
-    uSetStore(auth);
+    authSetStore(auth);
 }
 
-uGetAuthStore = (auth) => {
+getAuthStore = (auth) => {
     if (auth === undefined) {
     }else{
         authRemember.checked = true
         const authStorage = auth
         const uEncrypted = JSON.parse(authStorage)[0].u
         const pEncrypted = JSON.parse(authStorage)[0].p
-        uDecrypt(uEncrypted, pEncrypted)
+        authDecrypt(uEncrypted, pEncrypted)
     }
 }
 
@@ -95,7 +95,7 @@ authDone = () => {
     pInput.disabled = true;
     displayStatusForm("Connexion réussie. Téléchargement des mises à jour en cours...", 'rgb(0, 82, 0)', 'rgba(53, 255, 53, 0.788)');
     if(authRemember.checked === true) {
-        uEncrypt(uInput.value, pInput.value)
+        authEncrypt(uInput.value, pInput.value)
     }else{
         authInformationsDelete()
     }

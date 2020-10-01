@@ -158,19 +158,19 @@
                 background-color: rgba(63, 63, 63, 0.5);
             }
 
-            & #button-save-ram, #button-save-jvm {
+            & #button-save-ram, #button-save-jvm, #button-save-res {
                 &:hover {
                     background-color: rgb(0, 95, 24);
                 }
             }
-            & #button-reset-ram, #button-reset-jvm {
+            & #button-reset-ram, #button-reset-jvm, #button-reset-res {
                 &:hover {
                     background-color: rgb(197, 95, 0);
                 }
             }
             &__parts {
                 &__status {
-                    #close-status-ram, #close-status-jvm {
+                    .close-status {
                         &:hover {
                             color: rgb(218, 218, 218)!important;
                         }

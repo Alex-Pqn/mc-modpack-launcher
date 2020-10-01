@@ -86,6 +86,12 @@
                     </p>
                 </div>
                 <div class="index__content">
+                    <div class="index__content__audio-player">
+                        <audio id="audio-player" preload="metadata" loop controls>
+                            <source src="../audio/minecraft.mp3" type="audio/mp3">
+                            Votre navigateur n'est pas compatible avec le lecteur audio.
+                        </audio>
+                    </div>
                     <div class="index__content__login-form">
                         <div class="index__content__login-form__title">
                             <h3>
@@ -96,12 +102,12 @@
                         <label for="username">
                             E-mail / Pseudo
                         </label>
-                        <input type="text" id="u" name="username" spellcheck="false" required minlength="3" maxlength="25" size="15">
+                        <input type="text" id="u" name="username" spellcheck="false" required minlength="3" maxlength="40">
                         <!--password-->
                         <label for="password">
                             Mot de passe
                         </label>
-                        <input type="password" id="p" name="password" required minlength="3" maxlength="32" size="15">
+                        <input type="password" id="p" name="password" required minlength="3" maxlength="32">
                         <!--remember-->
                         <div class="index__content__login-form__remember">
                             <label for="checkbox">Se souvenir de moi ?</label>
@@ -120,6 +126,7 @@
                 </div>
             </main>
         </div>
+        <script src="../js/audioPlayer.js"></script>
         <script src="../js/randomBckgrnd.js"></script>
         <script src="../js/consoleWarn.js"></script>
         <script src="../js/authenticator.js"></script>

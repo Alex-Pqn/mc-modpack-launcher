@@ -34,11 +34,6 @@ ipcRenderer.on('game-launched', (event, data) => {
     downloadFinished();
 });
 
-//Auth
-test = () => {
-    console.log('test')
-}
-
 //Externals links
 let shell = require('electron').shell
 document.addEventListener('click', function (event) {
@@ -65,6 +60,10 @@ ipc.on('done', () => {
 const getMinRam = store.get('minecraftOptionMinRam')
 const getMaxRam = store.get('minecraftOptionMaxRam')
 
+const getHeightRes = store.get('minecraftOptionHeightRes')
+const getWidthRes = store.get('minecraftOptionWidthRes')
+const getFullscreenRes = store.get('minecraftOptionFullscreenRes')
+
 const getJvm = store.get('minecraftOptionJvm')
 
 storeSet = (key, value) => {
@@ -76,31 +75,32 @@ storeSet = (key, value) => {
 window.addEventListener('DOMContentLoaded', () => {
     storeRam(getMinRam, getMaxRam)
     storeJvm(getJvm)
+    storeRes(getHeightRes, getWidthRes, getFullscreenRes)
 })
 
 //Cryptr
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotalySecretKey');
 
-uEncrypt = (u, p) => {
+authEncrypt = (u, p) => {
     const uEncrypted = cryptr.encrypt(u);
     const pEncrypted = cryptr.encrypt(p);
-    uStore(uEncrypted, pEncrypted)
+    authStore(uEncrypted, pEncrypted)
 }
 
-uDecrypt = (u, p) => {
+authDecrypt = (u, p) => {
     const uDecrypted = cryptr.decrypt(u)
     const pDecrypted = cryptr.decrypt(p)
     displayAuthInformations(uDecrypted, pDecrypted)
 }
 
-uSetStore = (auth) => {
+authSetStore = (auth) => {
     store.set('auth', JSON.stringify(auth))
 }
 
 window.addEventListener('DOMContentLoaded', () => {
     const auth = store.get('auth')
-    uGetAuthStore(auth)
+    getAuthStore(auth)
 })
 
 authInformationsDelete = () => {

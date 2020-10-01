@@ -66,3 +66,17 @@
         }
     }
 }
+
+//Mods
+.mods {
+    &__content {
+        &__container {
+            & h2 {
+                font-family: 'Karla', sans-serif;;
+            }
+            & p {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
+            }
+        }
+    }
+}

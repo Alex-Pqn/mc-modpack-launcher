@@ -80,6 +80,44 @@
                 </div>
                 <div class="options__content">
                     <div class="options__content__container">
+                        <article class="options__content__container__parts options__content__container__res">
+                            <h2>
+                                Résolution
+                            </h2>
+                            <p>
+                                Vous pouvez ci-dessous définir la résolution de Minecraft à son lancement.
+                            </p>
+
+                            <div class="options__content__container__res__values">
+                                <label for="height-res">Hauteur :</label>
+                                <input id="height-res" type="number" name="height-res">
+                                <span>Pixels</span>
+    
+                                <label for="width-res">Largeur :</label>
+                                <input id="width-res" type="number" name="width-res">
+                                <span>Pixels</span>
+                            </div>
+
+                            <div class="options__content__container__res__fullscreen">
+                                <label for="checkbox">Plein écran :</label>
+                                <input id="fullscreen-res" type="checkbox" name="checkbox">
+                            </div>
+
+                            <div id="container-status-res" class="options__content__container__parts__status">
+                                <p id="status-res">
+                                    <!--Generate JS Content-->
+                                </p>
+                                <p class="close-status" id="close-status-res">
+                                    <!--Generate JS Content-->
+                                </p>
+                            </div>
+                            <button id="button-save-res">
+                                Sauvegarder
+                            </button>
+                            <button id="button-reset-res">
+                                Réinitialiser par défaut
+                            </button>
+                        </article>
                         <article class="options__content__container__parts options__content__container__ram">
                             <h2>
                                 RAM allouée (Mo)
@@ -99,12 +137,11 @@
                             <input id="max-ram" type="number" name="max-ram">
                             <span>Mo</span>
 
-                            <br>
                             <div id="container-status-ram" class="options__content__container__parts__status">
                                 <p id="status-ram">
                                     <!--Generate JS Content-->
                                 </p>
-                                <p id="close-status-ram">
+                                <p class="close-status" id="close-status-ram">
                                     <!--Generate JS Content-->
                                 </p>
                             </div>
@@ -115,7 +152,6 @@
                                 Réinitialiser par défaut
                             </button>
                         </article>
-                        
                         <article class="options__content__container__parts options__content__container__jvm">
                             <h2>
                                 Arguments de lancement (JVM)
@@ -128,12 +164,11 @@
                             </p>
                             <label for="jmv">Arguments JVM : </label>
                             <input id="jvm" type="text" name="jvm">
-                            <br>
                             <div id="container-status-jvm" class="options__content__container__parts__status">
                                 <p id="status-jvm">
                                     <!--Generate JS Content-->
                                 </p>
-                                <p id="close-status-jvm">
+                                <p class="close-status" id="close-status-jvm">
                                     <!--Generate JS Content-->
                                 </p>
                             </div>
@@ -144,7 +179,7 @@
                                 Réinitialiser par défaut
                             </button>
                         </article>
-                        <article class="options__content__container__parts">
+                        <article id="last-option" class="options__content__container__parts">
                             <h2>
                                 Packs de ressource
                             </h2>
