@@ -1,12 +1,11 @@
+document.getElementById('minimize').addEventListener('click', function () {
+  winMinimize();
+});
 
-document.getElementById('minimize').addEventListener('click', function() {
-    winMinimize();
-})
+document.getElementById('maximize').addEventListener('click', function () {
+  winMaximize();
+});
 
-document.getElementById('maximize').addEventListener('click', function() {
-    winMaximize();
-})
-
-document.getElementById('close').addEventListener('click', function() {
-    winClose();
-})
+document.getElementById('close').addEventListener('click', function () {
+  winClose();
+});

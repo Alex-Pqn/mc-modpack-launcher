@@ -98,11 +98,24 @@
                         <p>
                             Vous pouvez ci-dessous retrouver la liste des mods utilisés et chargés dans le launcher.
                         </p>
+                        <p id="info-warn">
+                            Il est nécessaire d'avoir lancé le jeu au minimum une fois.
+                        </p>
+                        <button id="button-reload-mods-list">
+                            Recharger la liste
+                        </button>
+                        <p id="error-mods-list">
+                            Malheureusement, aucun mod n'a été trouvé...
+                        </p>
+                        <section class="mods__content__container__list">
+                            <!--Generate JS Content-->
+                        </section>
                     </div>
                 </div>
             </main>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" crossorigin="anonymous">
+        <script src="../js/modsList.js"></script>
         <script src="../js/openExternalLinks.js"></script>
         <script src="../js/randomBckgrnd.js"></script>
         <script src="../js/consoleWarn.js"></script>

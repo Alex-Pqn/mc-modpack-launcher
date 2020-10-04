@@ -198,6 +198,35 @@
                     }
                 }
             }
+            &__pr {
+                & button {
+                    transition-duration: 150ms;
+                    opacity: .8;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Mods
+
+.mods {
+    &__content {
+        &__container {
+            & button {
+                transition-property: all;
+                transition-duration: 150ms;
+                opacity: .77;
+                background-color: rgba(129, 129, 129, 0.3);
+                border: 2px solid rgba(75, 75, 75, 0.4);
+                color: rgba(0, 0, 0, 0.9);
+                &:hover {
+                    opacity: 1;
+                }
+            }
         }
     }
 }

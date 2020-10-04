@@ -97,7 +97,7 @@
                                 Résolution
                             </h2>
                             <p>
-                                Vous pouvez ci-dessous définir la résolution de Minecraft à son lancement.
+                                Définissez ci-dessous la résolution de Minecraft à son lancement.
                             </p>
 
                             <div class="options__content__container__res__values">
@@ -135,10 +135,10 @@
                                 RAM allouée (Mo)
                             </h2>
                             <p>
-                                Vous pouvez ci-dessous définir la RAM minimale et maximale (en Mo) allouée à Minecraft.
+                                Allouez la RAM minimale et maximale (en Mo) à Minecraft dont vous avez besoin.
                             </p>
-                            <p>
-                                Vous ne pouvez cependant pas entrer de valeurs inférieures à celles par défaut (ce sont des valeurs minimales pour lancer Minecraft Moddé)
+                            <p id="info-warn">
+                                Vous ne pouvez pas entrer de valeurs inférieures à celles par défaut.
                             </p>
 
                             <label for="min-ram">Min.</label>
@@ -169,9 +169,12 @@
                                 Arguments de lancement (JVM)
                             </h2>
                             <p>
-                                Par défaut, Minecraft se démarre avec des arguments JVM (Java) prédéfinis. Vous pouvez cependant en ajouter ou modifier ceux par défaut ci-dessous.
+                                Par défaut, Minecraft se démarre avec des arguments JVM (Java) prédéfinis.
                             </p>
                             <p>
+                                Vous pouvez cependant en ajouter ou modifier ceux par défaut ci-dessous.
+                            </p>
+                            <p id="info-warn">
                                 Il est conseillé de laisser ce champ vide si vous ne savez pas ce que vous faites.
                             </p>
                             <label for="jmv">Arguments JVM : </label>
@@ -191,7 +194,7 @@
                                 Réinitialiser par défaut
                             </button>
                         </article>
-                        <article id="last-option" class="options__content__container__parts">
+                        <article id="last-option" class="options__content__container__parts options__content__container__pr">
                             <h2>
                                 Packs de ressource
                             </h2>
@@ -199,23 +202,26 @@
                                 Vous pouvez personnaliser votre jeu avec des ressources-packs et shaders-packs.
                             </p>
                             <p>
-                                Retrouvez les différents chemins d'accès de ces dossiers ci-dessous (il est nécessaire d'avoir lancé le jeu au minimum une fois pour accéder à ces dossiers).
+                                Retrouvez les différents chemins d'accès de ces dossiers ci-dessous !
+                            </p>
+                            <p id="info-warn">
+                                Il est nécessaire d'avoir lancé le jeu au minimum une fois afin accéder à ces dossiers.
                             </p>
                             <p>
                                 <strong>
                                     Ressource-packs :
                                 </strong>
-                                <span id="rp-option">
-                                    <!--Generate JS Content-->
-                                </span>
+                                <button id="rp-folder">
+                                    Ouvrir le dossier
+                                </button>
                             </p>
                             <p>
                                 <strong>
                                     Shader-packs :
                                 </strong>
-                                <span id="sp-option">
-                                    <!--Generate JS Content-->
-                                </span>
+                                <button id="sp-folder">
+                                    Ouvrir le dossier
+                                </button>
                             </p>
                         </article>
                     </div>

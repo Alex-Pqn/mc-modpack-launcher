@@ -1,21 +1,34 @@
+const minify = require('@node-minify/core');
+const uglifyJS = require('@node-minify/uglify-js');
 
-//declarations & imports
-
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`)
+minify({
+  compressor: uglifyJS,
+  input: 'foo.js',
+  output: 'bar.js',
+  options: {
+    warnings: true, // pass true to display compressor warnings.
+    mangle: false, // pass false to skip mangling names.
+    output: {}, // pass an object if you wish to specify additional output options. The defaults are optimized for best compression.
+    compress: false // pass false to skip compressing entirely. Pass an object to specify custom compressor options.
+  },
+  callback: function (err, min) {}
 });
 
-const { app, BrowserWindow, ipcMain } = require("electron");
+// declarations & imports
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
+
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
-
 let win;
 
-let IMG_DIR = '/assets/img/icon/png/'
-let ASSET_DIR = '/assets/html/'
+const IMG_DIR = '/assets/img/icon/png/';
+const ASSET_DIR = '/assets/html/';
 
-//main window launcher creation
+// main window launcher creation
 
 createWindow = () => {
   win = new BrowserWindow({
@@ -37,48 +50,48 @@ createWindow = () => {
       enableRemoteModule: true,
       worldSafeExecuteJavaScript: true,
       webSecurity: true,
-      preload: path.join(__dirname, "preload.js"),
-      devTools: true
-  }
+      preload: path.join(__dirname, 'preload.js'),
+      devTools: true,
+    },
   });
-  
+
   // win.loadURL('https://url.com')
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, ASSET_DIR, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
+  win.loadURL(
+    url.format({
+      pathname: path.join(__dirname, ASSET_DIR, 'index.html'),
+      protocol: 'file:',
+      slashes: true,
+    })
+  );
 
   win.once('ready-to-show', () => {
     win.show();
   });
-}
+};
 
 app.whenReady().then(() => {
   createWindow();
 
   app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) 
-      createWindow()
-  })
-})
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
+});
 
-
-//app compatibility
+// app compatibility
 
 app.on('window-all-closed', () => {
-  if(process.plateform !== 'darwin'){
+  if (process.plateform !== 'darwin') {
     app.quit();
   }
-})
+});
 
 app.on('close', function (event) {
   event.preventDefault();
   app.hide();
   return false;
-})
+});
 
-//login, auth, launch & opts minecraft launcher
+// login, auth, launch & opts minecraft launcher
 
 ipcMain.on('login', (event, data) => {
   const Store = require('electron-store');
@@ -87,63 +100,64 @@ ipcMain.on('login', (event, data) => {
   const { Client, Authenticator } = require('minecraft-launcher-core');
   const launcher = new Client();
 
-  const appdataPathUser = app.getPath('appData')
-  store.set('minecraftOptionAppdata', appdataPathUser)
+  const appdataPathUser = app.getPath('appData');
+  store.set('minecraftOptionAppdata', appdataPathUser);
 
-  let OSname = require("os").userInfo().username;
+  const OSname = require('os').userInfo().username;
 
-  let maxRamUser = store.get('minecraftOptionMaxRam');
-  let minRamUser = store.get('minecraftOptionMinRam');
+  const maxRamUser = store.get('minecraftOptionMaxRam');
+  const minRamUser = store.get('minecraftOptionMinRam');
 
-  let heightRes = store.get('minecraftOptionHeightRes')
-  let widthRes = store.get('minecraftOptionWidthRes')
-  let fullscreenRes = store.get('minecraftOptionFullscreenRes')
+  const heightRes = store.get('minecraftOptionHeightRes');
+  const widthRes = store.get('minecraftOptionWidthRes');
+  const fullscreenRes = store.get('minecraftOptionFullscreenRes');
 
-  let JVMUser = store.get('minecraftOptionJvm');
+  const JVMUser = store.get('minecraftOptionJvm');
 
-  Authenticator.getAuth(data.u, data.p).then(() => {
-    event.sender.send('done')
+  Authenticator.getAuth(data.u, data.p)
+    .then(() => {
+      event.sender.send('done');
 
-    let opts = {
-      clientPackage: 'C:/Users/'+OSname+'/Desktop/Dev Web/clientPackage/clientPackage.zip',
-      authorization: Authenticator.getAuth('', ''),
-      root: appdataPathUser + '/.MMLauncher/',
-      customArgs: JVMUser,
-      version: {
-          number: "1.8.9",
-          type: "release"
-      },
-      window: {
-        width: widthRes,
-        height: heightRes,
-        fullscreen: fullscreenRes
-      },
-      forge: appdataPathUser + '/.MMLauncher/forge.jar',
-      memory: {
-          max: maxRamUser+'M',
-          min: minRamUser+'M'
-      },
-      timeout: 3500
-  }
-   
-  launcher.launch(opts).then(() => {
-    win.webContents.send('game-launched')
-    setTimeout(() => {
-      app.quit();
-    }, 7500);
-  });
+      const opts = {
+        clientPackage: `C:/Users/${OSname}/Desktop/Dev Web/clientPackage/clientPackage.zip`,
+        authorization: Authenticator.getAuth('', ''),
+        root: `${appdataPathUser}/.MMLauncher/`,
+        customArgs: JVMUser,
+        version: {
+          number: '1.8.9',
+          type: 'release',
+        },
+        window: {
+          width: widthRes,
+          height: heightRes,
+          fullscreen: fullscreenRes,
+        },
+        forge: `${appdataPathUser}/.MMLauncher/forge.jar`,
+        memory: {
+          max: `${maxRamUser}M`,
+          min: `${minRamUser}M`,
+        },
+        timeout: 3500,
+      };
 
-  launcher.on('debug', (e) => {
-    win.webContents.send('log', e);
-  });
-  launcher.on('data', (e) => {
-    win.webContents.send('log', e);
-  });
-  launcher.on('progress', (e) => {
-    win.webContents.send('progress', e);
-  });
-  })
-  .catch((err) => {
-    event.sender.send('err', { er: err })
-  })
-})
+      launcher.launch(opts).then(() => {
+        win.webContents.send('game-launched');
+        setTimeout(() => {
+          app.quit();
+        }, 7500);
+      });
+
+      launcher.on('debug', (e) => {
+        win.webContents.send('log', e);
+      });
+      launcher.on('data', (e) => {
+        win.webContents.send('log', e);
+      });
+      launcher.on('progress', (e) => {
+        win.webContents.send('progress', e);
+      });
+    })
+    .catch((err) => {
+      event.sender.send('err', { er: err });
+    });
+});
