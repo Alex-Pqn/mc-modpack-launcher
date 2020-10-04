@@ -1,4 +1,4 @@
-const timeoutStatus = 200;
+const timeoutStatus = 75;
 const defaultValueMessage = 'Les valeurs ont été remises par défaut.';
 const changeMessage = 'Les changements ont été pris en compte.';
 
@@ -244,16 +244,6 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
       paragraphStatusRes,
       closeTextStatusRes
     );
-  });
-};
-
-// PR
-openAppdataFolders = (appdata) => {
-  document.getElementById('rp-folder').addEventListener('click', () => {
-    openFolder(`${appdata}\\.MMLauncher\\resourcepacks`);
-  });
-  document.getElementById('sp-folder').addEventListener('click', () => {
-    openFolder(`${appdata}\\.MMLauncher\\shaderpacks`);
   });
 };
 

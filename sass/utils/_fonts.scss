@@ -56,27 +56,23 @@
 //Options
 .options {
     &__content {
-        &__container {
-            & h2 {
-                font-family: 'Karla', sans-serif;;
-            }
-            & p, label, span {
-                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
-            }
+        & h2 {
+            font-family: 'Karla', sans-serif;;
+        }
+        & p, label, span {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
         }
     }
 }
 
 //Mods
-.mods {
+.modspr {
     &__content {
-        &__container {
-            & h2 {
-                font-family: 'Karla', sans-serif;;
-            }
-            & p, button {
-                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
-            }
+        & h2 {
+            font-family: 'Karla', sans-serif;;
+        }
+        & p, button {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
         }
     }
 }

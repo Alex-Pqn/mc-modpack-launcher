@@ -12,7 +12,7 @@ modsListFined = () => {
 
 getModsList = (modsList) => {
   const containerList = document.querySelector(
-    '.mods__content__container section'
+    '.modspr__content__container__mods section'
   );
   if (modsList.length < 1) {
     modsListError();
@@ -24,9 +24,12 @@ getModsList = (modsList) => {
       modSplitTwo = modSplitOne.split('.jar').join('');
       modSplitThree = modSplitTwo.split('universal').join('');
       modSplitFour = modSplitThree.split('+').join(' ');
+      modSplitFive = modSplitFour.split('_').join(' ');
+      modSplitSix = modSplitFive.split('[').join(' ');
+      modSplitSeven = modSplitSix.split(']').join(' ');
       const article = document.createElement('article');
       const textElement = document.createElement('p');
-      const textContent = document.createTextNode(`${i} - ${modSplitFour}`);
+      const textContent = document.createTextNode(`${i} - ${modSplitSeven}`);
 
       containerList.appendChild(article);
       article.appendChild(textElement);
