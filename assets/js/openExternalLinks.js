@@ -12,4 +12,4 @@ document.getElementById('discord-open-link').addEventListener('click', () => {
 
 document.getElementById('discord-community-open-link').addEventListener('click', () => {
     openExternalLink('https://discord.gg/jolate');
-  });
+});
