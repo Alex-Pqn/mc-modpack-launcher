@@ -63,33 +63,17 @@
 .header {
     &__nav {
         & ul {
-            & #minimize {
+            & li {
                 transition-property: all;
                 transition-duration: 150ms;
-                transform: scale(1);
+                background-color: rgba(151, 151, 151, 0.15);
                 &:hover {
-                    transform: scale(.92);
-                    margin-bottom: -4px;
-                    color: rgb(82, 82, 82);
-                }
-            }
-            & #maximize {
-                transition-property: all;
-                transition-duration: 250ms;
-                transform: rotateZ(0deg);
-                &:hover {
-                    transform: rotateZ(180deg);
-                    margin-bottom: -1px;
-                    color: rgb(0, 106, 177);
+                    background-color: rgba(255, 255, 255, 0.25);
                 }
             }
             & #close {
-                transition-property: all;
-                transition-duration: 300ms;
-                transform: rotateY(0deg);
                 &:hover {
-                    transform: rotateY(180deg);
-                    color: rgb(207, 0, 0);
+                    color: rgb(184, 0, 0);
                 }
             }
         }

@@ -16,12 +16,12 @@ header {
             & img {
                 display: flex;
                 align-self: flex-end;
-                width: 47px;
+                width: 40px;
                 margin-right: 6px;
             }
             & h3 {
-                margin: 10px;
-                font-size: .95em;
+                margin: 7px 10px;
+                font-size: .9em;
             }
         }
         &__nav {
@@ -32,18 +32,24 @@ header {
             & ul {
                 display: flex;
                 justify-content: center;
-                padding-right: 7px;
-                & #minimize {
-                    font-size: 1.1em;
+                height: 100%;
+                & #minimize i {
+                    font-size: .8em;
+                    padding-bottom: 9.5px;
+                    padding-right: 2px;
                 }
                 & #maximize i {
-                    font-size: .77em;
+                    font-size: .72em;
                 }
                 & #close i {
-                    font-size: .83em;
+                    font-size: .78em;
                 }
                 & li {
-                    margin-right: 18px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 45px;
+                    height: 100%;
                     font-size: 1.5em;
                 }
             }
