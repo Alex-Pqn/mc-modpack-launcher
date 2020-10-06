@@ -12,7 +12,7 @@ modsListFined = () => {
 
 getModsList = (modsList) => {
   const containerList = document.querySelector(
-    '.modspr__content__container__mods section'
+    '.pack__content__container__mods section'
   );
   if (modsList.length < 1) {
     modsListError();

@@ -1,4 +1,79 @@
 
+//Header
+.header {
+    &__nav {
+        & ul {
+            & li {
+                transition-property: all;
+                transition-duration: 150ms;
+                background-color: rgba(151, 151, 151, 0.15);
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.25);
+                }
+            }
+            & #close {
+                &:hover {
+                    color: rgb(184, 0, 0);
+                }
+            }
+        }
+    }
+}
+
+//Main-nav 
+.main-nav {
+    transition-property: all;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+    height: 16.9%;
+    &:hover {
+        height: 70%;
+    }
+    &__top {
+        & a {
+            transition-property: padding, margin, color;
+            transition-duration: 300ms;
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+            padding-left: 0px;
+            margin-left: 0px;
+            color: rgba(0, 0, 0, 0.85);
+            &:hover {
+                color: black;
+                margin-left: 3px;
+                border-left: 2px solid black;
+                padding-left: 7px;
+            }
+        }
+    }
+    &__bottom {
+        &__icons {
+            & #discord-icon {
+                color: #7289DA;
+            }
+            & #twitter-icon {
+                color: #1DA1F2;
+            }
+            & #github-icon {
+                color: rgb(26, 26, 26);
+            }
+            & i {
+                opacity: .8;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    &__active {
+        & span {
+            color: white;
+            margin-left: 3px;
+            border-left: 2px solid white;
+            padding-left: 7px;
+        }
+    }
+}
+
 //Index
 .index {
     &__content {
@@ -59,83 +134,7 @@
     }
 }
 
-//Header
-.header {
-    &__nav {
-        & ul {
-            & li {
-                transition-property: all;
-                transition-duration: 150ms;
-                background-color: rgba(151, 151, 151, 0.15);
-                &:hover {
-                    background-color: rgba(255, 255, 255, 0.25);
-                }
-            }
-            & #close {
-                &:hover {
-                    color: rgb(184, 0, 0);
-                }
-            }
-        }
-    }
-}
-
-//Main-nav 
-.main-nav {
-    transition-property: all;
-    transition-duration: 500ms;
-    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-    height: 16%;
-    &:hover {
-        height: 70%;
-    }
-    &__top {
-        & a {
-            transition-property: padding, margin, color;
-            transition-duration: 300ms;
-            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
-            padding-left: 0px;
-            margin-left: 0px;
-            color: rgba(0, 0, 0, 0.85);
-            &:hover {
-                color: black;
-                margin-left: 3px;
-                border-left: 2px solid black;
-                padding-left: 7px;
-            }
-        }
-    }
-    &__active {
-        & span {
-            color: white;
-            margin-left: 3px;
-            border-left: 2px solid white;
-            padding-left: 7px;
-        }
-    }
-    &__bottom {
-        &__icons {
-            & #discord-icon {
-                color: #7289DA;
-            }
-            & #twitter-icon {
-                color: #1DA1F2;
-            }
-            & #github-icon {
-                color: rgb(26, 26, 26);
-            }
-            & i {
-                opacity: .8;
-                &:hover {
-                    opacity: 1;
-                }
-            }
-        }
-    }
-}
-
 //Options
-
 .options {
     &__content {
         &__container {
@@ -186,9 +185,8 @@
     }
 }
 
-//Mods
-
-.modspr {
+//Pack
+.pack {
     &__content {
         &__container {
             &__mods {

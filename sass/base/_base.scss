@@ -1,4 +1,5 @@
 
+//Page loading animation
 @keyframes pageLoading {
     from {
         opacity: 0;
@@ -43,14 +44,18 @@ body {
     list-style-type: none;
 }
 
-#info-warn {
-    color: rgb(117, 53, 0);
-}
+//Resizing backgrounds & height page
 #main-container {
     background-size: cover;
     height: 100%;
 }
 
+//Info-warn text
+#info-warn {
+    color: rgb(117, 53, 0);
+}
+
+//Last parts in pages
 .last-option {
     margin-bottom: 57.5px;
 }

@@ -76,6 +76,12 @@ app.on('close', function (event) {
   return false;
 });
 
+// app updater
+
+const { autoUpdater } = require("electron-updater")
+
+autoUpdater.checkForUpdatesAndNotify()
+
 // login, auth, launch & opts minecraft launcher
 
 ipcMain.on('login', (event, data) => {

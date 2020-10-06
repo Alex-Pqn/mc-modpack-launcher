@@ -6,6 +6,7 @@
   "dependencies": {
     "cryptr": "^6.0.2",
     "electron-store": "^6.0.0",
+    "electron-updater": "^4.3.5",
     "minecraft-launcher-core": "^3.15.0"
   },
   "devDependencies": {
@@ -35,14 +36,22 @@
       "output": "release"
     },
     "win": {
+      "target": "nsis",
       "icon": "assets/img/icon/win/icon.ico"
     },
     "linux": {
       "icon": "assets/img/icon/png/icon.png"
     },
     "mac": {
+      "target": "dmg",
+      "category": "mc.mmlauncher.app",
       "icon": "assets/img/icon/mac/icon.icns"
     },
+    "publish": [{
+      "provider": "github",
+      "owner": "Alex-Pqn",
+      "repo": "marie-madeleine-launcher"
+  }],
     "nsis": {
       "license": "assets/license.txt",
       "allowToChangeInstallationDirectory": true,
@@ -65,7 +74,7 @@
     "url": "git+https://github.com/Alex-Pqn/electron-launcher.git"
   },
   "author": "Alex-Pqn",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Alex-Pqn/electron-launcher/issues"
   },
