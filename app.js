@@ -15,10 +15,6 @@ let win;
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
-// app updater
-
-autoUpdater.checkForUpdatesAndNotify()
-
 // main window launcher creation
 
 createWindow = () => {
@@ -56,7 +52,19 @@ createWindow = () => {
   );
 
   win.once('ready-to-show', () => {
+    autoUpdater.checkForUpdatesAndNotify();
     win.show();
+  });
+
+  autoUpdater.on('update-available', () => {
+    win.webContents.send('update_available');
+  });
+  autoUpdater.on('update-downloaded', () => {
+    win.webContents.send('update_downloaded');
+  });
+  
+  ipcMain.on('restart_app', () => {
+    autoUpdater.quitAndInstall();
   });
 };
 
