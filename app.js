@@ -8,10 +8,16 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
+const { autoUpdater } = require("electron-updater")
+
 let win;
 
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
+
+// app updater
+
+autoUpdater.checkForUpdatesAndNotify()
 
 // main window launcher creation
 
@@ -75,12 +81,6 @@ app.on('close', function (event) {
   app.hide();
   return false;
 });
-
-// app updater
-
-const { autoUpdater } = require("electron-updater")
-
-autoUpdater.checkForUpdatesAndNotify()
 
 // login, auth, launch & opts minecraft launcher
 
