@@ -1,7 +1,7 @@
 {
   "name": "mmlauncher",
   "version": "1.0.0",
-  "description": "Electron Minecraft Launcher",
+  "description": "Marie Madeleine Launcher",
   "main": "app.js",
   "dependencies": {
     "cryptr": "^6.0.2",
@@ -34,7 +34,17 @@
     "directories": {
       "output": "release"
     },
+    "win": {
+      "icon": "assets/img/icon/win/icon.ico"
+    },
+    "linux": {
+      "icon": "assets/img/icon/png/icon.png"
+    },
+    "mac": {
+      "icon": "assets/img/icon/mac/icon.icns"
+    },
     "nsis": {
+      "license": "assets/license.txt",
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
       "deleteAppDataOnUninstall": true

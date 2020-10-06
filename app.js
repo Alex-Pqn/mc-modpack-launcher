@@ -1,8 +1,8 @@
 // declarations & imports
 
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
