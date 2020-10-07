@@ -166,20 +166,26 @@ checkUpdate = () => {
 // update available
 ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
-  if (window.updateAvailable !== undefined) {
-    updateAvailable();
-  }
   console.log('Electron Updater : Update for the launcher detected.');
+
   document.getElementById('updater-restart').style.display = 'none';
   document.getElementById('updater').style.display = 'flex';
   document.getElementById('updater-available').style.display = 'flex';
+
+  setTimeout(() => {
+    if (window.updateAvailable !== undefined) {
+      updateAvailable();
+    }
+  }, 1500);
 });
 // update not available
 ipcRenderer.on('updater_update_not_available', () => {
   if (window.NoUpdateAvailable !== undefined) {
     NoUpdateAvailable();
   }
-  console.log('Electron Updater : No update detected for the launcher.');
+  console.log(
+    'Electron Updater : No update detected for the launcher.'
+  );
 });
 // update downloaded
 ipcRenderer.on('updater_update_downloaded', () => {
@@ -187,17 +193,16 @@ ipcRenderer.on('updater_update_downloaded', () => {
   console.log(
     'Electron Updater : Update finished, attempting to restart the launcher.'
   );
+
   document.getElementById('updater-available').style.display = 'none';
   document.getElementById('updater-restart').style.display = 'flex';
-  document
-    .getElementById('button-updater-restart')
-    .addEventListener('click', () => {
+  document.getElementById('button-updater-restart').addEventListener('click', () => {
       ipcRenderer.send('restart_app');
     });
 });
 // update error
 ipcRenderer.on('updater_error', (err) => {
-  console.log(`Electron Updater Error :${err}`);
+  console.error(`Electron Updater Error : ${err}`);
   if (window.updateError !== undefined) {
     updateError();
   }

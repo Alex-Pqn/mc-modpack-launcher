@@ -1,6 +1,6 @@
 {
   "name": "mmlauncher",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Marie Madeleine Launcher",
   "main": "app.js",
   "dependencies": {
