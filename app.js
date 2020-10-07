@@ -59,9 +59,7 @@ createWindow = () => {
 
   win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
-    setTimeout(() => {
-      win.show();
-    }, 250);
+    win.show();
   });
 };
 
