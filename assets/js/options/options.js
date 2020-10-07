@@ -1,11 +1,11 @@
+// GLOBAL
 const timeoutStatus = 75;
 const defaultValueMessage = 'Les valeurs ont été remises par défaut.';
 const changeMessage = 'Les changements ont été pris en compte.';
-
-const errorColor = 'rgb(122, 0, 0)'
-const warningColor = 'rgb(197, 95, 0)'
-const succedColor = 'rgb(0, 80, 0)'
-const textColor = 'white'
+const errorColor = 'rgb(122, 0, 0)';
+const warningColor = 'rgb(197, 95, 0)';
+const succedColor = 'rgb(0, 80, 0)';
+const textColor = 'white';
 
 displayStatus = (value, background, color, container, paragraph, closeText) => {
   closeStatus();
@@ -25,18 +25,17 @@ displayStatus = (value, background, color, container, paragraph, closeText) => {
   }, timeoutStatus);
 };
 
-// RAM
+// Minecraft Options : RAM
 const containerStatusRam = document.getElementById('container-status-ram');
 const paragraphStatusRam = document.getElementById('status-ram');
 const closeTextStatusRam = document.getElementById('close-status-ram');
 
+// call in preload
 storeRam = (getMinRam, getMaxRam) => {
   const inputMinRam = document.getElementById('min-ram');
   const inputMaxRam = document.getElementById('max-ram');
-
   const defaultMaxRam = 3584;
   const defaultMinRam = 2048;
-
   inputMinRam.value = getMinRam;
   inputMaxRam.value = getMaxRam;
 
@@ -68,6 +67,7 @@ storeRam = (getMinRam, getMaxRam) => {
 
   // button save ram
   document.getElementById('button-save-ram').addEventListener('click', () => {
+    // store values
     if (
       inputMinRam.value == '' ||
       parseInt(inputMinRam.value) > defaultMinRam
@@ -80,7 +80,7 @@ storeRam = (getMinRam, getMaxRam) => {
     ) {
       storeSet('minecraftOptionMaxRam', Math.floor(inputMaxRam.value));
     }
-
+    // display status
     if (
       inputMinRam.value == '' ||
       parseInt(inputMinRam.value) < defaultMinRam
@@ -118,15 +118,15 @@ storeRam = (getMinRam, getMaxRam) => {
   });
 };
 
-// JVM
+// Minecraft Options : JVM
 const containerStatusJvm = document.getElementById('container-status-jvm');
 const paragraphStatusJvm = document.getElementById('status-jvm');
 const closeTextStatusJvm = document.getElementById('close-status-jvm');
 
+// call in preload
 storeJvm = (getJvm) => {
   const inputJvm = document.getElementById('jvm');
   inputJvm.value = getJvm;
-
   const defaultJvm = [];
   const maxLengthJvm = 500;
 
@@ -152,6 +152,7 @@ storeJvm = (getJvm) => {
 
   // button save jvm
   document.getElementById('button-save-jvm').addEventListener('click', () => {
+    // display status & saves values
     if (inputJvm.value.length > maxLengthJvm) {
       displayStatus(
         `Vous ne pouvez pas inscrire une valeur supérieur à ${maxLengthJvm} caractères.`,
@@ -185,20 +186,19 @@ storeJvm = (getJvm) => {
   });
 };
 
-// RES
+// Minecraft Options : RES
 const containerStatusRes = document.getElementById('container-status-res');
 const paragraphStatusRes = document.getElementById('status-res');
 const closeTextStatusRes = document.getElementById('close-status-res');
 
+// call in preload
 storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
   const inputHeightRes = document.getElementById('height-res');
   const inputWidthRes = document.getElementById('width-res');
   const inputFullscreenRes = document.getElementById('fullscreen-res');
-
   const defaultHeightRes = 1080;
   const defaultWidthRes = 1920;
   const defaultFullscreenRes = true;
-
   inputHeightRes.value = getHeightRes;
   inputWidthRes.value = getWidthRes;
   inputFullscreenRes.checked = getFullscreenRes;
@@ -237,10 +237,11 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
 
   // button save res
   document.getElementById('button-save-res').addEventListener('click', () => {
+    // store values
     storeSet('minecraftOptionHeightRes', Math.floor(inputHeightRes.value));
     storeSet('minecraftOptionWidthRes', Math.floor(inputWidthRes.value));
     storeSet('minecraftOptionFullscreenRes', inputFullscreenRes.checked);
-
+    // display status
     displayStatus(
       changeMessage,
       succedColor,
@@ -252,21 +253,27 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
   });
 };
 
-// LAUNCHER
-const containerStatusLauncherOptions = document.getElementById('container-status-launcher-options');
-const paragraphStatusLauncherOptions = document.getElementById('status-launcher-options');
-const closeTextStatusLauncherOptions = document.getElementById('close-status-launcher-options');
+// Launcher Options
+const containerStatusLauncherOptions = document.getElementById(
+  'container-status-launcher-options'
+);
+const paragraphStatusLauncherOptions = document.getElementById(
+  'status-launcher-options'
+);
+const closeTextStatusLauncherOptions = document.getElementById(
+  'close-status-launcher-options'
+);
 
 updateAvailable = () => {
   displayStatus(
-    "Une mise à jour a été détectée. Lancement du processus de téléchargement en cours.",
+    'Une mise à jour a été détectée. Lancement du processus de téléchargement en cours.',
     succedColor,
     textColor,
     containerStatusLauncherOptions,
     paragraphStatusLauncherOptions,
     closeTextStatusLauncherOptions
   );
-}
+};
 NoUpdateAvailable = () => {
   displayStatus(
     "Après vérification, aucune nouvelle mise à jour n'est disponible.",
@@ -276,44 +283,51 @@ NoUpdateAvailable = () => {
     paragraphStatusLauncherOptions,
     closeTextStatusLauncherOptions
   );
-}
-updateError = (err) => {
+};
+updateError = () => {
   displayStatus(
-    "Erreur lors de la vérification d'une nouvelle mise à jour : " + err,
+    'Erreur lors de la vérification des mises à jour.',
     errorColor,
     textColor,
     containerStatusLauncherOptions,
     paragraphStatusLauncherOptions,
     closeTextStatusLauncherOptions
   );
-}
+};
 
+// call in preload
 launcherOptions = (appdata) => {
-    //update
-    document.getElementById('button-update-launcherOptions').addEventListener('click', () => {
-      checkUpdate()
-    })
-  
-    //cache
-    document.getElementById('button-cache-launcherOptions').addEventListener('click', () => {
+  // update
+  document
+    .getElementById('button-update-launcherOptions')
+    .addEventListener('click', () => {
+      checkUpdate();
+    });
+  // cache
+  document
+    .getElementById('button-cache-launcherOptions')
+    .addEventListener('click', () => {
       openFolder(`${appdata}\\mmlauncher`);
-    })
-  
-    //debugging mode
-    document.getElementById('button-debugging-launcherOptions').addEventListener('click', () => {
-      setStoreDebuggingMode()
+    });
+  // debugging mode
+  document
+    .getElementById('button-debugging-launcherOptions')
+    .addEventListener('click', () => {
+      setStoreDebuggingMode();
       displayStatus(
-        "Le mode de débogage a été activé. Il prendra seulement effet lors du prochain redémarrage.",
+        'Le mode de débogage a été activé. Il prendra seulement effet lors du prochain redémarrage.',
         succedColor,
         textColor,
         containerStatusLauncherOptions,
         paragraphStatusLauncherOptions,
         closeTextStatusLauncherOptions
       );
-    })
-}
+    });
+};
 
-// Close status
+// Close status on click "x"
+const closeStatusElement = document.querySelectorAll('.close-status');
+
 closeStatus = () => {
   // ram
   containerStatusRam.style.height = 0;
@@ -328,8 +342,6 @@ closeStatus = () => {
   containerStatusLauncherOptions.style.height = 0;
   containerStatusLauncherOptions.style.opacity = 0;
 };
-
-const closeStatusElement = document.querySelectorAll('.close-status');
 
 for (let i = 0; i < closeStatusElement.length; i++) {
   closeStatusElement[i].addEventListener('click', () => {

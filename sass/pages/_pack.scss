@@ -16,17 +16,31 @@
             flex-direction: column;
             height: 100%;
             width: 92%;
+
+            //Parts
+            &__parts {
+                background-color: $background-parts;
+                border-radius: .7em;
+                padding: 11.5px 13.5px;
+                margin-top: 15px;
+                & h2 {
+                    @include parts-h2-pack-options
+                }
+                & p {
+                    line-height: 25px;
+                    margin-bottom: 7px;
+                }
+            }
+
+            //Mods
             &__mods {
                 display: flex;
                 flex-direction: column;
                 height: 70%;
                 & #error-mods-list {
                     display: none;
-                    font-size: .97em;
-                    margin-top: 3px;
-                    color: rgb(88, 0, 0);
-                    padding: 5px 10px;
-                    background-color: rgba(180, 0, 0, 0.2);
+                    width: 100%;
+                    @include parts-error-pack-options
                 }
                 & button {
                     font-size: 1em;
@@ -46,24 +60,16 @@
                     }
                 }
             }
+
+            //Pr
             &__pr {
+                & #pr-error {
+                    @include parts-error-pack-options
+                }
                 & button {
                     margin-left: 3px;
                     font-size: .82em;
                     padding: 3.3px 3.7px;
-                }
-            }
-            &__parts {
-                background-color: $background-parts;
-                border-radius: .7em;
-                padding: 11.5px 13.5px;
-                margin-top: 15px;
-                & h2 {
-                    @include parts-h2-pack-options
-                }
-                & p {
-                    line-height: 25px;
-                    margin-bottom: 7px;
                 }
             }
         }

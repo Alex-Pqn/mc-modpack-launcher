@@ -76,7 +76,7 @@
 
 //Index
 .index {
-    &__right-content {
+    &__content {
         &__login-form {
             & input:focus, textarea:focus {
                 border: 1px solid red;
@@ -160,6 +160,9 @@
                 transition-property: all;
                 transition-duration: 250ms;
                 background-color: rgba(63, 63, 63, 0.5);
+                &:hover {
+                    background-color: rgba(63, 63, 63, 0.62);
+                }
             }
 
             & #button-save-ram, #button-save-jvm, #button-save-res {

@@ -10,6 +10,7 @@ modsListFined = () => {
   modsListErrorContainer.style.display = 'none';
 };
 
+// call in preload
 getModsList = (modsList) => {
   const containerList = document.querySelector(
     '.pack__content__container__mods section'

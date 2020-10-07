@@ -19,7 +19,9 @@
     </head>
     <body>
         <div id="main-container">
+            <!--Updater-->
             <div class="updater" id="updater">
+                <!--available-->
                 <div class="updater__available" id="updater-available">
                     <h3>
                         Mise à jour détectée ! 
@@ -37,6 +39,7 @@
                         <span id="typed-info"></span>
                     </p>
                 </div>
+                <!--restart-->
                 <div class="updater__restart" id="updater-restart">
                     <h3>
                         Téléchargement terminé !
@@ -49,6 +52,7 @@
                     </button>
                 </div>
             </div>
+            <!--Header-->
             <header>
                 <div class="header">
                     <div class="header__title">
@@ -73,7 +77,9 @@
                 </div>
             </header>
             <main class="pack">
+                <!--Main-nav-->
                 <div class="main-nav">
+                    <!--top-->
                     <div class="main-nav__top">
                         <h3>
                             Navigation
@@ -101,6 +107,7 @@
                             </li>
                         </ul>
                     </div>
+                    <!--bottom-->
                     <div class="main-nav__bottom">
                         <div class="main-nav__bottom__icons">
                             <a href="" id="github-open-link">
@@ -122,6 +129,8 @@
                 </div>
                 <div class="pack__content">
                     <div class="pack__content__container">
+
+                        <!--Mods-->
                         <div class="pack__content__container__parts pack__content__container__mods">
                             <h2>
                                 Liste des Mods
@@ -142,6 +151,8 @@
                                 <!--Generate JS Content-->
                             </section>
                         </div>
+
+                        <!--Pr-->
                         <div class="last-option pack__content__container__parts pack__content__container__pr">
                             <h2>
                                 Packs de ressource
@@ -155,23 +166,29 @@
                             <p id="info-warn">
                                 Il est nécessaire d'avoir lancé le jeu au minimum une fois.
                             </p>
-                            <p>
-                                <strong>
-                                    Ressource-packs :
-                                </strong>
-                                <button id="rp-folder">
-                                    Ouvrir le dossier
-                                </button>
+                            <p id="pr-error">
+                                Les dossiers et chemins d'accès n'ont pas été trouvés.
                             </p>
-                            <p>
-                                <strong>
-                                    Shader-packs :
-                                </strong>
-                                <button id="sp-folder">
-                                    Ouvrir le dossier
-                                </button>
-                            </p>
+                            <div id="pr-buttons">
+                                <p>
+                                    <strong>
+                                        Ressource-packs :
+                                    </strong>
+                                    <button id="rp-folder">
+                                        Ouvrir le dossier
+                                    </button>
+                                </p>
+                                <p>
+                                    <strong>
+                                        Shader-packs :
+                                    </strong>
+                                    <button id="sp-folder">
+                                        Ouvrir le dossier
+                                    </button>
+                                </p>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </main>

@@ -1,7 +1,10 @@
 const { ipcRenderer, remote, shell, app } = require('electron');
 
 const Store = require('electron-store');
+
 const store = new Store();
+
+const fs = require('fs');
 
 const appdataUserFolder = store.get('appdataPathUser');
 
@@ -30,8 +33,8 @@ authSend = (u, p) => {
   ipc.send('login', { u, p });
 };
 
-ipc.on('err', (data) => {
-  authError(data);
+ipc.on('err', (err) => {
+  authError(err);
 });
 ipc.on('done', () => {
   authDone();
@@ -39,6 +42,7 @@ ipc.on('done', () => {
 
 // Cryptr - authenticator.js
 const Cryptr = require('cryptr');
+
 const cryptr = new Cryptr('myTotalySecretKey');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -117,78 +121,84 @@ window.addEventListener('DOMContentLoaded', () => {
 // Launcher Options - options.js
 window.addEventListener('DOMContentLoaded', () => {
   if (window.launcherOptions !== undefined) {
-    launcherOptions(appdataUserFolder)
+    launcherOptions(appdataUserFolder);
   }
-  if (window.openAppdataCacheFolder !== undefined) {
-    openAppdataCacheFolder = () => {
-      shell.openPath(path);
-    }
-  }
-  if (window.setStoreDebuggingMode !== undefined) {
-    setStoreDebuggingMode = () => {
-      store.set('launcherOptionDebuggingMode', true)
-    }
-  }
+  openAppdataCacheFolder = () => {
+    shell.openPath(path);
+  };
+  setStoreDebuggingMode = () => {
+    store.set('launcherOptionDebuggingMode', true);
+  };
 });
 
 // Path & Open Folders - openPrFolders.js
 window.addEventListener('DOMContentLoaded', () => {
+  if (window.openAppdataFoldersError !== undefined) {
+    openAppdataFoldersError();
+  }
+  const launcherFolderLength = fs.readdirSync(
+    `${appdataUserFolder}\\.MMLauncher`
+  );
   if (window.openAppdataFolders !== undefined) {
-    openAppdataFolders(appdataUserFolder);
+    openAppdataFolders(appdataUserFolder, launcherFolderLength);
   }
 });
 
 // ModsList - modsList.js
-const fs = require('fs');
-
 window.addEventListener('DOMContentLoaded', () => {
   if (window.modsListError !== undefined) {
     modsListError();
   }
-  const modsFolder = fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`);
+  const modsFolderLength = fs.readdirSync(
+    `${appdataUserFolder}\\.MMLauncher\\mods`
+  );
   if (window.getModsList !== undefined) {
-    getModsList(modsFolder);
+    getModsList(modsFolderLength);
   }
 });
-
 
 // Electron-updater
 
+// update check (call in options part)
 checkUpdate = () => {
   ipcRenderer.send('check-update');
-}
-
+};
+// update available
 ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
   if (window.updateAvailable !== undefined) {
-    updateAvailable()
+    updateAvailable();
   }
-  console.log('Electron Updater : Update for the launcher detected.')
-  document.getElementById('updater-restart').style.display = 'none'
-  document.getElementById('updater').style.display = 'flex'
-  document.getElementById('updater-available').style.display = 'flex'
+  console.log('Electron Updater : Update for the launcher detected.');
+  document.getElementById('updater-restart').style.display = 'none';
+  document.getElementById('updater').style.display = 'flex';
+  document.getElementById('updater-available').style.display = 'flex';
 });
-
+// update not available
 ipcRenderer.on('updater_update_not_available', () => {
   if (window.NoUpdateAvailable !== undefined) {
-    NoUpdateAvailable()
+    NoUpdateAvailable();
   }
-  console.log('Electron Updater : No update detected for the launcher.')
+  console.log('Electron Updater : No update detected for the launcher.');
 });
-
+// update downloaded
 ipcRenderer.on('updater_update_downloaded', () => {
   ipcRenderer.removeAllListeners('updater_update_downloaded');
-  console.log('Electron Updater : Update finished, attempting to restart the launcher.')
-  document.getElementById('updater-available').style.display = 'none'
-  document.getElementById('updater-restart').style.display = 'flex'
-  document.getElementById('button-updater-restart').addEventListener('click', () => {
-  ipcRenderer.send('restart_app');
-  })
+  console.log(
+    'Electron Updater : Update finished, attempting to restart the launcher.'
+  );
+  document.getElementById('updater-available').style.display = 'none';
+  document.getElementById('updater-restart').style.display = 'flex';
+  document
+    .getElementById('button-updater-restart')
+    .addEventListener('click', () => {
+      ipcRenderer.send('restart_app');
+    });
 });
-
+// update error
 ipcRenderer.on('updater_error', (err) => {
+  console.log(`Electron Updater Error :${err}`);
   if (window.updateError !== undefined) {
-    updateError(err)
+    updateError();
   }
-  console.log('Electron Updater Error :' + err)
-})
+});

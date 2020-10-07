@@ -1,14 +1,14 @@
-
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
 const Store = require('electron-store');
+
 const store = new Store();
 
-const { autoUpdater } = require("electron-updater")
+const { autoUpdater } = require('electron-updater');
 
-//DEV TOOLS
+// DEV TOOLS
 // require('electron-reload')(__dirname, {
 //   electron: require(`${__dirname}/node_modules/electron`),
 // });
@@ -16,18 +16,19 @@ const { autoUpdater } = require("electron-updater")
 // Object.defineProperty(app, 'isPackaged', {
 //   get() {
 //     return true;
-//   }
+//   },
 // });
 
 let win;
+let appdataPathUser;
 
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
-//debugging mode
-const debuggingMode = store.get('launcherOptionDebuggingMode')
+// debugging mode
+const debuggingMode = store.get('launcherOptionDebuggingMode');
 if (debuggingMode === undefined) {
-  store.set('launcherOptionDebuggingMode', false)
+  store.set('launcherOptionDebuggingMode', false);
 }
 
 // main window launcher creation
@@ -66,27 +67,27 @@ createWindow = () => {
   );
 
   win.once('ready-to-show', () => {
-    //check update
+    // check update
     autoUpdater.checkForUpdatesAndNotify();
 
-    //path user
-    const appdataPathUser = app.getPath('appData');
+    // path user
+    appdataPathUser = app.getPath('appData');
 
-    //debugging mode
+    // debugging mode
     store.set('appdataPathUser', appdataPathUser);
     if (debuggingMode === true) {
-      store.set('launcherOptionDebuggingMode', false)
+      store.set('launcherOptionDebuggingMode', false);
     }
 
-    //show window
+    // show window
     win.show();
   });
 };
 
-//updater
+// app updater
 ipcMain.on('check-update', () => {
   autoUpdater.checkForUpdatesAndNotify();
-})
+});
 
 autoUpdater.on('update-available', () => {
   win.webContents.send('updater_update_available');
@@ -94,9 +95,10 @@ autoUpdater.on('update-available', () => {
 autoUpdater.on('update-not-available', () => {
   win.webContents.send('updater_update_not_available');
 });
-autoUpdater.on('error', (e, err) => {
-  win.webContents.send('updater_error', err);
-})
+autoUpdater.on('error', (err) => {
+  const error = err;
+  win.webContents.send('updater_error', error);
+});
 autoUpdater.on('update-downloaded', () => {
   win.webContents.send('updater_update_downloaded');
 });
@@ -104,6 +106,7 @@ ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
 
+// app ready
 app.whenReady().then(() => {
   createWindow();
 

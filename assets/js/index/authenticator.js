@@ -95,6 +95,7 @@ button.addEventListener('click', (e) => {
   formValidation();
 });
 
+// Mojang API Connection Succeed
 authDone = () => {
   mainNav.style.display = 'none';
   gameLaunchedText.style.display = 'block';
@@ -114,14 +115,15 @@ authDone = () => {
   }
 };
 
+// Mojang API Connection Error
 authError = (data) => {
+  console.error(`Auth error : ${data.er}`);
   button.style.display = 'initial';
   uInput.disabled = false;
   pInput.disabled = false;
   authRemember.disabled = false;
   gameLaunchedText.style.display = 'none';
   mainNav.style.display = 'initial';
-  console.error(`Auth error : ${data.er}`);
   displayStatusForm(
     'Les identifiants de connexion Mojang sont incorrects.',
     'rgb(255, 104, 104)',
@@ -129,6 +131,7 @@ authError = (data) => {
   );
 };
 
+// Download Modpack files progress
 downloadProgress = (data) => {
   if (data.type === 'forge') {
     displayInfoForm(
@@ -163,6 +166,7 @@ downloadProgress = (data) => {
   }
 };
 
+// Download Modpack files finished
 downloadFinished = () => {
   displayStatusForm(
     'Téléchargement des mises à jour terminé.',

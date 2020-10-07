@@ -18,6 +18,8 @@
             width: 92%;
             border-top-left-radius: .5em;
             border-bottom-left-radius: .3em;
+
+            //Parts
             &__parts {
                 background-color: $background-parts;
                 border-radius: .7em;
@@ -63,11 +65,7 @@
                     }
                 }
             }
-            &__jvm {
-                & input {
-                    width: 20em;
-                }
-            }
+
             &__ram, &__res {
                 & span {
                     position: relative;
@@ -82,14 +80,8 @@
                     -moz-appearance: textfield;
                 }
             }
-            &__ram {
-                & span {
-                    margin-left: -38px;
-                }
-                & input {
-                    padding-right: 33px;
-                }
-            }
+
+            //RES
             &__res {
                 & span {
                     margin-left: -51px;
@@ -111,6 +103,23 @@
                 }
                 &__values {
                     width: 100%;
+                }
+            }
+
+            //RAM
+            &__ram {
+                & span {
+                    margin-left: -38px;
+                }
+                & input {
+                    padding-right: 33px;
+                }
+            }
+
+            //JVM
+            &__jvm {
+                & input {
+                    width: 20em;
                 }
             }
         }
