@@ -5,7 +5,7 @@
         <meta charset='utf-8'>
         <meta name='google' content='notranslate'>
         <meta name='robots' content='noindex,nofollow'>
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-typed'">
         <!--CDN Fonts-->
         <!--Importations & Responsive-->
         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
@@ -194,7 +194,7 @@
                                 Réinitialiser par défaut
                             </button>
                         </article>
-                        <article class="last-option options__content__container__parts options__content__container__jvm">
+                        <article class="options__content__container__parts options__content__container__jvm">
                             <h2>
                                 Arguments de lancement (JVM)
                             </h2>
@@ -224,13 +224,39 @@
                                 Réinitialiser par défaut
                             </button>
                         </article>
+                        <article class="last-option options__content__container__parts options__content__container__launcher-options">
+                            <h2>
+                                Launcher
+                            </h2>
+                            <p>
+                                Retrouvez les options relatives à ce launcher ci-dessous.
+                            </p>
+
+                            <button id="button-update-launcherOptions">
+                                Rechercher une mise à jour
+                            </button>
+
+
+                            <button id="button-debugging-launcherOptions">
+                                Redémarrer en mode débogage
+                            </button>
+
+                            <button id="button-cache-launcherOptions">
+                                Supprimer le cache
+                            </button>
+                        </article>
                     </div>
                 </div>
             </main>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" crossorigin="anonymous">
+        <script nonce="typed" src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+        <script src="../js/options/minecraftOptions.js"></script>
+        <script src="../js/options/launcherOptions.js"></script>
+
+        <script src="../js/typed.js"></script>
         <script src="../js/openExternalLinks.js"></script>
-        <script src="../js/minecraftOptions.js"></script>
         <script src="../js/randomBckgrnd.js"></script>
         <script src="../js/consoleWarn.js"></script>
         <script src="../js/navBarButtons.js"></script>

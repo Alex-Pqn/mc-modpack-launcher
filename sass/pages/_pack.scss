@@ -35,7 +35,7 @@
                     margin-bottom: 12px;
                 }
                 &__list {
-                    background-color: rgba(255, 255, 255, 0.1);
+                    background-color: rgba(255, 255, 255, 0.15);
                     padding: 10px 13px;
                     border-radius: .5em;
                     overflow: auto;
@@ -54,20 +54,14 @@
                 }
             }
             &__parts {
-                background-color: rgba(187, 187, 187, 0.7);
+                background-color: $background-parts;
+                border-radius: .7em;
                 padding: 11.5px 13.5px;
-                border-radius: 1em;
                 margin-top: 15px;
                 & h2 {
-                    border-bottom: 1px solid black;
-                    font-size: 1.21em;
-                    letter-spacing: 1px;
-                    margin-top: 7px;
-                    margin-bottom: 8px;
-                    padding-bottom: 7px;
+                    @include parts-h2-pack-options
                 }
                 & p {
-                    font-size: 1.1em;
                     line-height: 25px;
                     margin-bottom: 7px;
                 }

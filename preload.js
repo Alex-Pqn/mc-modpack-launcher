@@ -1,12 +1,67 @@
 const { ipcRenderer, remote, app } = require('electron');
 
 const Store = require('electron-store');
-
 const store = new Store();
 
 const appdataUserFolder = store.get('minecraftOptionAppdata');
 
-// Window
+// Modpack downloader - authenticator.js
+window.launch = (data) => {
+  ipcRenderer.send('launch', data);
+};
+ipcRenderer.on('log', (event, data) => {
+  debugLogs(data);
+});
+ipcRenderer.on('progress', (event, data) => {
+  downloadProgress(data);
+});
+ipcRenderer.on('game-launched', (event, data) => {
+  downloadFinished();
+});
+
+// Authenticator - authenticator.js
+const ipc = require('electron').ipcRenderer;
+
+authSend = (u, p) => {
+  ipc.send('login', { u, p });
+};
+
+ipc.on('err', (data) => {
+  authError(data);
+});
+ipc.on('done', () => {
+  authDone();
+});
+
+// Cryptr - authenticator.js
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotalySecretKey');
+
+window.addEventListener('DOMContentLoaded', () => {
+  const auth = store.get('auth');
+  if (window.getAuthStore !== undefined) {
+    getAuthStore(auth);
+  }
+});
+
+authEncrypt = (u, p) => {
+  const uEncrypted = cryptr.encrypt(u);
+  const pEncrypted = cryptr.encrypt(p);
+  authStore(uEncrypted, pEncrypted);
+};
+authDecrypt = (u, p) => {
+  const uDecrypted = cryptr.decrypt(u);
+  const pDecrypted = cryptr.decrypt(p);
+  displayAuthInformations(uDecrypted, pDecrypted);
+};
+authSetStore = (auth) => {
+  store.set('auth', JSON.stringify(auth));
+};
+authInformationsDelete = () => {
+  store.delete('auth');
+};
+
+// Window - navBarButtons.js
 const win = remote.getCurrentWindow();
 winMinimize = () => {
   win.minimize();
@@ -22,47 +77,12 @@ winClose = () => {
   win.close();
 };
 
-// Open folder
-const { shell } = require('electron');
-
-openFolder = (path) => {
-  shell.openPath(path);
-};
-
-// Modpack downloader
-window.launch = (data) => {
-  ipcRenderer.send('launch', data);
-};
-ipcRenderer.on('log', (event, data) => {
-  debugLogs(data);
-});
-ipcRenderer.on('progress', (event, data) => {
-  downloadProgress(data);
-});
-ipcRenderer.on('game-launched', (event, data) => {
-  downloadFinished();
-});
-
-// Externals links
+// Externals links - openExternalLinks.js
 openExternalLink = (link) => {
   require('electron').shell.openExternal(link);
 };
 
-// Authenticator
-const ipc = require('electron').ipcRenderer;
-
-authSend = (u, p) => {
-  ipc.send('login', { u, p });
-};
-ipc.on('err', (data) => {
-  authError(data);
-});
-
-ipc.on('done', () => {
-  authDone();
-});
-
-// Store
+// Minecraft Options - minecraftOptions.js
 const getMinRam = store.get('minecraftOptionMinRam');
 const getMaxRam = store.get('minecraftOptionMaxRam');
 
@@ -90,46 +110,27 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Cryptr
-const Cryptr = require('cryptr');
-
-const cryptr = new Cryptr('myTotalySecretKey');
-
-authEncrypt = (u, p) => {
-  const uEncrypted = cryptr.encrypt(u);
-  const pEncrypted = cryptr.encrypt(p);
-  authStore(uEncrypted, pEncrypted);
-};
-
-authDecrypt = (u, p) => {
-  const uDecrypted = cryptr.decrypt(u);
-  const pDecrypted = cryptr.decrypt(p);
-  displayAuthInformations(uDecrypted, pDecrypted);
-};
-
-authSetStore = (auth) => {
-  store.set('auth', JSON.stringify(auth));
-};
-
+// Launcher Options - launcherOptions.js
 window.addEventListener('DOMContentLoaded', () => {
-  const auth = store.get('auth');
-  if (window.getAuthStore !== undefined) {
-    getAuthStore(auth);
+  if (window.launcherOptions !== undefined) {
+    launcherOptions()
   }
 });
 
-authInformationsDelete = () => {
-  store.delete('auth');
+// Path & Open Folders - openPrFolders.js
+const { shell } = require('electron');
+
+openFolder = (path) => {
+  shell.openPath(path);
 };
 
-// Path
 window.addEventListener('DOMContentLoaded', () => {
   if (window.openAppdataFolders !== undefined) {
     openAppdataFolders(appdataUserFolder);
   }
 });
 
-// Mods
+// ModsList - modsList.js
 const fs = require('fs');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -143,7 +144,12 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//Auto-updater
+// Electron-updater
+
+checkUpdate = () => {
+  ipcRenderer.send('check-update');
+}
+
 ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
   console.log('Electron Updater : Update for the launcher detected.')

@@ -5,7 +5,7 @@
         <meta charset='utf-8'>
         <meta name='google' content='notranslate'>
         <meta name='robots' content='noindex,nofollow'>
-        <meta http-equiv="Content-Security-Policy" content="script-src 'self'">
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-typed'">
         <!--CDN Fonts-->
         <!--Importations & Responsive-->
         <meta http-equiv='X-UA-Compatible' content='ie=edge'>
@@ -121,7 +121,7 @@
                     </div>
                 </div>
                 <div class="about__content">
-                    <div class="about__content__community">
+                    <div class="about__content__parts about__content__community">
                         <h1>
                             Communauté
                         </h1>
@@ -133,7 +133,7 @@
                             Vous pouvez dès maintenant rejoindre ce même Discord en <a href="" id="discord-community-open-link">cliquant ici</a>.
                         </p>
                     </div>
-                    <div class="about__content__cgu">
+                    <div class="about__content__parts about__content__cgu">
                         <article class="about__content__cgu__start">
                             <h1>
                                 Mentions légales
@@ -370,6 +370,9 @@
             </main>
         </div>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" crossorigin="anonymous">
+        <script nonce="typed" src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+        <script src="../js/typed.js"></script>
         <script src="../js/openExternalLinks.js"></script>
         <script src="../js/randomBckgrnd.js"></script>
         <script src="../js/consoleWarn.js"></script>

@@ -189,22 +189,13 @@
 .pack {
     &__content {
         &__container {
-            &__mods {
-                & button {
-                    transition-duration: 150ms;
-                    opacity: .8;
-                    &:hover {
-                        opacity: 1;
-                    }
-                }
-            }
             &__parts {
                 & button {
                     transition-property: all;
                     transition-duration: 150ms;
-                    opacity: .77;
-                    background-color: rgba(129, 129, 129, 0.3);
-                    border: 2px solid rgba(75, 75, 75, 0.4);
+                    opacity: .75;
+                    background-color: rgba(173, 173, 173, 0.5);
+                    border: 2px solid rgba(105, 105, 105, 0.6);
                     color: rgba(0, 0, 0, 0.9);
                     &:hover {
                         opacity: 1;

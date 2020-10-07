@@ -19,16 +19,12 @@
             border-top-left-radius: .5em;
             border-bottom-left-radius: .3em;
             &__parts {
-                background-color: rgba(185, 185, 185, 0.8);
+                background-color: $background-parts;
                 border-radius: .7em;
                 padding: 11.5px 13.5px;
                 margin-top: 15px;
                 & h2 {
-                    border-bottom: 1px solid black;
-                    font-size: 1.1em;
-                    letter-spacing: 1px;
-                    margin-bottom: 7px;
-                    padding-bottom: 7px;
+                    @include parts-h2-pack-options
                 }
                 & p {
                     line-height: 20px;
@@ -118,6 +114,11 @@
                 }
                 &__values {
                     width: 100%;
+                }
+            }
+            &__launcher-options {
+                & button {
+                    margin: 0;
                 }
             }
         }

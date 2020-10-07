@@ -1,3 +1,7 @@
+@import './utils/fonts';
+@import './utils/mixins';
+@import './utils/variables';
+
 @import './base/base';
 
 @import './components/animations';
@@ -11,7 +15,3 @@
 @import './pages/options';
 @import './pages/about';
 @import './pages/pack';
-
-@import './utils/fonts';
-@import './utils/mixins';
-@import './utils/variables';
