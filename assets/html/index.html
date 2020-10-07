@@ -43,80 +43,111 @@
                 </div>
             </header>
             <main class="index">
-                <div id="notification" class="hidden">
-                    <p id="message"></p>
-                    <button id="close-button" onClick="closeNotification()">
-                      Close
-                    </button>
-                    <button id="restart-button" onClick="restartApp()" class="hidden">
-                      Restart
-                    </button>
-                </div>
-                <div id="main-nav" class="main-nav">
-                    <div class="main-nav__top">
-                        <h3>
-                            Navigation
-                        </h3>
-                        <ul> 
-                            <li class="main-nav__active">
-                                <a href="index.html">
-                                    <span>
-                                        Accueil
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="options.html">
-                                    Options
-                                </a>
-                            </li>
-                            <li>
-                                <a href="pack.html">
-                                    Pack
-                                </a>
-                            </li>
-                            <li>
-                                <a href="about.html">
-                                    À propos
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="main-nav__bottom">
-                        <div class="main-nav__bottom__icons">
-                            <a href="" id="github-open-link">
-                                <i id="github-icon" class="fab fa-github"></i>
-                            </a>
-                            <a href="" id="discord-open-link">
-                                <i id="discord-icon" class="fab fa-discord"></i>
-                            </a>
-                            <a href="" id="twitter-open-link">
-                                <i id="twitter-icon" class="fab fa-twitter"></i>
-                            </a>
-                        </div>
-                        <div class="main-nav__bottom__credit">
+                <div class="index__left-content">
+                    <div class="index__left-content__top">
+                        <div id="updater-container-available" class="index__left-content__top__updater">
+                            <h3>
+                                Mise à jour détectée ! :D
+                            </h3>
                             <p>
-                                © 2020 Alex-Pqn
+                                Une nouvelle mise à jour pour le Marie Madeleine Launcher est en cours d'installation.
+                            </p>
+                            <p id="updater-speed-download">
+                                
+                            </p>
+                            <p id="updater-percent-downloaded">
+                                
+                            </p>
+                            <p id="updater-total-downloaded">
+                                
+                            </p>
+                        </div>
+                        <div id="updater-container-restart" class="index__left-content__top__updater">
+                            <h3>
+                                Mise à jour terminée !
+                            </h3>
+                            <p>
+                                Il est nécessaire de redémarrer le launcher afin de l'appliquer.
+                            </p>
+                            <button id="button-updater-restart">
+                                Redémarrer
+                            </button>
+                        </div>
+                        <div id="updater-container-downloaded" class="index__left-content__top__updater">
+                            <h3>
+                                Vous êtes à jour ! :D
+                            </h3>
+                            <p>
+                                Le launcher possède désormais la dernière mise à jour disponible...
                             </p>
                         </div>
                     </div>
+                    <div class="index__left-content__bottom">
+                        <div id="main-nav" class="index__left-content__bottom__main-nav">
+                            <div class="index__left-content__bottom__main-nav__top">
+                                <h3>
+                                    Navigation
+                                </h3>
+                                <ul> 
+                                    <li class="index__left-content__bottom__main-nav__active">
+                                        <span>
+                                            Accueil
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <a href="options.html">
+                                            Options
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="pack.html">
+                                            Pack
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="about.html">
+                                            À propos
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="index__left-content__bottom__main-nav__bottom">
+                                <div class="index__left-content__bottom__main-nav__bottom__icons">
+                                    <a href="" id="github-open-link">
+                                        <i id="github-icon" class="fab fa-github"></i>
+                                    </a>
+                                    <a href="" id="discord-open-link">
+                                        <i id="discord-icon" class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="" id="twitter-open-link">
+                                        <i id="twitter-icon" class="fab fa-twitter"></i>
+                                    </a>
+                                </div>
+                                <div class="index__left-content__bottom__main-nav__bottom__credit">
+                                    <p>
+                                        © 2020 Alex-Pqn
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="game-launched">
+                        <p>
+                            <span>
+                                Lancement du jeu en cours...
+                            </span>
+                        </p>
+                    </div>
                 </div>
-                <div id="game-launched">
-                    <p>
-                        <span>
-                            Lancement du jeu en cours...
-                        </span>
-                    </p>
-                </div>
-                <div class="index__content">
-                    <div class="index__content__audio-player">
+                <div class="index__right-content">
+                    <div class="index__right-content__audio-player">
                         <audio id="audio-player" preload="metadata" loop controls>
                             <source src="../audio/minecraft.mp3" type="audio/mp3">
                             Votre navigateur n'est pas compatible avec le lecteur audio.
                         </audio>
                     </div>
-                    <div class="index__content__login-form">
-                        <div class="index__content__login-form__title">
+                    <div class="index__right-content__login-form">
+                        <div class="index__right-content__login-form__title">
                             <h3>
                                 Compte Mojang
                             </h3>
@@ -132,7 +163,7 @@
                         </label>
                         <input type="password" id="p" name="password" required minlength="3" maxlength="32">
                         <!--remember-->
-                        <div class="index__content__login-form__remember">
+                        <div class="index__right-content__login-form__remember">
                             <label for="checkbox">Se souvenir de moi ?</label>
                             <input type="checkbox" name="checkbox" id="authRemember">
                         </div>

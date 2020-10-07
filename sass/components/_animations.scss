@@ -21,7 +21,7 @@
 }
 
 //Main-nav 
-.main-nav {
+.main-nav, .index__left-content__bottom__main-nav {
     transition-property: all;
     transition-duration: 500ms;
     transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
@@ -76,7 +76,7 @@
 
 //Index
 .index {
-    &__content {
+    &__right-content {
         &__login-form {
             & input:focus, textarea:focus {
                 border: 1px solid red;

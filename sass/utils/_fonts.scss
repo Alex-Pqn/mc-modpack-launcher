@@ -8,7 +8,7 @@
 }
 
 //Main-nav
-.main-nav {
+.main-nav, .index__left-content__bottom__main-nav {
     &__top {
         font-family: 'Karla', sans-serif;
     }
@@ -17,9 +17,21 @@
     }
 }
 
+//Updater
+.index {
+    &__left-content {
+        &__top {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            & h3, button {
+                font-family: 'Karla', sans-serif;
+            }
+        }
+    }
+}
+
 //Index
 .index {
-    &__content {
+    &__right-content {
         &__login-form {
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
         }

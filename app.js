@@ -1,12 +1,19 @@
-// declarations & imports
-
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
 
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
+
+//DEV
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
+
+// Object.defineProperty(app, 'isPackaged', {
+//   get() {
+//     return true;
+//   }
+// });
+//DEV
 
 const { autoUpdater } = require("electron-updater")
 
@@ -53,41 +60,30 @@ createWindow = () => {
 
   win.once('ready-to-show', () => {
     win.show();
-  });
-
-  autoUpdater.on('checking-for-update', (e) => {
-    win.webContents.send('checking-for-update', e);
-  })
-  autoUpdater.on('update-available', (e) => {
-    win.webContents.send('update_available', e);
-  });
-  autoUpdater.on('update-downloaded', (e) => {
-    win.webContents.send('update_downloaded', e);
-  });
-  autoUpdater.on('update-not-available', (e) => {
-    win.webContents.send('update-not-available', e);
-  })
-  autoUpdater.on('error', (err) => {
-    win.webContents.send('error', err);
-  })
-  autoUpdater.on('download-progress', (progressObj) => {
-    win.webContents.send('download-progress', progressObj);
-      // let log_message = "Download speed: " + progressObj.bytesPerSecond;
-      // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-      // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-      // sendStatusToWindow(log_message);
-  })
-  autoUpdater.on('update-downloaded', (e) => {
-    win.webContents.send('update-downloaded', e);
-  });
-
-  ipcMain.on('restart_app', () => {
-    autoUpdater.quitAndInstall();
+    autoUpdater.checkForUpdatesAndNotify();
   });
 };
 
+
+autoUpdater.on('update-available', (e) => {
+  win.webContents.send('updater_update_available', e);
+});
+autoUpdater.on('error', (err) => {
+  win.webContents.send('updater_error', err);
+})
+
+autoUpdater.on('download-progress', (progressObj) => {
+  win.webContents.send('updater_download_progress', progressObj);
+})
+autoUpdater.on('update-downloaded', (e) => {
+  win.webContents.send('updater_update_downloaded', e);
+});
+
+ipcMain.on('restart_app', () => {
+  autoUpdater.quitAndInstall();
+});
+
 app.whenReady().then(() => {
-  autoUpdater.checkForUpdatesAndNotify();
   createWindow();
 
   app.on('activate', function () {

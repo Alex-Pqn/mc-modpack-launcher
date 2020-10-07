@@ -1,4 +1,4 @@
-const { ipcRenderer, remote } = require('electron');
+const { ipcRenderer, remote, app } = require('electron');
 
 const Store = require('electron-store');
 
@@ -144,26 +144,40 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 //Auto-updater
-const notification = document.getElementById('notification');
-const message = document.getElementById('message');
-const restartButton = document.getElementById('restart-button');
 
-ipcRenderer.on('update_available', () => {
-  ipcRenderer.removeAllListeners('update_available');
-  message.innerText = 'A new update is available. Downloading now...';
-  notification.classList.remove('hidden');
+ipcRenderer.on('updater_update_available', () => {
+  ipcRenderer.removeAllListeners('updater_update_available');
+  document.getElementById('updater-container-available').style.display = 'flex'
 });
 
-ipcRenderer.on('update_downloaded', () => {
-  ipcRenderer.removeAllListeners('update_downloaded');
-  message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
-  restartButton.classList.remove('hidden');
-  notification.classList.remove('hidden');
+ipcRenderer.on('updater_update_downloaded', () => {
+  ipcRenderer.removeAllListeners('updater_update_downloaded');
+  document.getElementById('updater-container-available').style.display = 'none'
+  setTimeout(() => {
+    document.getElementById('updater-container-restart').style.display = 'flex'
+    document.getElementById('button-updater-restart').addEventListener('click', () => {
+      ipcRenderer.send('restart_app');
+    })
+  }, 1500);
 });
 
-closeNotification = () => {
-  notification.classList.add('hidden');
-}
-restartApp = () => {
-  ipcRenderer.send('restart_app');
-}
+ipcRenderer.on('update-downloaded', () => {
+  document.getElementById('updater-container-downloaded').style.display = 'flex'
+})
+
+ipcRenderer.on('updater_error', (err) => {
+  console.log('Updater error :' + err)
+})
+
+ipcRenderer.on('updater_download_progress', (progressObj) => {
+  const speedDownload = document.getElementById('updater-speed-download')
+  const percentDownloaded = document.getElementById('updater-percent-downloaded')
+  const totalDownloaded = document.getElementById('updater-total-downloaded')
+
+  speedDownload.textContent = "Vitesse de téléchargement: " + progressObj.bytesPerSecond;
+  percentDownloaded.textContent = ' - Téléchargé ' + progressObj.percent + '%';
+  totalDownloaded.textContent = ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+})
+
+window.addEventListener('DOMContentLoaded', () => { 
+})
