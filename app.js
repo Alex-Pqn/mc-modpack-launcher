@@ -4,15 +4,15 @@ const path = require('path');
 const url = require('url');
 
 //DEV TOOLS
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
 
-Object.defineProperty(app, 'isPackaged', {
-  get() {
-    return true;
-  }
-});
+// Object.defineProperty(app, 'isPackaged', {
+//   get() {
+//     return true;
+//   }
+// });
 
 const { autoUpdater } = require("electron-updater")
 
