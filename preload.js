@@ -146,11 +146,13 @@ window.addEventListener('DOMContentLoaded', () => {
 //Auto-updater
 
 ipcRenderer.on('updater_update_available', () => {
+  console.log('available')
   ipcRenderer.removeAllListeners('updater_update_available');
   document.getElementById('updater-container-available').style.display = 'flex'
 });
 
 ipcRenderer.on('updater_update_downloaded', () => {
+  console.log('downloaded, attempting restart app')
   ipcRenderer.removeAllListeners('updater_update_downloaded');
   document.getElementById('updater-container-available').style.display = 'none'
   setTimeout(() => {
@@ -161,7 +163,8 @@ ipcRenderer.on('updater_update_downloaded', () => {
   }, 1500);
 });
 
-ipcRenderer.on('update-downloaded', () => {
+ipcRenderer.on('updater_update_downloaded', () => {
+  console.log("update download")
   document.getElementById('updater-container-downloaded').style.display = 'flex'
 })
 
@@ -170,6 +173,9 @@ ipcRenderer.on('updater_error', (err) => {
 })
 
 ipcRenderer.on('updater_download_progress', (progressObj) => {
+  console.log("download progress")
+  console.log(progressObj)
+
   const speedDownload = document.getElementById('updater-speed-download')
   const percentDownloaded = document.getElementById('updater-percent-downloaded')
   const totalDownloaded = document.getElementById('updater-total-downloaded')

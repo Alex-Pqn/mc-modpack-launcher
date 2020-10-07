@@ -76,7 +76,7 @@ autoUpdater.on('download-progress', (progressObj) => {
   win.webContents.send('updater_download_progress', progressObj);
 })
 autoUpdater.on('update-downloaded', (e) => {
-  win.webContents.send('updater_update_downloaded', e);
+  win.webContents.send('updater_update_downloaded');
 });
 
 ipcMain.on('restart_app', () => {
