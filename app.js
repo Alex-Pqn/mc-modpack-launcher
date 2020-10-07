@@ -78,6 +78,9 @@ autoUpdater.on('error', (e, err) => {
 autoUpdater.on('download-progress', (e, progressObj) => {
   win.webContents.send('updater_download_progress', progressObj);
 })
+autoUpdater.on('download-progress', (progressObj) => {
+  win.webContents.send('updater_download_progress', progressObj);
+})
 autoUpdater.on('update-downloaded', () => {
   win.webContents.send('updater_update_downloaded');
 });

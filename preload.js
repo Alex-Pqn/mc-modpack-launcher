@@ -171,7 +171,7 @@ ipcRenderer.on('updater_error', (err) => {
   console.log('Electron Updater Error :' + err)
 })
 
-ipcRenderer.on('updater_download_progress', (progressObj) => {
+ipcRenderer.on('updater_download_progress', (event, progressObj) => {
   const speedDownload = document.getElementById('updater-speed-download')
   const percentDownloaded = document.getElementById('updater-percent-downloaded')
   const totalDownloaded = document.getElementById('updater-total-downloaded')
