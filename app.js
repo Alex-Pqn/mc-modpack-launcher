@@ -66,14 +66,21 @@ createWindow = () => {
 
 
 autoUpdater.on('update-available', (e) => {
-  win.webContents.send('updater_update_available', e);
+  win.webContents.send('updater_update_available');
+});
+autoUpdater.on('update-not-available', (info) => {
+  win.webContents.send('updater_update_not_available');
 });
 autoUpdater.on('error', (err) => {
   win.webContents.send('updater_error', err);
 })
 
 autoUpdater.on('download-progress', (progressObj) => {
-  win.webContents.send('updater_download_progress', progressObj);
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+
+  win.webContents.send('updater_download_progress', log_message);
 })
 autoUpdater.on('update-downloaded', (e) => {
   win.webContents.send('updater_update_downloaded');

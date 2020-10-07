@@ -145,15 +145,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
 //Auto-updater
 
-ipcRenderer.on('updater_update_available', () => {
-  console.log('available')
+ipcRenderer.on('updater_update_available', (event, data) => {
   ipcRenderer.removeAllListeners('updater_update_available');
+  console.log('Electron Updater : Update for the launcher detected.')
   document.getElementById('updater-container-available').style.display = 'flex'
 });
 
-ipcRenderer.on('updater_update_downloaded', () => {
-  console.log('downloaded, attempting restart app')
+ipcRenderer.on('updater_update_not_available', (event, data) => {
+  console.log('Electron Updater : No update detected for the launcher.')
+});
+
+ipcRenderer.on('updater_update_downloaded', (event, data) => {
   ipcRenderer.removeAllListeners('updater_update_downloaded');
+  console.log('Electron Updater : Update finished, attempting to restart the launcher.')
   document.getElementById('updater-container-available').style.display = 'none'
   setTimeout(() => {
     document.getElementById('updater-container-restart').style.display = 'flex'
@@ -163,26 +167,20 @@ ipcRenderer.on('updater_update_downloaded', () => {
   }, 1500);
 });
 
-ipcRenderer.on('updater_update_downloaded', () => {
-  console.log("update download")
-  document.getElementById('updater-container-downloaded').style.display = 'flex'
-})
-
-ipcRenderer.on('updater_error', (err) => {
+ipcRenderer.on('updater_error', (event, err) => {
   console.log('Updater error :' + err)
 })
 
-ipcRenderer.on('updater_download_progress', (progressObj) => {
-  console.log("download progress")
-  console.log(progressObj)
+ipcRenderer.on('updater_download_progress', (progress) => {
+  console.log("download progress 1")
+  const updaterProgressStatus = document.getElementById('updater-available-status')
+  updaterProgressStatus.textContent = progress
+})
 
-  const speedDownload = document.getElementById('updater-speed-download')
-  const percentDownloaded = document.getElementById('updater-percent-downloaded')
-  const totalDownloaded = document.getElementById('updater-total-downloaded')
-
-  speedDownload.textContent = "Vitesse de téléchargement: " + progressObj.bytesPerSecond;
-  percentDownloaded.textContent = ' - Téléchargé ' + progressObj.percent + '%';
-  totalDownloaded.textContent = ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+ipcRenderer.on('updater_download_progress', (event, data) => {
+  console.log("download progress 2")
+  const updaterProgressStatus = document.getElementById('updater-available-status')
+  updaterProgressStatus.textContent = data
 })
 
 window.addEventListener('DOMContentLoaded', () => { 
