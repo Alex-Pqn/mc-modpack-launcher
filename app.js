@@ -3,7 +3,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
-//DEV
+//DEV TOOLS
 // require('electron-reload')(__dirname, {
 //   electron: require(`${__dirname}/node_modules/electron`),
 // });
@@ -13,7 +13,6 @@ const url = require('url');
 //     return true;
 //   }
 // });
-//DEV
 
 const { autoUpdater } = require("electron-updater")
 
@@ -59,9 +58,7 @@ createWindow = () => {
 
   win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
-    setTimeout(() => {
-      win.show();
-    }, 500);
+    win.show();
   });
 };
 
