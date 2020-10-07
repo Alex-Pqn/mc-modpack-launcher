@@ -59,11 +59,13 @@ createWindow = () => {
 
   win.once('ready-to-show', () => {
     autoUpdater.checkForUpdatesAndNotify();
-    win.show();
+    setTimeout(() => {
+      win.show();
+    }, 500);
   });
 };
 
-//app updater
+//updater
 autoUpdater.on('update-available', () => {
   win.webContents.send('updater_update_available');
 });
@@ -73,6 +75,9 @@ autoUpdater.on('update-not-available', () => {
 autoUpdater.on('error', (e, err) => {
   win.webContents.send('updater_error', err);
 })
+autoUpdater.on('update-downloaded', () => {
+  win.webContents.send('updater_update_downloaded');
+});
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
