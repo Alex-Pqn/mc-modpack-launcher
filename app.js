@@ -52,23 +52,42 @@ createWindow = () => {
   );
 
   win.once('ready-to-show', () => {
-    autoUpdater.checkForUpdatesAndNotify();
     win.show();
   });
 
-  autoUpdater.on('update-available', () => {
-    win.webContents.send('update_available');
+  autoUpdater.on('checking-for-update', (e) => {
+    win.webContents.send('checking-for-update', e);
+  })
+  autoUpdater.on('update-available', (e) => {
+    win.webContents.send('update_available', e);
   });
-  autoUpdater.on('update-downloaded', () => {
-    win.webContents.send('update_downloaded');
+  autoUpdater.on('update-downloaded', (e) => {
+    win.webContents.send('update_downloaded', e);
   });
-  
+  autoUpdater.on('update-not-available', (e) => {
+    win.webContents.send('update-not-available', e);
+  })
+  autoUpdater.on('error', (err) => {
+    win.webContents.send('error', err);
+  })
+  autoUpdater.on('download-progress', (progressObj) => {
+    win.webContents.send('download-progress', progressObj);
+      // let log_message = "Download speed: " + progressObj.bytesPerSecond;
+      // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+      // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+      // sendStatusToWindow(log_message);
+  })
+  autoUpdater.on('update-downloaded', (e) => {
+    win.webContents.send('update-downloaded', e);
+  });
+
   ipcMain.on('restart_app', () => {
     autoUpdater.quitAndInstall();
   });
 };
 
 app.whenReady().then(() => {
+  autoUpdater.checkForUpdatesAndNotify();
   createWindow();
 
   app.on('activate', function () {
