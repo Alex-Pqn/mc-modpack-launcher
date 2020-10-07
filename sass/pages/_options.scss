@@ -43,15 +43,12 @@
                     color: rgb(231, 231, 231);
                     border: 1px solid rgba(255, 255, 255, 0.65);
                 }
-                & #button-reset-ram, #button-reset-jvm {
-                    margin-left: 5px;
-                }
                 &__status {
                     height: 0;
                     display: flex;
                     margin-top: 4px;
                     align-items: center;
-                    & #status-ram, #status-jvm, #status-res {
+                    & #status-ram, #status-jvm, #status-res, #status-launcher-options {
                         font-size: .85em;
                         margin-bottom: 0;
                         width: 100%;
@@ -114,11 +111,6 @@
                 }
                 &__values {
                     width: 100%;
-                }
-            }
-            &__launcher-options {
-                & button {
-                    margin: 0;
                 }
             }
         }

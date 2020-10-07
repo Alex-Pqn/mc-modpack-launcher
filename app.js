@@ -3,6 +3,11 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 
+const Store = require('electron-store');
+const store = new Store();
+
+const { autoUpdater } = require("electron-updater")
+
 //DEV TOOLS
 // require('electron-reload')(__dirname, {
 //   electron: require(`${__dirname}/node_modules/electron`),
@@ -14,12 +19,16 @@ const url = require('url');
 //   }
 // });
 
-const { autoUpdater } = require("electron-updater")
-
 let win;
 
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
+
+//debugging mode
+const debuggingMode = store.get('launcherOptionDebuggingMode')
+if (debuggingMode === undefined) {
+  store.set('launcherOptionDebuggingMode', false)
+}
 
 // main window launcher creation
 createWindow = () => {
@@ -43,7 +52,7 @@ createWindow = () => {
       worldSafeExecuteJavaScript: true,
       webSecurity: true,
       preload: path.join(__dirname, 'preload.js'),
-      devTools: true,
+      devTools: debuggingMode,
     },
   });
 
@@ -57,7 +66,19 @@ createWindow = () => {
   );
 
   win.once('ready-to-show', () => {
+    //check update
     autoUpdater.checkForUpdatesAndNotify();
+
+    //path user
+    const appdataPathUser = app.getPath('appData');
+
+    //debugging mode
+    store.set('appdataPathUser', appdataPathUser);
+    if (debuggingMode === true) {
+      store.set('launcherOptionDebuggingMode', false)
+    }
+
+    //show window
     win.show();
   });
 };
@@ -106,14 +127,8 @@ app.on('close', function (event) {
 
 // login, auth, launch & opts minecraft launcher
 ipcMain.on('login', (event, data) => {
-  const Store = require('electron-store');
-  const store = new Store();
-
   const { Client, Authenticator } = require('minecraft-launcher-core');
   const launcher = new Client();
-
-  const appdataPathUser = app.getPath('appData');
-  store.set('minecraftOptionAppdata', appdataPathUser);
 
   const OSname = require('os').userInfo().username;
 

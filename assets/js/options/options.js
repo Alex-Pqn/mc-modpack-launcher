@@ -2,6 +2,11 @@ const timeoutStatus = 75;
 const defaultValueMessage = 'Les valeurs ont été remises par défaut.';
 const changeMessage = 'Les changements ont été pris en compte.';
 
+const errorColor = 'rgb(122, 0, 0)'
+const warningColor = 'rgb(197, 95, 0)'
+const succedColor = 'rgb(0, 80, 0)'
+const textColor = 'white'
+
 displayStatus = (value, background, color, container, paragraph, closeText) => {
   closeStatus();
   container.style.height = 0;
@@ -53,8 +58,8 @@ storeRam = (getMinRam, getMaxRam) => {
     inputMaxRam.value = defaultMaxRam;
     displayStatus(
       defaultValueMessage,
-      'rgb(197, 95, 0)',
-      'white',
+      warningColor,
+      textColor,
       containerStatusRam,
       paragraphStatusRam,
       closeTextStatusRam
@@ -82,8 +87,8 @@ storeRam = (getMinRam, getMaxRam) => {
     ) {
       displayStatus(
         `Min. | Vous ne pouvez pas inscrire une valeur inférieure à celle par défaut (${defaultMinRam} Mo).`,
-        'rgb(122, 0, 0)',
-        'white',
+        errorColor,
+        textColor,
         containerStatusRam,
         paragraphStatusRam,
         closeTextStatusRam
@@ -94,8 +99,8 @@ storeRam = (getMinRam, getMaxRam) => {
     ) {
       displayStatus(
         `Max. | Vous ne pouvez pas inscrire une valeur inférieure à celle par défaut (${defaultMaxRam} Mo).`,
-        'rgb(122, 0, 0)',
-        'white',
+        errorColor,
+        textColor,
         containerStatusRam,
         paragraphStatusRam,
         closeTextStatusRam
@@ -103,8 +108,8 @@ storeRam = (getMinRam, getMaxRam) => {
     } else {
       displayStatus(
         changeMessage,
-        'rgb(0, 80, 0)',
-        'white',
+        succedColor,
+        textColor,
         containerStatusRam,
         paragraphStatusRam,
         closeTextStatusRam
@@ -137,8 +142,8 @@ storeJvm = (getJvm) => {
     inputJvm.value = defaultJvm;
     displayStatus(
       defaultValueMessage,
-      'rgb(197, 95, 0)',
-      'white',
+      warningColor,
+      textColor,
       containerStatusJvm,
       paragraphStatusJvm,
       closeTextStatusJvm
@@ -150,8 +155,8 @@ storeJvm = (getJvm) => {
     if (inputJvm.value.length > maxLengthJvm) {
       displayStatus(
         `Vous ne pouvez pas inscrire une valeur supérieur à ${maxLengthJvm} caractères.`,
-        'rgb(122, 0, 0)',
-        'white',
+        errorColor,
+        textColor,
         containerStatusJvm,
         paragraphStatusJvm,
         closeTextStatusJvm
@@ -160,8 +165,8 @@ storeJvm = (getJvm) => {
       storeSet('minecraftOptionJvm', defaultJvm);
       displayStatus(
         changeMessage,
-        'rgb(0, 80, 0)',
-        'white',
+        succedColor,
+        textColor,
         containerStatusJvm,
         paragraphStatusJvm,
         closeTextStatusJvm
@@ -170,8 +175,8 @@ storeJvm = (getJvm) => {
       storeSet('minecraftOptionJvm', [inputJvm.value]);
       displayStatus(
         changeMessage,
-        'rgb(0, 80, 0)',
-        'white',
+        succedColor,
+        textColor,
         containerStatusJvm,
         paragraphStatusJvm,
         closeTextStatusJvm
@@ -222,8 +227,8 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
     inputFullscreenRes.checked = defaultFullscreenRes;
     displayStatus(
       defaultValueMessage,
-      'rgb(197, 95, 0)',
-      'white',
+      warningColor,
+      textColor,
       containerStatusRes,
       paragraphStatusRes,
       closeTextStatusRes
@@ -238,14 +243,75 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
 
     displayStatus(
       changeMessage,
-      'rgb(0, 80, 0)',
-      'white',
+      succedColor,
+      textColor,
       containerStatusRes,
       paragraphStatusRes,
       closeTextStatusRes
     );
   });
 };
+
+// LAUNCHER
+const containerStatusLauncherOptions = document.getElementById('container-status-launcher-options');
+const paragraphStatusLauncherOptions = document.getElementById('status-launcher-options');
+const closeTextStatusLauncherOptions = document.getElementById('close-status-launcher-options');
+
+updateAvailable = () => {
+  displayStatus(
+    "Une mise à jour a été détectée. Lancement du processus de téléchargement en cours.",
+    succedColor,
+    textColor,
+    containerStatusLauncherOptions,
+    paragraphStatusLauncherOptions,
+    closeTextStatusLauncherOptions
+  );
+}
+NoUpdateAvailable = () => {
+  displayStatus(
+    "Après vérification, aucune nouvelle mise à jour n'est disponible.",
+    warningColor,
+    textColor,
+    containerStatusLauncherOptions,
+    paragraphStatusLauncherOptions,
+    closeTextStatusLauncherOptions
+  );
+}
+updateError = (err) => {
+  displayStatus(
+    "Erreur lors de la vérification d'une nouvelle mise à jour : " + err,
+    errorColor,
+    textColor,
+    containerStatusLauncherOptions,
+    paragraphStatusLauncherOptions,
+    closeTextStatusLauncherOptions
+  );
+}
+
+launcherOptions = (appdata) => {
+    //update
+    document.getElementById('button-update-launcherOptions').addEventListener('click', () => {
+      checkUpdate()
+    })
+  
+    //cache
+    document.getElementById('button-cache-launcherOptions').addEventListener('click', () => {
+      openFolder(`${appdata}\\mmlauncher`);
+    })
+  
+    //debugging mode
+    document.getElementById('button-debugging-launcherOptions').addEventListener('click', () => {
+      setStoreDebuggingMode()
+      displayStatus(
+        "Le mode de débogage a été activé. Il prendra seulement effet lors du prochain redémarrage.",
+        succedColor,
+        textColor,
+        containerStatusLauncherOptions,
+        paragraphStatusLauncherOptions,
+        closeTextStatusLauncherOptions
+      );
+    })
+}
 
 // Close status
 closeStatus = () => {
@@ -258,6 +324,9 @@ closeStatus = () => {
   // res
   containerStatusRes.style.height = 0;
   containerStatusRes.style.opacity = 0;
+  // launcher options
+  containerStatusLauncherOptions.style.height = 0;
+  containerStatusLauncherOptions.style.opacity = 0;
 };
 
 const closeStatusElement = document.querySelectorAll('.close-status');
