@@ -144,11 +144,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 //Auto-updater
-
 ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
   console.log('Electron Updater : Update for the launcher detected.')
-  document.getElementById('updater-container-available').style.display = 'flex'
+  document.getElementById('updater-restart').style.display = 'none'
+  document.getElementById('updater').style.display = 'flex'
+  document.getElementById('updater-available').style.display = 'flex'
 });
 
 ipcRenderer.on('updater_update_not_available', () => {
@@ -158,25 +159,15 @@ ipcRenderer.on('updater_update_not_available', () => {
 ipcRenderer.on('updater_update_downloaded', () => {
   ipcRenderer.removeAllListeners('updater_update_downloaded');
   console.log('Electron Updater : Update finished, attempting to restart the launcher.')
-  document.getElementById('updater-container-available').style.display = 'none'
+  document.getElementById('updater-available').style.display = 'none'
   setTimeout(() => {
-    document.getElementById('updater-container-restart').style.display = 'flex'
+    document.getElementById('updater-restart').style.display = 'flex'
     document.getElementById('button-updater-restart').addEventListener('click', () => {
       ipcRenderer.send('restart_app');
     })
-  }, 1500);
+  }, 1000);
 });
 
 ipcRenderer.on('updater_error', (err) => {
   console.log('Electron Updater Error :' + err)
-})
-
-ipcRenderer.on('updater_download_progress', (event, progressObj) => {
-  const speedDownload = document.getElementById('updater-speed-download')
-  const percentDownloaded = document.getElementById('updater-percent-downloaded')
-  const totalDownloaded = document.getElementById('updater-total-downloaded')
-
-  speedDownload.textContent = "Vitesse de téléchargement: " + progressObj.bytesPerSecond;
-  percentDownloaded.textContent = ' - Téléchargé ' + progressObj.percent + '%';
-  totalDownloaded.textContent = ' (' + progressObj.transferred + "/" + progressObj.total + ')';
 })

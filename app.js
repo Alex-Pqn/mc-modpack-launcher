@@ -4,15 +4,15 @@ const path = require('path');
 const url = require('url');
 
 //DEV
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
 
-// Object.defineProperty(app, 'isPackaged', {
-//   get() {
-//     return true;
-//   }
-// });
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  }
+});
 //DEV
 
 const { autoUpdater } = require("electron-updater")
@@ -23,7 +23,6 @@ const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
 // main window launcher creation
-
 createWindow = () => {
   win = new BrowserWindow({
     width: 900,
@@ -59,12 +58,14 @@ createWindow = () => {
   );
 
   win.once('ready-to-show', () => {
-    win.show();
     autoUpdater.checkForUpdatesAndNotify();
+    setTimeout(() => {
+      win.show();
+    }, 250);
   });
 };
 
-
+//app updater
 autoUpdater.on('update-available', () => {
   win.webContents.send('updater_update_available');
 });
@@ -74,17 +75,6 @@ autoUpdater.on('update-not-available', () => {
 autoUpdater.on('error', (e, err) => {
   win.webContents.send('updater_error', err);
 })
-
-autoUpdater.on('download-progress', (e, progressObj) => {
-  win.webContents.send('updater_download_progress', progressObj);
-})
-autoUpdater.on('download-progress', (progressObj) => {
-  win.webContents.send('updater_download_progress', progressObj);
-})
-autoUpdater.on('update-downloaded', () => {
-  win.webContents.send('updater_update_downloaded');
-});
-
 ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
@@ -98,7 +88,6 @@ app.whenReady().then(() => {
 });
 
 // app compatibility
-
 app.on('window-all-closed', () => {
   if (process.plateform !== 'darwin') {
     app.quit();
@@ -112,7 +101,6 @@ app.on('close', function (event) {
 });
 
 // login, auth, launch & opts minecraft launcher
-
 ipcMain.on('login', (event, data) => {
   const Store = require('electron-store');
   const store = new Store();

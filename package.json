@@ -1,6 +1,6 @@
 {
   "name": "mmlauncher",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "Marie Madeleine Launcher",
   "main": "app.js",
   "dependencies": {
@@ -47,11 +47,13 @@
       "category": "mc.mmlauncher.app",
       "icon": "assets/img/icon/mac/icon.icns"
     },
-    "publish": [{
-      "provider": "github",
-      "owner": "Alex-Pqn",
-      "repo": "marie-madeleine-launcher"
-  }],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Alex-Pqn",
+        "repo": "marie-madeleine-launcher"
+      }
+    ],
     "nsis": {
       "license": "assets/license.txt",
       "allowToChangeInstallationDirectory": true,
