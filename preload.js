@@ -145,17 +145,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
 //Auto-updater
 
-ipcRenderer.on('updater_update_available', (event, data) => {
+ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
   console.log('Electron Updater : Update for the launcher detected.')
   document.getElementById('updater-container-available').style.display = 'flex'
 });
 
-ipcRenderer.on('updater_update_not_available', (event, data) => {
+ipcRenderer.on('updater_update_not_available', () => {
   console.log('Electron Updater : No update detected for the launcher.')
 });
 
-ipcRenderer.on('updater_update_downloaded', (event, data) => {
+ipcRenderer.on('updater_update_downloaded', () => {
   ipcRenderer.removeAllListeners('updater_update_downloaded');
   console.log('Electron Updater : Update finished, attempting to restart the launcher.')
   document.getElementById('updater-container-available').style.display = 'none'
@@ -167,21 +167,16 @@ ipcRenderer.on('updater_update_downloaded', (event, data) => {
   }, 1500);
 });
 
-ipcRenderer.on('updater_error', (event, err) => {
-  console.log('Updater error :' + err)
+ipcRenderer.on('updater_error', (err) => {
+  console.log('Electron Updater Error :' + err)
 })
 
-ipcRenderer.on('updater_download_progress', (progress) => {
-  console.log("download progress 1")
-  const updaterProgressStatus = document.getElementById('updater-available-status')
-  updaterProgressStatus.textContent = progress
-})
+ipcRenderer.on('updater_download_progress', (progressObj) => {
+  const speedDownload = document.getElementById('updater-speed-download')
+  const percentDownloaded = document.getElementById('updater-percent-downloaded')
+  const totalDownloaded = document.getElementById('updater-total-downloaded')
 
-ipcRenderer.on('updater_download_progress', (event, data) => {
-  console.log("download progress 2")
-  const updaterProgressStatus = document.getElementById('updater-available-status')
-  updaterProgressStatus.textContent = data
-})
-
-window.addEventListener('DOMContentLoaded', () => { 
+  speedDownload.textContent = "Vitesse de téléchargement: " + progressObj.bytesPerSecond;
+  percentDownloaded.textContent = ' - Téléchargé ' + progressObj.percent + '%';
+  totalDownloaded.textContent = ' (' + progressObj.transferred + "/" + progressObj.total + ')';
 })
