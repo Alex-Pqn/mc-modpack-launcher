@@ -167,15 +167,14 @@ checkUpdate = () => {
 ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
   console.log('Electron Updater : Update for the launcher detected.');
-
-  document.getElementById('updater-restart').style.display = 'none';
-  document.getElementById('updater').style.display = 'flex';
-  document.getElementById('updater-available').style.display = 'flex';
+  if (window.updateAvailable !== undefined) {
+    updateAvailable();
+  }
 
   setTimeout(() => {
-    if (window.updateAvailable !== undefined) {
-      updateAvailable();
-    }
+    document.getElementById('updater-restart').style.display = 'none';
+    document.getElementById('updater').style.display = 'flex';
+    document.getElementById('updater-available').style.display = 'flex';
   }, 1500);
 });
 // update not available
