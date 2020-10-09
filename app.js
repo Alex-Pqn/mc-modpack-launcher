@@ -149,7 +149,7 @@ ipcMain.on('login', (event, data) => {
       event.sender.send('done');
 
       const opts = {
-        clientPackage: 'https://download857.mediafire.com/47tac5msw8hg/4cfm5qrlbkpqa9m/clientPackage.zip',
+        clientPackage: 'https://download1591.mediafire.com/xgak8fyo8arg/ik6nkfpgdevxhms/clientPackage.zip',
         authorization: e,
         root: `${appdataPathUser}/.MMLauncher/`,
         customArgs: JVMUser,
