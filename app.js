@@ -145,12 +145,12 @@ ipcMain.on('login', (event, data) => {
   const JVMUser = store.get('minecraftOptionJvm');
 
   Authenticator.getAuth(data.u, data.p)
-    .then(() => {
+    .then(e => {
       event.sender.send('done');
 
       const opts = {
         clientPackage: 'https://download857.mediafire.com/47tac5msw8hg/4cfm5qrlbkpqa9m/clientPackage.zip',
-        authorization: Authenticator.getAuth('', ''),
+        authorization: e,
         root: `${appdataPathUser}/.MMLauncher/`,
         customArgs: JVMUser,
         version: {
