@@ -31,7 +31,6 @@
   "build": {
     "appId": "com.mmlauncher.app",
     "productName": "Marie Madeleine Launcher",
-    "homepage": "https://github.com/Alex-Pqn/marie-madeleine-launcher",
     "copyright": "Copyright © 2020-2021 Alex-Pqn",
     "compression": "maximum",
     "directories": {
@@ -40,14 +39,6 @@
     "win": {
       "target": "nsis",
       "icon": "assets/img/icon/win/icon.ico"
-    },
-    "linux": {
-      "icon": "assets/img/icon/png/icon.png"
-    },
-    "mac": {
-      "target": "dmg",
-      "category": "com.mmlauncher.app",
-      "icon": "assets/img/icon/mac/icon.icns"
     },
     "publish": [
       {
