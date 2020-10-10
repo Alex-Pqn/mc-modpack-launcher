@@ -59,14 +59,14 @@ button.addEventListener('click', (e) => {
       name: 'Votre e-mail/pseudo',
       stepValidation: false,
       minLength: 3,
-      maxLength: 52,
+      maxLength: 45,
     },
     {
       value: p,
       name: 'Votre mot de passe',
       stepValidation: false,
       minLength: 3,
-      maxLength: 42,
+      maxLength: 35,
     },
   ];
   formValidation = () => {

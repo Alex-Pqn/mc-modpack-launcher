@@ -129,32 +129,6 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
-// Path & Open Folders - openPrFolders.js
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.openAppdataFoldersError !== undefined) {
-    openAppdataFoldersError();
-  }
-  const launcherFolderLength = fs.readdirSync(
-    `${appdataUserFolder}\\.MMLauncher`
-  );
-  if (window.openAppdataFolders !== undefined) {
-    openAppdataFolders(appdataUserFolder, launcherFolderLength);
-  }
-});
-
-// ModsList - modsList.js
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.modsListError !== undefined) {
-    modsListError();
-  }
-  const modsFolderLength = fs.readdirSync(
-    `${appdataUserFolder}\\.MMLauncher\\mods`
-  );
-  if (window.getModsList !== undefined) {
-    getModsList(modsFolderLength);
-  }
-});
-
 // Electron-updater
 
 // update check (call in options part)
@@ -200,5 +174,33 @@ ipcRenderer.on('updater_error', (err) => {
   console.error(`Electron Updater Error : ${err}`);
   if (window.updateError !== undefined) {
     updateError();
+  }
+});
+
+// Path & Open Folders - openPrFolders.js
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.openAppdataFoldersError !== undefined) {
+    openAppdataFoldersError();
+  }
+  const launcherFolderLength = fs.readdirSync(
+    `${appdataUserFolder}\\.MMLauncher`
+  );
+  if (window.openAppdataFolders !== undefined) {
+    openAppdataFolders(appdataUserFolder, launcherFolderLength);
+  }
+});
+
+// ModsList - modsList.js
+window.addEventListener('DOMContentLoaded', () => {
+  if (window.modsListError !== undefined) {
+    modsListError();
+  }
+  
+  const modsFolderLength = fs.readdirSync(
+    `${appdataUserFolder}\\.MMLauncher\\mods`
+  );
+
+  if (window.getModsList !== undefined) {
+    getModsList(modsFolderLength);
   }
 });

@@ -135,6 +135,10 @@
                         </p>
                     </div>
                 </div>
+
+                <!--separator-->
+                <div class="index__sep"></div>
+
                 <div class="index__content">
 
                     <!--Audio-player-->
@@ -145,39 +149,48 @@
                         </audio>
                     </div>
 
-                    <!--Login-form-->
-                    <div class="index__content__login-form">
-                        <div class="index__content__login-form__title">
-                            <h3>
-                                Compte Mojang
-                            </h3>
+                    <div id="mojang-login">
+                        <!--Login-form-->
+                        <div class="index__content__login-form">
+                            <div class="index__content__login-form__title">
+                                <h3>
+                                    Compte Mojang
+                                </h3>
+                            </div>
+                            <!--username-->
+                            <label for="username">
+                                E-mail / Pseudo
+                            </label>
+                            <input type="text" id="u" name="username" spellcheck="false" required minlength="3" maxlength="40">
+                            <!--password-->
+                            <label for="password">
+                                Mot de passe
+                            </label>
+                            <input type="password" id="p" name="password" required minlength="3" maxlength="32">
+                            <!--remember-->
+                            <div class="index__content__login-form__remember">
+                                <label for="checkbox">Se souvenir de moi ?</label>
+                                <input type="checkbox" name="checkbox" id="authRemember">
+                            </div>
+                            <!--error-->
+                            <p id="status-form">
+                                <!--Generate JS Content-->
+                            </p>
+                            <p id="info-form">
+                                <!--Generate JS Content-->
+                            </p>
+                            <!--send-->
+                            <input type="submit" id="submit" value="Se connecter | Lancer le Jeu">
                         </div>
-                        <!--username-->
-                        <label for="username">
-                            E-mail / Pseudo
-                        </label>
-                        <input type="text" id="u" name="username" spellcheck="false" required minlength="3" maxlength="40">
-                        <!--password-->
-                        <label for="password">
-                            Mot de passe
-                        </label>
-                        <input type="password" id="p" name="password" required minlength="3" maxlength="32">
-                        <!--remember-->
-                        <div class="index__content__login-form__remember">
-                            <label for="checkbox">Se souvenir de moi ?</label>
-                            <input type="checkbox" name="checkbox" id="authRemember">
-                        </div>
-                        <!--error-->
-                        <p id="status-form">
-                            <!--Generate JS Content-->
+                        <!--Java-info-->
+                        <p class="index__content__java-info">
+                            Il est nécessaire d'avoir
+                            <a href="" id="java-open-link">
+                                JAVA
+                            </a>
+                            installé.
                         </p>
-                        <p id="info-form">
-                            <!--Generate JS Content-->
-                        </p>
-                        <!--send-->
-                        <input type="submit" id="submit" value="Se connecter | Lancer le Jeu">
                     </div>
-
                 </div>
             </main>
         </div>

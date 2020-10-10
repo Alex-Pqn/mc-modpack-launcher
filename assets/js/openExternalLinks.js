@@ -10,6 +10,14 @@ document.getElementById('discord-open-link').addEventListener('click', () => {
   openExternalLink('https://discord.gg/jC4r3T9');
 });
 
-document.getElementById('discord-community-open-link').addEventListener('click', () => {
+if (document.getElementById('discord-community-open-link') !== null) {
+  document.getElementById('discord-community-open-link').addEventListener('click', () => {
     openExternalLink('https://discord.gg/jolate');
-});
+  });
+}
+
+if (document.getElementById('java-open-link') !== null) {
+  document.getElementById('java-open-link').addEventListener('click', () => {
+    openExternalLink('https://www.java.com/fr/download/');
+  });
+}

@@ -8,15 +8,15 @@ const store = new Store();
 const { autoUpdater } = require('electron-updater');
 
 // DEV TOOLS
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
 
-// Object.defineProperty(app, 'isPackaged', {
-//   get() {
-//     return true;
-//   },
-// });
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  },
+});
 
 let win;
 let appdataPathUser;
