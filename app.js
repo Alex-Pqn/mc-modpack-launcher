@@ -3,7 +3,6 @@ const path = require('path');
 const url = require('url');
 
 const Store = require('electron-store');
-
 const store = new Store();
 
 const { autoUpdater } = require('electron-updater');
@@ -67,9 +66,6 @@ createWindow = () => {
   );
 
   win.once('ready-to-show', () => {
-    // check update
-    autoUpdater.checkForUpdatesAndNotify();
-
     // path user
     appdataPathUser = app.getPath('appData');
 
@@ -108,7 +104,13 @@ ipcMain.on('restart_app', () => {
 
 // app ready
 app.whenReady().then(() => {
-  createWindow();
+  // check update
+  autoUpdater.checkForUpdatesAndNotify();
+
+  //create window
+  setTimeout(() => {
+    createWindow();
+  }, 1500);
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();

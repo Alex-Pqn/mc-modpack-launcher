@@ -169,11 +169,9 @@ ipcRenderer.on('updater_update_available', () => {
     updateAvailable();
   }
 
-  setTimeout(() => {
-    document.getElementById('updater-restart').style.display = 'none';
-    document.getElementById('updater').style.display = 'flex';
-    document.getElementById('updater-available').style.display = 'flex';
-  }, 1500);
+  document.getElementById('updater-restart').style.display = 'none';
+  document.getElementById('updater').style.display = 'flex';
+  document.getElementById('updater-available').style.display = 'flex';
 });
 // update not available
 ipcRenderer.on('updater_update_not_available', () => {
@@ -195,7 +193,7 @@ ipcRenderer.on('updater_update_downloaded', () => {
   document.getElementById('updater-restart').style.display = 'flex';
   document.getElementById('button-updater-restart').addEventListener('click', () => {
       ipcRenderer.send('restart_app');
-    });
+  });
 });
 // update error
 ipcRenderer.on('updater_error', (err) => {
