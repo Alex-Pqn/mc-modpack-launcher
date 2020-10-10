@@ -1,7 +1,6 @@
 const { ipcRenderer, remote, shell, app } = require('electron');
 
 const Store = require('electron-store');
-
 const store = new Store();
 
 const fs = require('fs');
@@ -42,8 +41,7 @@ ipc.on('done', () => {
 
 // Cryptr - authenticator.js
 const Cryptr = require('cryptr');
-
-const cryptr = new Cryptr('myTotalySecretKey');
+const cryptr = new Cryptr('mwjHKLUkGJfjgpgVrtmb9X0fboCAyKZS');
 
 window.addEventListener('DOMContentLoaded', () => {
   const auth = store.get('auth');

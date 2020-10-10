@@ -26,6 +26,7 @@ displayInfoForm = (statusValue, textColor, backgroundColor) => {
   textInfo.style.padding = '5px';
 };
 
+//Store Mojang informations
 authStore = (uEncrypted, pEncrypted) => {
   const auth = [
     {
@@ -36,9 +37,9 @@ authStore = (uEncrypted, pEncrypted) => {
   authSetStore(auth);
 };
 
+//Get Mojang informations on page loading
 getAuthStore = (auth) => {
-  if (auth === undefined) {
-  } else {
+  if (auth !== undefined) {
     authRemember.checked = true;
     const authStorage = auth;
     const uEncrypted = JSON.parse(authStorage)[0].u;
@@ -47,6 +48,7 @@ getAuthStore = (auth) => {
   }
 };
 
+//Login
 button.addEventListener('click', (e) => {
   const u = uInput.value;
   const p = pInput.value;
@@ -104,9 +106,14 @@ authDone = () => {
   pInput.disabled = true;
   authRemember.disabled = true;
   displayStatusForm(
-    'Connexion réussie. Téléchargement des mises à jour en cours...',
+    'Connexion réussie. Téléchargement des mises à jour en cours.',
     'rgb(0, 82, 0)',
     'rgba(53, 255, 53, 0.788)'
+  );
+  displayInfoForm(
+    'Cette opération peut durer quelques secondes...',
+    'rgb(255, 255, 255)',
+    'rgba(122, 122, 122, 0.616)'
   );
   if (authRemember.checked === true) {
     authEncrypt(uInput.value, pInput.value);
