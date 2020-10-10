@@ -149,7 +149,6 @@ ipcMain.on('login', (event, data) => {
       event.sender.send('done');
 
       const opts = {
-        //mediafire https://download1480.mediafire.com/1apa78ou6vkg/59k4btor165nlzc/clientPackage.zip
         clientPackage: 'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1',
         removePackage: true,
         authorization: e,

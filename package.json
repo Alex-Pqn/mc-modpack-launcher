@@ -29,9 +29,11 @@
     "sass": "^1.26.11"
   },
   "build": {
-    "appId": "mc.mmlauncher.app",
+    "appId": "com.mmlauncher.app",
     "productName": "Marie Madeleine Launcher",
-    "target": "NSIS",
+    "homepage": "https://github.com/Alex-Pqn/marie-madeleine-launcher",
+    "copyright": "Copyright © 2020-2021 Alex-Pqn",
+    "compression": "maximum",
     "directories": {
       "output": "release"
     },
@@ -44,7 +46,7 @@
     },
     "mac": {
       "target": "dmg",
-      "category": "mc.mmlauncher.app",
+      "category": "com.mmlauncher.app",
       "icon": "assets/img/icon/mac/icon.icns"
     },
     "publish": [
@@ -55,7 +57,7 @@
       }
     ],
     "nsis": {
-      "license": "assets/license.txt",
+      "license": "license.txt",
       "allowToChangeInstallationDirectory": true,
       "oneClick": false,
       "deleteAppDataOnUninstall": true
@@ -68,7 +70,7 @@
     "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/img/icon/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Shopping List\"",
     "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/img/icon/png/icon.png --prune=true --out=release-builds",
     "build": "electron-builder --win",
-    "publish": "electron-builder build --win --mac --publish always",
+    "publish": "electron-builder build --win --publish always",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
