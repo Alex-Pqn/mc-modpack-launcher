@@ -9,21 +9,20 @@ const store = new Store();
 const { autoUpdater } = require('electron-updater');
 
 // DEV TOOLS
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
 
-Object.defineProperty(app, 'isPackaged', {
-  get() {
-    return true;
-  },
-});
+// Object.defineProperty(app, 'isPackaged', {
+//   get() {
+//     return true;
+//   },
+// });
 
 let win;
 let appdataPathUser;
 
-const clientPackageUrl =
-  'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1';
+const clientPackageUrl = 'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1';
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
