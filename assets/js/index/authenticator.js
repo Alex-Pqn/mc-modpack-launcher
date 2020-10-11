@@ -3,7 +3,10 @@ const uInput = document.getElementById('u');
 const pInput = document.getElementById('p');
 const authRemember = document.getElementById('authRemember');
 const mainNav = document.getElementById('main-nav');
-const gameLaunchedText = document.getElementById('game-launched');
+
+const gameLaunched = document.getElementById('game-launched');
+const gameLaunchedInfo = document.getElementById('game-launched-info');
+const gameLaunchedLogs = document.getElementById('game-launched-logs');
 
 displayAuthInformations = (uDecrypted, pDecrypted) => {
   uInput.setAttribute('value', uDecrypted);
@@ -26,7 +29,7 @@ displayInfoForm = (statusValue, textColor, backgroundColor) => {
   textInfo.style.padding = '5px';
 };
 
-//Store Mojang informations
+// Store Mojang informations
 authStore = (uEncrypted, pEncrypted) => {
   const auth = [
     {
@@ -37,7 +40,7 @@ authStore = (uEncrypted, pEncrypted) => {
   authSetStore(auth);
 };
 
-//Get Mojang informations on page loading
+// Get Mojang informations on page loading
 getAuthStore = (auth) => {
   if (auth !== undefined) {
     authRemember.checked = true;
@@ -48,7 +51,7 @@ getAuthStore = (auth) => {
   }
 };
 
-//Login
+// Login
 button.addEventListener('click', (e) => {
   const u = uInput.value;
   const p = pInput.value;
@@ -97,24 +100,53 @@ button.addEventListener('click', (e) => {
   formValidation();
 });
 
+// Game Launched Error
+gameLaunchedError = (data) => {
+  console.error(`Game Launched Error : ${data}`);
+
+  button.style.display = 'initial';
+  uInput.disabled = false;
+  pInput.disabled = false;
+  authRemember.disabled = false;
+
+  gameLaunched.style.display = 'none';
+  mainNav.style.display = 'initial';
+
+  displayStatusForm(data, 'rgb(255, 104, 104)', 'rgb(92, 0, 0, 0.75)');
+  displayInfoForm(
+    'Cette erreur peut être liée à une connexion internet défectueuse.',
+    'rgb(255, 255, 255)',
+    'rgba(122, 122, 122, 0.616)'
+  );
+};
+
 // Mojang API Connection Succeed
-authDone = () => {
+authDone = (debuggingModeBoolean) => {
   mainNav.style.display = 'none';
-  gameLaunchedText.style.display = 'block';
+
+  gameLaunched.style.display = 'flex';
+  if (debuggingModeBoolean === true) {
+    gameLaunchedLogs.style.display = 'flex';
+  } else {
+    gameLaunchedInfo.style.display = 'flex';
+  }
+
   button.style.display = 'none';
   uInput.disabled = true;
   pInput.disabled = true;
   authRemember.disabled = true;
+
   displayStatusForm(
-    'Connexion réussie. Téléchargement des mises à jour en cours.',
+    'Connexion réussie. Téléchargement des mises à jour en cours...',
     'rgb(0, 82, 0)',
     'rgba(53, 255, 53, 0.788)'
   );
   displayInfoForm(
-    'Cette opération peut durer quelques secondes...',
+    'Le temps de cette opération dépend de votre connexion internet.',
     'rgb(255, 255, 255)',
     'rgba(122, 122, 122, 0.616)'
   );
+
   if (authRemember.checked === true) {
     authEncrypt(uInput.value, pInput.value);
   } else {
@@ -124,17 +156,25 @@ authDone = () => {
 
 // Mojang API Connection Error
 authError = (data) => {
-  console.error(`Auth error : ${data.er}`);
+  console.error(`Mojang Authentification Error : ${data.er}`);
+
   button.style.display = 'initial';
   uInput.disabled = false;
   pInput.disabled = false;
   authRemember.disabled = false;
-  gameLaunchedText.style.display = 'none';
+
+  gameLaunched.style.display = 'none';
   mainNav.style.display = 'initial';
+
   displayStatusForm(
     'Les identifiants de connexion Mojang sont incorrects.',
     'rgb(255, 104, 104)',
     'rgb(92, 0, 0, 0.75)'
+  );
+  displayInfoForm(
+    "Rappel : Il est nécessaire d'être connecté à internet.",
+    'rgb(255, 255, 255)',
+    'rgba(122, 122, 122, 0.616)'
   );
 };
 
@@ -176,7 +216,7 @@ downloadProgress = (data) => {
 // Download Modpack files finished
 downloadFinished = () => {
   displayStatusForm(
-    'Téléchargement des mises à jour terminé.',
+    'Téléchargement et installation des mises à jour terminé.',
     'rgb(0, 82, 0)',
     'rgba(53, 255, 53, 0.788)'
   );
@@ -194,6 +234,6 @@ debugLogs = (data) => {
   const logContent = document.createTextNode(data);
 
   containerLogs.appendChild(logContainer);
-  logContainer.appendChild(logElement)
-  logElement.appendChild(logContent)
+  logContainer.appendChild(logElement);
+  logElement.appendChild(logContent);
 };

@@ -3,25 +3,27 @@ const path = require('path');
 const url = require('url');
 
 const Store = require('electron-store');
+
 const store = new Store();
 
 const { autoUpdater } = require('electron-updater');
 
 // DEV TOOLS
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
 
-// Object.defineProperty(app, 'isPackaged', {
-//   get() {
-//     return true;
-//   },
-// });
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  },
+});
 
 let win;
 let appdataPathUser;
 
-const clientPackageUrl = 'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1'
+const clientPackageUrl =
+  'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1';
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
@@ -108,7 +110,7 @@ app.whenReady().then(() => {
   // check update
   autoUpdater.checkForUpdatesAndNotify();
 
-  //create window
+  // create window
   setTimeout(() => {
     createWindow();
   }, 1000);
@@ -148,7 +150,7 @@ ipcMain.on('login', (event, data) => {
   const JVMUser = store.get('minecraftOptionJvm');
 
   Authenticator.getAuth(data.u, data.p)
-    .then(e => {
+    .then((e) => {
       event.sender.send('done');
 
       const opts = {
@@ -174,7 +176,8 @@ ipcMain.on('login', (event, data) => {
         timeout: 3500,
       };
 
-      launcher.launch(opts)
+      launcher
+        .launch(opts)
         .then(() => {
           win.webContents.send('game-launched');
           if (debuggingMode !== true) {
@@ -183,15 +186,15 @@ ipcMain.on('login', (event, data) => {
             }, 7500);
           }
         })
-        .catch(err => {
-          console.error('Error when game launched : ' + err)
-        })
+        .catch((err) => {
+          win.webContents.send('game-launched-error', err);
+        });
 
       if (debuggingMode === true) {
         launcher.on('debug', (e) => {
           win.webContents.send('log', e);
         });
-        
+
         launcher.on('data', (e) => {
           win.webContents.send('log', e);
         });

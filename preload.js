@@ -1,6 +1,7 @@
 const { ipcRenderer, remote, shell, app } = require('electron');
 
 const Store = require('electron-store');
+
 const store = new Store();
 
 const fs = require('fs');
@@ -21,13 +22,18 @@ ipcRenderer.on('progress', (event, data) => {
 ipcRenderer.on('game-launched', (event, data) => {
   downloadFinished();
 });
-//call when debuggingMode activated
+ipcRenderer.on('game-launched-error', (event, data) => {
+  gameLaunchedError(data);
+});
+// call when debuggingMode activated
 ipcRenderer.on('log', (event, data) => {
   debugLogs(data);
 });
 
 // Authenticator - authenticator.js
 const ipc = require('electron').ipcRenderer;
+
+const debuggingMode = store.get('launcherOptionDebuggingMode');
 
 authSend = (u, p) => {
   ipc.send('login', { u, p });
@@ -37,11 +43,12 @@ ipc.on('err', (err) => {
   authError(err);
 });
 ipc.on('done', () => {
-  authDone();
+  authDone(debuggingMode);
 });
 
 // Cryptr - authenticator.js
 const Cryptr = require('cryptr');
+
 const cryptr = new Cryptr('mwjHKLUkGJfjgpgVrtmb9X0fboCAyKZS');
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -147,16 +154,16 @@ ipcRenderer.on('updater_update_available', () => {
   document.getElementById('updater-available').style.display = 'flex';
 
   fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`, { recursive: true });
-  fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, { recursive: true });
+  fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, {
+    recursive: true,
+  });
 });
 // update not available
 ipcRenderer.on('updater_update_not_available', () => {
   if (window.NoUpdateAvailable !== undefined) {
     NoUpdateAvailable();
   }
-  console.log(
-    'Electron Updater : No update detected for the launcher.'
-  );
+  console.log('Electron Updater : No update detected for the launcher.');
 });
 // update downloaded
 ipcRenderer.on('updater_update_downloaded', () => {
@@ -167,9 +174,11 @@ ipcRenderer.on('updater_update_downloaded', () => {
 
   document.getElementById('updater-available').style.display = 'none';
   document.getElementById('updater-restart').style.display = 'flex';
-  document.getElementById('button-updater-restart').addEventListener('click', () => {
+  document
+    .getElementById('button-updater-restart')
+    .addEventListener('click', () => {
       ipcRenderer.send('restart_app');
-  });
+    });
 });
 // update error
 ipcRenderer.on('updater_error', (err) => {
@@ -197,7 +206,7 @@ window.addEventListener('DOMContentLoaded', () => {
   if (window.modsListError !== undefined) {
     modsListError();
   }
-  
+
   const modsFolderLength = fs.readdirSync(
     `${appdataUserFolder}\\.MMLauncher\\mods`
   );
