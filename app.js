@@ -33,7 +33,7 @@ if (debuggingMode === undefined) {
 }
 
 const debuggingModeLauncher = store.get('launcherOptionDebuggingModeLauncherLogs');
-if (debuggingMode === undefined) {
+if (debuggingModeLauncher === undefined) {
   store.set('launcherOptionDebuggingModeLauncherLogs', false);
 }
 
