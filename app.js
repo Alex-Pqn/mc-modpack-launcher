@@ -21,6 +21,7 @@ const { autoUpdater } = require('electron-updater');
 let win;
 let appdataPathUser;
 
+const clientPackageUrl = 'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1'
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
@@ -151,7 +152,7 @@ ipcMain.on('login', (event, data) => {
       event.sender.send('done');
 
       const opts = {
-        clientPackage: 'https://www.dropbox.com/s/ags77ebds3k749g/clientPackage.zip?dl=1',
+        clientPackage: clientPackageUrl,
         removePackage: true,
         authorization: e,
         root: `${appdataPathUser}/.MMLauncher/`,
@@ -176,20 +177,25 @@ ipcMain.on('login', (event, data) => {
       launcher.launch(opts)
         .then(() => {
           win.webContents.send('game-launched');
-          setTimeout(() => {
-            app.quit();
-          }, 10000);
+          if (debuggingMode !== true) {
+            setTimeout(() => {
+              app.quit();
+            }, 7500);
+          }
         })
         .catch(err => {
           console.error('Error when game launched : ' + err)
         })
 
-      launcher.on('debug', (e) => {
-        win.webContents.send('log', e);
-      });
-      launcher.on('data', (e) => {
-        win.webContents.send('log', e);
-      });
+      if (debuggingMode === true) {
+        launcher.on('debug', (e) => {
+          win.webContents.send('log', e);
+        });
+        
+        launcher.on('data', (e) => {
+          win.webContents.send('log', e);
+        });
+      }
       launcher.on('progress', (e) => {
         win.webContents.send('progress', e);
       });

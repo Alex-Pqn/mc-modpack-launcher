@@ -15,14 +15,15 @@ openFolder = (path) => {
 window.launch = (data) => {
   ipcRenderer.send('launch', data);
 };
-ipcRenderer.on('log', (event, data) => {
-  debugLogs(data);
-});
 ipcRenderer.on('progress', (event, data) => {
   downloadProgress(data);
 });
 ipcRenderer.on('game-launched', (event, data) => {
   downloadFinished();
+});
+//call when debuggingMode activated
+ipcRenderer.on('log', (event, data) => {
+  debugLogs(data);
 });
 
 // Authenticator - authenticator.js
@@ -69,6 +70,7 @@ authInformationsDelete = () => {
 
 // Window - navBarButtons.js
 const win = remote.getCurrentWindow();
+
 winMinimize = () => {
   win.minimize();
 };
@@ -91,11 +93,9 @@ openExternalLink = (link) => {
 // Minecraft Options - options.js
 const getMinRam = store.get('minecraftOptionMinRam');
 const getMaxRam = store.get('minecraftOptionMaxRam');
-
 const getHeightRes = store.get('minecraftOptionHeightRes');
 const getWidthRes = store.get('minecraftOptionWidthRes');
 const getFullscreenRes = store.get('minecraftOptionFullscreenRes');
-
 const getJvm = store.get('minecraftOptionJvm');
 
 storeSet = (key, value) => {
@@ -103,7 +103,6 @@ storeSet = (key, value) => {
   const store = new Store();
   store.set(key, value);
 };
-
 window.addEventListener('DOMContentLoaded', () => {
   if (window.storeRam !== undefined) {
     storeRam(getMinRam, getMaxRam);
@@ -146,6 +145,9 @@ ipcRenderer.on('updater_update_available', () => {
   document.getElementById('updater-restart').style.display = 'none';
   document.getElementById('updater').style.display = 'flex';
   document.getElementById('updater-available').style.display = 'flex';
+
+  fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`, { recursive: true });
+  fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, { recursive: true });
 });
 // update not available
 ipcRenderer.on('updater_update_not_available', () => {
