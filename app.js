@@ -8,15 +8,15 @@ const store = new Store();
 const { autoUpdater } = require('electron-updater');
 
 // DEV TOOLS
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
 
-Object.defineProperty(app, 'isPackaged', {
-  get() {
-    return true;
-  },
-});
+// Object.defineProperty(app, 'isPackaged', {
+//   get() {
+//     return true;
+//   },
+// });
 
 let win;
 let appdataPathUser;
@@ -34,9 +34,9 @@ if (debuggingMode === undefined) {
 createWindow = () => {
   win = new BrowserWindow({
     width: 900,
-    height: 650,
+    height: 600,
     minWidth: 900,
-    minHeight: 650,
+    minHeight: 600,
     title: 'Marie Madeleine Launcher',
     icon: path.join(__dirname, IMG_DIR, 'icon.png'),
     frame: false,
@@ -173,12 +173,16 @@ ipcMain.on('login', (event, data) => {
         timeout: 3500,
       };
 
-      launcher.launch(opts).then(() => {
-        win.webContents.send('game-launched');
-        setTimeout(() => {
-          app.quit();
-        }, 7500);
-      });
+      launcher.launch(opts)
+        .then(() => {
+          win.webContents.send('game-launched');
+          setTimeout(() => {
+            app.quit();
+          }, 10000);
+        })
+        .catch(err => {
+          console.error('Error when game launched : ' + err)
+        })
 
       launcher.on('debug', (e) => {
         win.webContents.send('log', e);

@@ -188,5 +188,12 @@ downloadFinished = () => {
 };
 
 debugLogs = (data) => {
-  console.log(data);
+  const containerLogs = document.getElementById('game-launched-logs');
+  const logContainer = document.createElement('article');
+  const logElement = document.createElement('p');
+  const logContent = document.createTextNode(data);
+
+  containerLogs.appendChild(logContainer);
+  logContainer.appendChild(logElement)
+  logElement.appendChild(logContent)
 };
