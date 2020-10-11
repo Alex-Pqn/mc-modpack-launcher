@@ -32,6 +32,11 @@ if (debuggingMode === undefined) {
   store.set('launcherOptionDebuggingMode', false);
 }
 
+const debuggingModeLauncher = store.get('launcherOptionDebuggingModeLauncherLogs');
+if (debuggingMode === undefined) {
+  store.set('launcherOptionDebuggingModeLauncherLogs', false);
+}
+
 // main window launcher creation
 createWindow = () => {
   win = new BrowserWindow({
@@ -70,11 +75,12 @@ createWindow = () => {
   win.once('ready-to-show', () => {
     // path user
     appdataPathUser = app.getPath('appData');
+    store.set('appdataPathUser', appdataPathUser);
 
     // debugging mode
-    store.set('appdataPathUser', appdataPathUser);
     if (debuggingMode === true) {
       store.set('launcherOptionDebuggingMode', false);
+      store.set('launcherOptionDebuggingModeLauncherLogs', true);
     }
 
     // show window
@@ -179,7 +185,10 @@ ipcMain.on('login', (event, data) => {
         .launch(opts)
         .then(() => {
           win.webContents.send('game-launched');
-          if (debuggingMode !== true) {
+
+          if (debuggingModeLauncher === true) {
+            store.set('launcherOptionDebuggingModeLauncherLogs', false);
+          } else {
             setTimeout(() => {
               app.quit();
             }, 7500);
@@ -189,15 +198,12 @@ ipcMain.on('login', (event, data) => {
           win.webContents.send('game-launched-error', err);
         });
 
-      if (debuggingMode === true) {
-        launcher.on('debug', (e) => {
-          win.webContents.send('log', e);
-        });
-
-        launcher.on('data', (e) => {
-          win.webContents.send('log', e);
-        });
-      }
+      launcher.on('debug', (e) => {
+        win.webContents.send('log', e);
+      });
+      launcher.on('data', (e) => {
+        win.webContents.send('log', e);
+      });
       launcher.on('progress', (e) => {
         win.webContents.send('progress', e);
       });

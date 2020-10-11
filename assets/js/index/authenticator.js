@@ -5,8 +5,6 @@ const authRemember = document.getElementById('authRemember');
 const mainNav = document.getElementById('main-nav');
 
 const gameLaunched = document.getElementById('game-launched');
-const gameLaunchedInfo = document.getElementById('game-launched-info');
-const gameLaunchedLogs = document.getElementById('game-launched-logs');
 
 displayAuthInformations = (uDecrypted, pDecrypted) => {
   uInput.setAttribute('value', uDecrypted);
@@ -121,15 +119,10 @@ gameLaunchedError = (data) => {
 };
 
 // Mojang API Connection Succeed
-authDone = (debuggingModeBoolean) => {
+authDone = () => {
   mainNav.style.display = 'none';
 
   gameLaunched.style.display = 'flex';
-  if (debuggingModeBoolean === true) {
-    gameLaunchedLogs.style.display = 'flex';
-  } else {
-    gameLaunchedInfo.style.display = 'flex';
-  }
 
   button.style.display = 'none';
   uInput.disabled = true;
@@ -142,7 +135,7 @@ authDone = (debuggingModeBoolean) => {
     'rgba(53, 255, 53, 0.788)'
   );
   displayInfoForm(
-    'Le temps de cette opération dépend de votre connexion internet.',
+    'La durée de cette opération dépend de votre connexion internet.',
     'rgb(255, 255, 255)',
     'rgba(122, 122, 122, 0.616)'
   );
