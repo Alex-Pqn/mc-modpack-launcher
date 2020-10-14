@@ -1,7 +1,6 @@
 const { ipcRenderer, remote, shell, app } = require('electron');
 
 const Store = require('electron-store');
-
 const store = new Store();
 
 const fs = require('fs');
@@ -33,8 +32,6 @@ ipcRenderer.on('log', (event, data) => {
 // Authenticator - authenticator.js
 const ipc = require('electron').ipcRenderer;
 
-const debuggingMode = store.get('launcherOptionDebuggingMode');
-
 authSend = (u, p) => {
   ipc.send('login', { u, p });
 };
@@ -43,7 +40,7 @@ ipc.on('err', (err) => {
   authError(err);
 });
 ipc.on('done', () => {
-  authDone(debuggingMode);
+  authDone();
 });
 
 // Cryptr - authenticator.js

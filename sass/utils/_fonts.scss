@@ -1,0 +1,91 @@
+//Updater
+.updater {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    & h3 {
+        font-family: 'Karla', sans-serif;
+    }
+    & button {
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    }
+}
+
+//Header
+.header {
+    &__title {
+        font-family: 'Karla', sans-serif;
+        font-size: 1.3em;
+    }
+}
+
+//Main-nav
+.main-nav {
+    &__top {
+        font-family: 'Karla', sans-serif;
+    }
+    &__bottom {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+}
+
+//Index
+.index {
+    &__content {
+        &__login-form {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        &__java-info {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+    }
+}
+#game-launched {
+    & p {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+}
+
+//Options
+.options {
+    &__content {
+        & h2 {
+            font-family: 'Karla', sans-serif;
+        }
+        & p, label, span {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
+        }
+    }
+}
+
+//Pack
+.pack {
+    &__content {
+        & h2 {
+            font-family: 'Karla', sans-serif;;
+        }
+        & p, button {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;;
+        }
+    }
+}
+
+//About
+.about {
+    &__content {
+        &__license {
+            &__title {
+                font-family: 'Karla', sans-serif;
+            }
+            &__content {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        }
+        &__community {
+            & h1 {
+                font-family: 'Karla', sans-serif;
+            }
+            & p {
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            }
+        }
+    }
+} 

@@ -79,8 +79,8 @@ createWindow = () => {
 
     // debugging mode
     if (debuggingMode === true) {
-      store.set('launcherOptionDebuggingMode', false);
       store.set('launcherOptionDebuggingModeLauncherLogs', true);
+      store.set('launcherOptionDebuggingMode', false);
     }
 
     // show window

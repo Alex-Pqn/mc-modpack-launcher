@@ -1,0 +1,43 @@
+//Pack & Options pages
+@mixin parts-h2-pack-options_default {
+    border-bottom: 1px solid black;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    margin-bottom: 7px;
+    padding-bottom: 7px;
+}
+@mixin parts-h2-pack-options_1350px {
+    border-bottom: 1px solid black;
+    font-size: 1.25em;
+    letter-spacing: 1.1px;
+    margin-bottom: 9px;
+    padding-bottom: 9px;
+}
+@mixin parts-h2-pack-options_1920px {
+    border-bottom: 1px solid black;
+    font-size: 1.38em;
+    letter-spacing: 1.1px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+@mixin parts-error-pack-options_default {
+    font-size: .97em;
+    margin-top: 3px;
+    color: rgb(88, 0, 0);
+    padding: 5px 10px;
+    background-color: rgba(180, 0, 0, 0.2);
+} 
+@mixin parts-error-pack-options_1350px {
+    font-size: 1.05em;
+    margin-top: 3px;
+    color: rgb(88, 0, 0);
+    padding: 5px 10px;
+    background-color: rgba(180, 0, 0, 0.2);
+}
+@mixin parts-error-pack-options_1920px {
+    font-size: 1.15em;
+    margin-top: 3px;
+    color: rgb(88, 0, 0);
+    padding: 5px 10px;
+    background-color: rgba(180, 0, 0, 0.2);
+} 
