@@ -8,7 +8,7 @@ The installation uses npm Node.js.
 
 You can install the application locally with "npm install".
 
-*-*
+- - -
 
 ## Default start
 You can start the project with "npm start".
