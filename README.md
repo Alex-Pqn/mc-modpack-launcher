@@ -5,7 +5,7 @@ This application was made with Electron.
 
 - - -
 
-## Installation
+### Installation
 The installation uses npm Node.js.
 
 You can install the application locally with "npm install".
