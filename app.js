@@ -9,15 +9,15 @@ const store = new Store();
 const { autoUpdater } = require('electron-updater');
 
 // DEV TOOLS
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
 
-// Object.defineProperty(app, 'isPackaged', {
-//   get() {
-//     return true;
-//   },
-// });
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  },
+});
 
 let win;
 let appdataPathUser;
@@ -30,11 +30,6 @@ const ASSET_DIR = '/assets/html/';
 const debuggingMode = store.get('launcherOptionDebuggingMode');
 if (debuggingMode === undefined) {
   store.set('launcherOptionDebuggingMode', false);
-}
-
-const debuggingModeLauncher = store.get('launcherOptionDebuggingModeLauncherLogs');
-if (debuggingModeLauncher === undefined) {
-  store.set('launcherOptionDebuggingModeLauncherLogs', false);
 }
 
 // main window launcher creation
@@ -79,9 +74,11 @@ createWindow = () => {
 
     // debugging mode
     if (debuggingMode === true) {
-      store.set('launcherOptionDebuggingModeLauncherLogs', true);
-      store.set('launcherOptionDebuggingMode', false);
+      store.set('launcherOptionDebuggingModeLauncherClose', true);
+    }else{
+      store.set('launcherOptionDebuggingModeLauncherClose', false)
     }
+    store.set('launcherOptionDebuggingMode', false);
 
     // show window
     win.show();
@@ -186,13 +183,13 @@ ipcMain.on('login', (event, data) => {
         .then(() => {
           win.webContents.send('game-launched');
 
-          if (debuggingModeLauncher === true) {
-            store.set('launcherOptionDebuggingModeLauncherLogs', false);
-          } else {
+          if (store.get('launcherOptionDebuggingModeLauncherClose') !== true) {
             setTimeout(() => {
               app.quit();
             }, 7500);
           }
+
+          store.set('launcherOptionDebuggingModeLauncherClose', false);
         })
         .catch((err) => {
           win.webContents.send('game-launched-error', err);

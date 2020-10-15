@@ -1,0 +1,171 @@
+//Header
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    & .header {
+        display: flex;
+        width: 100%;
+        background-color: rgba(211, 211, 211, 0.6);
+        &__title {
+            -webkit-app-region: drag;
+            display: flex;
+            width: 100%;
+            text-align: left;
+            align-items: center;
+            & img {
+                display: flex;
+                align-self: flex-end;
+            }
+        }
+        &__nav {
+            -webkit-app-region: no-drag;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            z-index: 2;
+            & ul {
+                display: flex;
+                justify-content: center;
+                height: 100%;
+                & #minimize i {
+                    padding-bottom: 9.5px;
+                    padding-right: 2px;
+                }
+                & li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 45px;
+                    height: 100%;
+                }
+            }
+        }
+    }
+    & .bottom-nav {
+        display: flex;
+        width: 100%;
+        background-color: rgb(168, 168, 168);
+    }
+} 
+
+@media screen and (min-width: 0px) {
+    header {
+        & .header {
+            &__title {
+                & img {
+                    width: 38px;
+                    margin: 3px 8px 0 0;
+                }
+                & h3 {
+                    font-size: .9em;
+                }
+            }
+            &__nav {
+                & ul {
+                    & #minimize i {
+                        font-size: 1.10em;
+                    }
+                    & #maximize i {
+                        font-size: 1.02em;
+                    }
+                    & #close i {
+                        font-size: 1.09em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1215px) {
+    header {
+        & .header {
+            &__title {
+                & img {
+                    width: 40px;
+                    margin: 4px 11px 0 0;
+                }
+                & h3 {
+                    font-size: .95em;
+                }
+            }
+            &__nav {
+                & ul {
+                    & #minimize i {
+                        font-size: 1.17em;
+                    }
+                    & #maximize i {
+                        font-size: 1.09em;
+                    }
+                    & #close i {
+                        font-size: 1.12em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1350px) {
+    header {
+        & .header {
+            &__title {
+                & img {
+                    width: 42px;
+                    margin: 5px 12px 0 0;
+                }
+                & h3 {
+                    font-size: 1em;
+                }
+            }
+            &__nav {
+                & ul {
+                    & #minimize i {
+                        font-size: 1.25em;
+                    }
+                    & #maximize i {
+                        font-size: 1.17em;
+                    }
+                    & #close i {
+                        font-size: 1.24em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    header {
+        & .header {
+            &__title {
+                & img {
+                    width: 48px;
+                    margin: 8px 16px 0 0;
+                }
+                & h3 {
+                    font-size: 1.15em;
+                }
+            }
+            &__nav {
+                & ul {
+                    & #minimize i {
+                        font-size: 1.55em;
+                        padding-bottom: 13.5px!important;
+                        padding-right: 0!important;
+                    }
+                    & #maximize i {
+                        font-size: 1.37em;
+                    }
+                    & #close i {
+                        font-size: 1.47em;
+                    }
+                    & li {
+                        width: 60px!important;
+                    }
+                }
+            }
+        }
+    }
+}
