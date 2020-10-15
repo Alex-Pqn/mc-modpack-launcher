@@ -4,7 +4,11 @@ It's the code source of the Marie Madeleine Launcher application and an updater 
 This application was made with Electron.
 
 ## Installation
+The installation uses npm Node.js.
+
 You can install the application locally with "npm install".
+
+*-*
 
 ## Default start
 You can start the project with "npm start".
