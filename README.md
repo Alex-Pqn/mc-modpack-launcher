@@ -13,9 +13,9 @@ You can install the application locally with `npm install`.
 - - -
 
 ### Default start
-You can start the project with "npm start".
+You can start the project with `npm start`.
 
 ### Advanced start
-You can start the project with "npm start" and "npm run sass" (for activate the in real time sass compilation).
+You can start the project with `npm start` and `npm run sass` (for activate the in real time sass compilation).
 
 Also, you can un-comments in app.js files the lines 11 at 18 for activate the Dev tools (allows to reload the application in real time).
