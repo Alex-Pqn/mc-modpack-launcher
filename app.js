@@ -3,7 +3,6 @@ const path = require('path');
 const url = require('url');
 
 const Store = require('electron-store');
-
 const store = new Store();
 
 const { autoUpdater } = require('electron-updater');
