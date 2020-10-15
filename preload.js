@@ -164,18 +164,20 @@ ipcRenderer.on('updater_update_not_available', () => {
 });
 // update downloaded
 ipcRenderer.on('updater_update_downloaded', () => {
-  ipcRenderer.removeAllListeners('updater_update_downloaded');
-  console.log(
-    'Electron Updater : Update finished, attempting to restart the launcher.'
-  );
-
-  document.getElementById('updater-available').style.display = 'none';
-  document.getElementById('updater-restart').style.display = 'flex';
-  document
-    .getElementById('button-updater-restart')
-    .addEventListener('click', () => {
-      ipcRenderer.send('restart_app');
-    });
+  setTimeout(() => {
+    ipcRenderer.removeAllListeners('updater_update_downloaded');
+    console.log(
+      'Electron Updater : Update finished, waiting to restart the launcher.'
+    );
+  
+    document.getElementById('updater-available').style.display = 'none';
+    document.getElementById('updater-restart').style.display = 'flex';
+    document
+      .getElementById('button-updater-restart')
+      .addEventListener('click', () => {
+        ipcRenderer.send('restart_app');
+      });
+  }, 3000);
 });
 // update error
 ipcRenderer.on('updater_error', (err) => {
