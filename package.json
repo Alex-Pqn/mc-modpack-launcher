@@ -67,12 +67,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alex-Pqn/electron-launcher.git"
+    "url": "git+https://github.com/Alex-Pqn/marie-madeleine-launcher.git"
   },
   "author": "Alex-Pqn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Alex-Pqn/electron-launcher/issues"
+    "url": "https://github.com/Alex-Pqn/marie-madeleine-launcher/issues"
   },
-  "homepage": "https://github.com/Alex-Pqn/electron-launcher#readme"
+  "homepage": "https://github.com/Alex-Pqn/marie-madeleine-launcher#readme"
 }
