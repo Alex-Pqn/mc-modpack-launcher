@@ -44,9 +44,10 @@ ipc.on('done', () => {
 });
 
 // Cryptr - authenticator.js
-const Cryptr = require('cryptr');
+require('dotenv').config()
 
-const cryptr = new Cryptr('mwjHKLUkGJfjgpgVrtmb9X0fboCAyKZS');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.AUTH_KEY);
 
 window.addEventListener('DOMContentLoaded', () => {
   const auth = store.get('auth');
