@@ -8,14 +8,14 @@ const store = new Store();
 const { autoUpdater } = require('electron-updater');
 
 // DEV TOOLS
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
-// Object.defineProperty(app, 'isPackaged', {
-//   get() {
-//     return true;
-//   },
-// });
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  },
+});
 
 let win;
 let appdataPathUser;
@@ -24,11 +24,7 @@ const clientPackageUrl = 'https://www.dropbox.com/s/ags77ebds3k749g/clientPackag
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
-// debugging mode
 const debuggingMode = store.get('launcherOptionDebuggingMode');
-if (debuggingMode === undefined) {
-  store.set('launcherOptionDebuggingMode', false);
-}
 
 // main window launcher creation
 createWindow = () => {
@@ -52,7 +48,7 @@ createWindow = () => {
       worldSafeExecuteJavaScript: true,
       webSecurity: true,
       preload: path.join(__dirname, 'preload.js'),
-      devTools: true,
+      devTools: debuggingMode,
     },
   });
 
@@ -110,10 +106,30 @@ app.whenReady().then(() => {
   // check update
   autoUpdater.checkForUpdatesAndNotify();
 
+  // debugging mode
+  if (debuggingMode === undefined) {
+    store.set('launcherOptionDebuggingMode', false);
+  }
+
+  // authKey & OSname
+  if (store.get('authKey') === undefined) {
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    const string_length = 256;
+    let randomstring = '';
+    for (let i=0; i<string_length; i++) {
+    let rnum = Math.floor(Math.random() * chars.length);
+    randomstring += chars.substring(rnum,rnum+1);
+    }
+    store.set('authKey', randomstring)
+
+    const OSname = require('os').userInfo().username;
+    store.set('OSname', OSname)
+  }
+
   // create window
   setTimeout(() => {
     createWindow();
-  }, 1000);
+  }, 750);
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -137,8 +153,6 @@ app.on('close', function (event) {
 ipcMain.on('login', (event, data) => {
   const { Client, Authenticator } = require('minecraft-launcher-core');
   const launcher = new Client();
-
-  const OSname = require('os').userInfo().username;
 
   const maxRamUser = store.get('minecraftOptionMaxRam');
   const minRamUser = store.get('minecraftOptionMinRam');

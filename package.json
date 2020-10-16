@@ -1,11 +1,10 @@
 {
   "name": "mmlauncher",
-  "version": "1.4.31",
+  "version": "1.5",
   "description": "Marie Madeleine Launcher",
   "main": "app.js",
   "dependencies": {
     "cryptr": "^6.0.2",
-    "dotenv": "^8.2.0",
     "electron-store": "^6.0.0",
     "electron-updater": "^4.3.5",
     "minecraft-launcher-core": "^3.15.0"
