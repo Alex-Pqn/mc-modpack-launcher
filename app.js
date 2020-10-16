@@ -69,8 +69,8 @@ createWindow = () => {
     // debugging mode
     if (debuggingMode === true) {
       store.set('launcherOptionDebuggingModeLauncherClose', true);
-    }else{
-      store.set('launcherOptionDebuggingModeLauncherClose', false)
+    } else {
+      store.set('launcherOptionDebuggingModeLauncherClose', false);
     }
     store.set('launcherOptionDebuggingMode', false);
 
@@ -113,17 +113,17 @@ app.whenReady().then(() => {
 
   // authKey & OSname
   if (store.get('authKey') === undefined) {
-    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
     const string_length = 256;
     let randomstring = '';
-    for (let i=0; i<string_length; i++) {
-    let rnum = Math.floor(Math.random() * chars.length);
-    randomstring += chars.substring(rnum,rnum+1);
+    for (let i = 0; i < string_length; i++) {
+      const rnum = Math.floor(Math.random() * chars.length);
+      randomstring += chars.substring(rnum, rnum + 1);
     }
-    store.set('authKey', randomstring)
+    store.set('authKey', randomstring);
 
     const OSname = require('os').userInfo().username;
-    store.set('OSname', OSname)
+    store.set('OSname', OSname);
   }
 
   // create window
