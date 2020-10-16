@@ -52,7 +52,7 @@ createWindow = () => {
       worldSafeExecuteJavaScript: true,
       webSecurity: true,
       preload: path.join(__dirname, 'preload.js'),
-      devTools: debuggingMode,
+      devTools: true,
     },
   });
 
