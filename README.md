@@ -5,13 +5,6 @@ This application was made with Electron and is only compatible with Windows OS.
 
 - - -
 
-## Installation
-The installation uses npm Node.js.
-
-You can install the application locally with `npm install`.
-
-- - -
-
 ## Security Policy
 
 Supported security updates versions.
@@ -22,6 +15,13 @@ Supported security updates versions.
 | 5.0.x   | :x:                |
 | 4.0.x   | :white_check_mark: |
 | < 4.0   | :x:                |
+
+- - -
+
+## Installation
+The installation uses npm Node.js.
+
+You can install the application locally with `npm install`.
 
 - - -
 
