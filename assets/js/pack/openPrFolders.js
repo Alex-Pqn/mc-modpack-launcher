@@ -19,7 +19,7 @@ openAppdataFolders = (appdata, launcherFolderLength) => {
     }
   });
   document.getElementById('sp-folder').addEventListener('click', () => {
-    if (launcherFolderLength.length > 0) {
+    if (launcherFolderLength.length > 0 || launcherFolderLength == undefined) {
       openFolder(`${appdata}\\.MMLauncher\\shaderpacks`);
     } else {
       openAppdataFoldersError();

@@ -147,7 +147,8 @@
             & a {
                 color: rgb(59, 59, 59);
                 &:hover {
-                    opacity: .65;
+                    opacity: .75;
+                    cursor: pointer;
                 }
             }
         }
