@@ -1,7 +1,20 @@
-# Marie Madeleine Launcher
+# marie-madeleine-launcher
 It's the code source of the Marie Madeleine Launcher application and an updater repository check (with electron-updater).
 
-This application was made with Electron.
+This application was made with Electron and is only compatible with Windows OS.
+
+- - -
+
+## Security Policy
+
+Supported security updates versions.
+
+| Version | Supported          |
+| ------- | ------------------ |
+| 5.1.x   | :white_check_mark: |
+| 5.0.x   | :x:                |
+| 4.0.x   | :white_check_mark: |
+| < 4.0   | :x:                |
 
 - - -
 
