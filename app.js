@@ -52,7 +52,6 @@ createWindow = () => {
     },
   });
 
-  // win.loadURL('https://url.com')
   win.loadURL(
     url.format({
       pathname: path.join(__dirname, ASSET_DIR, 'index.html'),
