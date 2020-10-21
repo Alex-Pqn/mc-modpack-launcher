@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const ncu = require('npm-check-updates')
 const path = require('path');
 const url = require('url');
 
@@ -25,6 +26,14 @@ const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
 const debuggingMode = store.get('launcherOptionDebuggingMode');
+
+async function checkUpdatePackages () {
+  const upgraded = await ncu.run({
+    jsonUpgraded: true,
+    silent: true
+  })
+  console.log(upgraded)
+}
 
 // main window launcher creation
 createWindow = () => {
@@ -101,8 +110,11 @@ ipcMain.on('restart_app', () => {
 
 // app ready
 app.whenReady().then(() => {
-  // check update
+  // check update app
   autoUpdater.checkForUpdatesAndNotify();
+
+  // check update packages
+  checkUpdatePackages()
 
   // debugging mode
   if (debuggingMode === undefined) {
