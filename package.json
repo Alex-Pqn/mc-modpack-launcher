@@ -1,32 +1,32 @@
 {
   "name": "mmlauncher",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Marie Madeleine Launcher",
   "main": "app.js",
   "dependencies": {
     "cryptr": "^6.0.2",
-    "electron-store": "^6.0.0",
+    "electron-store": "^6.0.1",
     "electron-updater": "^4.3.5",
     "minecraft-launcher-core": "^3.15.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "electron": "^10.1.2",
-    "electron-builder": "^22.8.1",
+    "electron": "^10.1.4",
+    "electron-builder": "^22.9.1",
     "electron-packager": "^15.1.0",
     "electron-reload": "^1.5.0",
-    "eslint": "^7.8.1",
+    "eslint": "^7.11.0",
     "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-prettier": "^6.14.0",
     "eslint-config-wesbos": "^1.0.1",
     "eslint-plugin-html": "^6.1.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.6",
-    "eslint-plugin-react-hooks": "^4.1.2",
-    "prettier": "^2.1.1",
-    "sass": "^1.26.11"
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.1.2",
+    "sass": "^1.27.0"
   },
   "build": {
     "appId": "com.mmlauncher.app",

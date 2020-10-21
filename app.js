@@ -46,7 +46,6 @@ createWindow = () => {
     webPreferences: {
       enableRemoteModule: true,
       worldSafeExecuteJavaScript: true,
-      webSecurity: true,
       preload: path.join(__dirname, 'preload.js'),
       devTools: debuggingMode,
     },
