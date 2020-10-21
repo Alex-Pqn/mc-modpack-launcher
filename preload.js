@@ -191,8 +191,8 @@ window.addEventListener('DOMContentLoaded', () => {
   if (window.openAppdataFoldersError !== undefined) {
     openAppdataFoldersError();
   }
-  fs.readdirSync(`${appdataUserFolder}\\.MMLauncher`);
   if (window.openAppdataFolders !== undefined) {
+    fs.readdirSync(`${appdataUserFolder}\\.MMLauncher`);
     openAppdataFolders();
   }
 
@@ -212,11 +212,10 @@ window.addEventListener('DOMContentLoaded', () => {
     modsListError();
   }
 
-  const modsFolderLength = fs.readdirSync(
-    `${appdataUserFolder}\\.MMLauncher\\mods`
-  );
-
   if (window.getModsList !== undefined) {
+    const modsFolderLength = fs.readdirSync(
+      `${appdataUserFolder}\\.MMLauncher\\mods`
+    );
     getModsList(modsFolderLength);
   }
 });
