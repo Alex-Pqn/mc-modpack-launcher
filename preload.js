@@ -168,7 +168,7 @@ ipcRenderer.on('updater_update_downloaded', () => {
     console.log(
       'Electron Updater : Update finished, waiting to restart the launcher.'
     );
-  
+
     document.getElementById('updater-available').style.display = 'none';
     document.getElementById('updater-restart').style.display = 'flex';
     document
@@ -191,12 +191,19 @@ window.addEventListener('DOMContentLoaded', () => {
   if (window.openAppdataFoldersError !== undefined) {
     openAppdataFoldersError();
   }
-  const launcherFolderLength = fs.readdirSync(
-    `${appdataUserFolder}\\.MMLauncher`
-  );
+  fs.readdirSync(`${appdataUserFolder}\\.MMLauncher`);
   if (window.openAppdataFolders !== undefined) {
-    openAppdataFolders(appdataUserFolder, launcherFolderLength);
+    openAppdataFolders();
   }
+
+  spAppdataFolder = () => {
+    fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\shaderpacks`);
+    openSpAppdataFolder(appdataUserFolder);
+  };
+  rpAppdataFolder = () => {
+    fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\resourcepacks`);
+    openRpAppdataFolder(appdataUserFolder);
+  };
 });
 
 // ModsList - modsList.js

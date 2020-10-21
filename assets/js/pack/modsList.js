@@ -20,21 +20,34 @@ getModsList = (modsList) => {
   } else {
     modsListFined();
     containerList.style.display = 'block';
-    for (let i = 1; i < modsList.length; i++) {
-      modSplitOne = modsList[i].split('-').join(' ');
-      modSplitTwo = modSplitOne.split('.jar').join('');
-      modSplitThree = modSplitTwo.split('universal').join('');
-      modSplitFour = modSplitThree.split('+').join(' ');
-      modSplitFive = modSplitFour.split('_').join(' ');
-      modSplitSix = modSplitFive.split('[').join(' ');
-      modSplitSeven = modSplitSix.split(']').join(' ');
-      const article = document.createElement('article');
-      const textElement = document.createElement('p');
-      const textContent = document.createTextNode(`${i} - ${modSplitSeven}`);
+    for (let i = 0; i < modsList.length; i++) {
+      if (modsList[i].includes('.jar') === true) {
+        const modSplit = modsList[i]
+          .split('-')
+          .join(' ')
+          .split('.jar')
+          .join('')
+          .split('universal')
+          .join('')
+          .split('+')
+          .join(' ')
+          .split('_')
+          .join(' ')
+          .split('[')
+          .join(' ')
+          .split(']')
+          .join(' ');
 
-      containerList.appendChild(article);
-      article.appendChild(textElement);
-      textElement.appendChild(textContent);
+        const article = document.createElement('article');
+        const textElement = document.createElement('p');
+        const textContent = document.createTextNode(`${i} - ${modSplit}`);
+
+        containerList.appendChild(article);
+        article.appendChild(textElement);
+        textElement.appendChild(textContent);
+      } else {
+        modsListError();
+      }
     }
   }
 };
