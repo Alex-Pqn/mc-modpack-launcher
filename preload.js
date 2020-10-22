@@ -59,6 +59,14 @@ ipc.on('err', (err) => {
   authError(err);
 });
 ipc.on('done', () => {
+  console.log(
+    store.get('minecraftOptionMinRam'),
+    store.get('minecraftOptionMaxRam'),
+    store.get('minecraftOptionJvm'),
+    store.get('minecraftOptionHeightRes'),
+    store.get('minecraftOptionWidthRes'),
+    store.get('minecraftOptionFullscreenRes')
+  )
   authDone();
 });
 
