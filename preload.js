@@ -44,7 +44,7 @@ packageChoiceDisplay = () => {
 packageChoiceWithPrLink = () => {
   store.set(
     'launcherModpackLink',
-    'https://www.dropbox.com/s/p71w8ocqyrne0ie/clientPackage.zip?dl=1'
+    'https://www.dropbox.com/s/yjwbkebg771dxwr/clientPackage.zip?dl=1'
   );
 };
 
