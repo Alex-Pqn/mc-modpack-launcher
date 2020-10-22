@@ -3,6 +3,8 @@ It's the code source of the Marie Madeleine Launcher application and an updater 
 
 This application was made with Electron and is only compatible with Windows OS.
 
+![](https://media.giphy.com/media/fXoy9eh8XXRYh0Jjjn/giphy.gif)
+
 - - -
 
 ## Security Policy
