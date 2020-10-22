@@ -8,7 +8,7 @@ if (localStorage.getItem('backgroundKey') === null) {
 }
 
 // if last background, reset key
-else if (JSON.parse(localStorage.getItem('backgroundKey')).key === 12) {
+else if (JSON.parse(localStorage.getItem('backgroundKey')).key === 14) {
   localStorage.setItem('backgroundKey', JSON.stringify(backgroundKey));
 }
 
@@ -26,4 +26,4 @@ document.getElementById(
   'main-container'
 ).style.backgroundImage = `url(../img/background${
   JSON.parse(localStorage.getItem('backgroundKey')).key
-}.jpg)`;
+}.png)`;
