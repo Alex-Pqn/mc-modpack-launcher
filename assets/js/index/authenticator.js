@@ -4,6 +4,9 @@ const pInput = document.getElementById('p');
 const authRemember = document.getElementById('authRemember');
 const mainNav = document.getElementById('main-nav');
 
+const textStatus = document.getElementById('status-form');
+const textInfo = document.getElementById('info-form');
+
 const gameLaunched = document.getElementById('game-launched');
 
 displayAuthInformations = (uDecrypted, pDecrypted) => {
@@ -12,7 +15,6 @@ displayAuthInformations = (uDecrypted, pDecrypted) => {
 };
 
 displayStatusForm = (statusValue, textColor, backgroundColor) => {
-  const textStatus = document.getElementById('status-form');
   textStatus.innerHTML = statusValue;
   textStatus.style.color = textColor;
   textStatus.style.backgroundColor = backgroundColor;
@@ -20,11 +22,49 @@ displayStatusForm = (statusValue, textColor, backgroundColor) => {
 };
 
 displayInfoForm = (statusValue, textColor, backgroundColor) => {
-  const textInfo = document.getElementById('info-form');
   textInfo.innerHTML = statusValue;
   textInfo.style.color = textColor;
   textInfo.style.backgroundColor = backgroundColor;
   textInfo.style.padding = '5px';
+};
+
+// Modpack downloader - package choice
+packageChoice = () => {
+  const u = uInput.value;
+  const p = pInput.value;
+
+  const packageChoiceContainer = document.getElementById('package-choice');
+  packageChoiceContainer.style.display = 'initial';
+
+  button.style.display = 'none';
+  uInput.disabled = true;
+  pInput.disabled = true;
+  authRemember.disabled = true;
+
+  textStatus.style.display = 'none';
+  textInfo.style.display = 'none';
+
+  document
+    .getElementById('package-choice-yes')
+    .addEventListener('click', () => {
+      packageChoiceContainer.style.display = 'none';
+      textStatus.style.display = 'initial';
+      textInfo.style.display = 'initial';
+      packageChoiceWithPrLink();
+      authSend(u, p);
+    });
+  document.getElementById('package-choice-no').addEventListener('click', () => {
+    packageChoiceContainer.style.display = 'none';
+    textStatus.style.display = 'initial';
+    textInfo.style.display = 'initial';
+    authSend(u, p);
+  });
+};
+
+skipPackageChoice = () => {
+  const u = uInput.value;
+  const p = pInput.value;
+  authSend(u, p);
 };
 
 // Store Mojang informations
@@ -90,7 +130,7 @@ button.addEventListener('click', (e) => {
           argumentsList[0].stepValidation === true &&
           argumentsList[1].stepValidation === true
         ) {
-          authSend(u, p);
+          packageChoiceDisplay();
         }
       }
     });

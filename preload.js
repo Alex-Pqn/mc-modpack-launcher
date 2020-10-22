@@ -29,6 +29,25 @@ ipcRenderer.on('log', (event, data) => {
   debugLogs(data);
 });
 
+// Modpack downloader - package choice
+packageChoiceDisplay = () => {
+  // if .MMLauncher exist, skip package choice
+  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher`)) {
+    skipPackageChoice();
+  }
+  // if .MMLauncher doesn't exist
+  else {
+    packageChoice();
+  }
+};
+// storeSet download link (packs resources choice)
+packageChoiceWithPrLink = () => {
+  store.set(
+    'launcherModpackLink',
+    'https://www.dropbox.com/s/p71w8ocqyrne0ie/clientPackage.zip?dl=1'
+  );
+};
+
 // Authenticator - authenticator.js
 const ipc = require('electron').ipcRenderer;
 
@@ -101,11 +120,14 @@ const getWidthRes = store.get('minecraftOptionWidthRes');
 const getFullscreenRes = store.get('minecraftOptionFullscreenRes');
 const getJvm = store.get('minecraftOptionJvm');
 
-storeSet = (key, value) => {
+// storeSet minecraft options
+storeSet = (minecraftOption, minecraftOptionValue) => {
   const Store = require('electron-store');
   const store = new Store();
-  store.set(key, value);
+  store.set(minecraftOption, minecraftOptionValue);
 };
+
+// display minecraft options values
 window.addEventListener('DOMContentLoaded', () => {
   if (window.storeRam !== undefined) {
     storeRam(getMinRam, getMaxRam);
@@ -131,16 +153,51 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
+// Launcher Options - defaults options
+window.addEventListener('DOMContentLoaded', () => {
+  // minRam,maxRam
+  const defaultMaxRam = 3584;
+  const defaultMinRam = 2048;
+  if (store.get('minecraftOptionMinRam') === undefined) {
+    store.set('minecraftOptionMinRam', defaultMinRam);
+  }
+  if (store.get('minecraftOptionMaxRam') === undefined) {
+    store.set('minecraftOptionMaxRam', defaultMaxRam);
+  }
+
+  // jvm
+  const defaultJvm = [];
+  if (store.get('minecraftOptionJvm') === undefined) {
+    store.set('minecraftOptionJvm', defaultJvm);
+  }
+
+  // heightRes,widthRes,fullscreenRes
+  const defaultHeightRes = 1080;
+  const defaultWidthRes = 1920;
+  const defaultFullscreenRes = true;
+  if (store.get('minecraftOptionHeightRes') === undefined) {
+    store.set('minecraftOptionHeightRes', defaultHeightRes);
+  }
+  if (store.get('minecraftOptionWidthRes') === undefined) {
+    store.set('minecraftOptionWidthRes', defaultWidthRes);
+  }
+  if (store.get('minecraftOptionFullscreenRes') === undefined) {
+    store.set('minecraftOptionFullscreenRes', defaultFullscreenRes);
+  }
+});
+
 // Electron-updater
 
 // update check (call in options part)
 checkUpdate = () => {
   ipcRenderer.send('check-update');
 };
+
 // update available
 ipcRenderer.on('updater_update_available', () => {
   ipcRenderer.removeAllListeners('updater_update_available');
   console.log('Electron Updater : Update for the launcher detected.');
+
   if (window.updateAvailable !== undefined) {
     updateAvailable();
   }
@@ -149,11 +206,19 @@ ipcRenderer.on('updater_update_available', () => {
   document.getElementById('updater').style.display = 'flex';
   document.getElementById('updater-available').style.display = 'flex';
 
-  fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`, { recursive: true });
-  fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, {
-    recursive: true,
-  });
+  // if exists, delete "mods" and "config" folders
+  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
+    fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`, {
+      recursive: true,
+    });
+  }
+  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\config`)) {
+    fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, {
+      recursive: true,
+    });
+  }
 });
+
 // update not available
 ipcRenderer.on('updater_update_not_available', () => {
   if (window.NoUpdateAvailable !== undefined) {
@@ -161,6 +226,7 @@ ipcRenderer.on('updater_update_not_available', () => {
   }
   console.log('Electron Updater : No update detected for the launcher.');
 });
+
 // update downloaded
 ipcRenderer.on('updater_update_downloaded', () => {
   setTimeout(() => {
@@ -178,6 +244,7 @@ ipcRenderer.on('updater_update_downloaded', () => {
       });
   }, 3000);
 });
+
 // update error
 ipcRenderer.on('updater_error', (err) => {
   console.error(`Electron Updater Error : ${err}`);
@@ -188,34 +255,36 @@ ipcRenderer.on('updater_error', (err) => {
 
 // Path & Open Folders - openPrFolders.js
 window.addEventListener('DOMContentLoaded', () => {
-  if (window.openAppdataFoldersError !== undefined) {
+  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher`)) {
+    if (window.openAppdataFolders !== undefined) {
+      openAppdataFolders();
+    }
+  } else if (window.openAppdataFoldersError !== undefined) {
     openAppdataFoldersError();
   }
-  if (window.openAppdataFolders !== undefined) {
-    fs.readdirSync(`${appdataUserFolder}\\.MMLauncher`);
-    openAppdataFolders();
-  }
 
-  spAppdataFolder = () => {
-    fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\shaderpacks`);
-    openSpAppdataFolder(appdataUserFolder);
-  };
   rpAppdataFolder = () => {
-    fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\resourcepacks`);
-    openRpAppdataFolder(appdataUserFolder);
+    if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\resourcepacks`)) {
+      openRpAppdataFolder(appdataUserFolder);
+    }
+  };
+  spAppdataFolder = () => {
+    if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\shaderpacks`)) {
+      openRpAppdataFolder(appdataUserFolder);
+    }
   };
 });
 
 // ModsList - modsList.js
 window.addEventListener('DOMContentLoaded', () => {
-  if (window.modsListError !== undefined) {
-    modsListError();
-  }
-
-  if (window.getModsList !== undefined) {
+  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
     const modsFolderLength = fs.readdirSync(
       `${appdataUserFolder}\\.MMLauncher\\mods`
     );
-    getModsList(modsFolderLength);
+    if (window.getModsList !== undefined) {
+      getModsList(modsFolderLength);
+    }
+  } else if (window.modsListError !== undefined) {
+    modsListError();
   }
 });

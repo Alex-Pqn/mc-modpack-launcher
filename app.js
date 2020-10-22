@@ -3,6 +3,7 @@ const path = require('path');
 const url = require('url');
 
 const Store = require('electron-store');
+
 const store = new Store();
 
 const { autoUpdater } = require('electron-updater');
@@ -20,7 +21,6 @@ const { autoUpdater } = require('electron-updater');
 let win;
 let appdataPathUser;
 
-const clientPackageUrl = 'https://www.dropbox.com/scl/fi/02rm5nkltwhw9lytx0n54/clientPackage.zip?dl=1';
 const IMG_DIR = '/assets/img/icon/png/';
 const ASSET_DIR = '/assets/html/';
 
@@ -64,6 +64,9 @@ createWindow = () => {
     appdataPathUser = app.getPath('appData');
     store.set('appdataPathUser', appdataPathUser);
 
+    // show window
+    win.show();
+
     // debugging mode
     if (debuggingMode === true) {
       store.set('launcherOptionDebuggingModeLauncherClose', true);
@@ -72,8 +75,27 @@ createWindow = () => {
     }
     store.set('launcherOptionDebuggingMode', false);
 
-    // show window
-    win.show();
+    // authKey & OSname
+    if (store.get('authKey') === undefined) {
+      const chars =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
+      const string_length = 256;
+      let randomstring = '';
+      for (let i = 0; i < string_length; i++) {
+        const rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars.substring(rnum, rnum + 1);
+      }
+      store.set('authKey', randomstring);
+
+      const OSname = require('os').userInfo().username;
+      store.set('OSname', OSname);
+    }
+
+    // storeSet download link (normal choice)
+    store.set(
+      'launcherModpackLink',
+      'https://www.dropbox.com/s/wso969k8p1ejsr5/clientPackage.zip?dl=1'
+    );
   });
 };
 
@@ -107,21 +129,6 @@ app.whenReady().then(() => {
   // debugging mode
   if (debuggingMode === undefined) {
     store.set('launcherOptionDebuggingMode', false);
-  }
-
-  // authKey & OSname
-  if (store.get('authKey') === undefined) {
-    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
-    const string_length = 256;
-    let randomstring = '';
-    for (let i = 0; i < string_length; i++) {
-      const rnum = Math.floor(Math.random() * chars.length);
-      randomstring += chars.substring(rnum, rnum + 1);
-    }
-    store.set('authKey', randomstring);
-
-    const OSname = require('os').userInfo().username;
-    store.set('OSname', OSname);
   }
 
   // create window
@@ -166,13 +173,13 @@ ipcMain.on('login', (event, data) => {
       event.sender.send('done');
 
       const opts = {
-        clientPackage: clientPackageUrl,
+        clientPackage: `${store.get('launcherModpackLink')}`,
         removePackage: true,
         authorization: e,
         root: `${appdataPathUser}/.MMLauncher/`,
         customArgs: JVMUser,
         version: {
-          number: '1.8.9',
+          number: '1.12.2',
           type: 'release',
         },
         window: {

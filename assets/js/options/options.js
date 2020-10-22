@@ -39,16 +39,6 @@ storeRam = (getMinRam, getMaxRam) => {
   inputMinRam.value = getMinRam;
   inputMaxRam.value = getMaxRam;
 
-  // minRam,maxRam not defined
-  if (getMinRam === undefined) {
-    storeSet('minecraftOptionMinRam', defaultMinRam);
-    inputMinRam.value = defaultMinRam;
-  }
-  if (getMaxRam === undefined) {
-    storeSet('minecraftOptionMaxRam', defaultMaxRam);
-    inputMaxRam.value = defaultMaxRam;
-  }
-
   // button reset ram
   document.getElementById('button-reset-ram').addEventListener('click', () => {
     storeSet('minecraftOptionMinRam', defaultMinRam);
@@ -130,12 +120,6 @@ storeJvm = (getJvm) => {
   const defaultJvm = [];
   const maxLengthJvm = 500;
 
-  // jvm not defined
-  if (getJvm === undefined) {
-    storeSet('minecraftOptionJvm', defaultJvm);
-    inputJvm.value = defaultJvm;
-  }
-
   // button reset jvm
   document.getElementById('button-reset-jvm').addEventListener('click', () => {
     storeSet('minecraftOptionJvm', defaultJvm);
@@ -202,20 +186,6 @@ storeRes = (getHeightRes, getWidthRes, getFullscreenRes) => {
   inputHeightRes.value = getHeightRes;
   inputWidthRes.value = getWidthRes;
   inputFullscreenRes.checked = getFullscreenRes;
-
-  // heightRes.widthRes.fullscreenRes not defined
-  if (getHeightRes === undefined) {
-    storeSet('minecraftOptionHeightRes', defaultHeightRes);
-    inputHeightRes.value = defaultHeightRes;
-  }
-  if (getWidthRes === undefined) {
-    storeSet('minecraftOptionWidthRes', defaultWidthRes);
-    inputWidthRes.value = defaultWidthRes;
-  }
-  if (getFullscreenRes === undefined) {
-    storeSet('minecraftOptionFullscreenRes', defaultFullscreenRes);
-    inputFullscreenRes.checked = defaultFullscreenRes;
-  }
 
   // button reset res
   document.getElementById('button-reset-res').addEventListener('click', () => {

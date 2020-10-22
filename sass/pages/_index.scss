@@ -157,6 +157,10 @@
                     display: flex;
                 }
             }
+            &__package-choice {
+                display: none;
+                background-color: rgba(192, 192, 192, 0.3);
+            }
         }
 
         //Java
@@ -223,6 +227,15 @@
                         width: 72%;
                     }
                 }
+                &__package-choice {
+                    padding: 3px 6px;
+                    margin: 7px 0;
+                    line-height: 21px;
+                    & button {
+                        margin: 5px 0;
+                        padding: 2px 5px;
+                    }
+                }
             }
     
             //Java
@@ -266,6 +279,7 @@
                     font-size: .87em!important;
                 }
                 & #status-form, #info-form {
+                    line-height: 20px;
                     font-size: 1em;
                 }
                 & #submit {
@@ -287,6 +301,16 @@
                     }
                     & label {
                         width: 70%;
+                    }
+                }
+                &__package-choice {
+                    font-size: 1.05em;
+                    padding: 4px 7px;
+                    margin: 8px 0;
+                    line-height: 25px;
+                    & button {
+                        margin: 6px 0;
+                        padding: 3px 7px;
                     }
                 }
             }
@@ -336,6 +360,7 @@
                 }
                 & #status-form, #info-form {
                     font-size: 1.1em;
+                    line-height: 23px;
                 }
                 & #submit {
                     font-size: .92em;
@@ -357,6 +382,16 @@
                     }
                     & label {
                         width: 63%;
+                    }
+                }
+                &__package-choice {
+                    font-size: 1.15em;
+                    padding: 4px 10px;
+                    margin: 8px 0;
+                    line-height: 25px;
+                    & button {
+                        margin: 6px 0;
+                        padding: 3px 7px;
                     }
                 }
             }

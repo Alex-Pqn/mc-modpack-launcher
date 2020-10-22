@@ -142,6 +142,19 @@
                     color: white;
                 }
             }
+            &__package-choice {
+                & button {
+                    transition-property: all;
+                    transition-duration: 75ms;
+                    opacity: .8;
+                    background-color: rgba(212, 212, 212, 0.5);
+                    border: 2px solid rgba(133, 133, 133, 0.6);
+                    color: rgba(0, 0, 0, 0.9);
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+            }
         }
         &__java-info {
             & a {
