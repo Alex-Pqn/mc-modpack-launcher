@@ -148,39 +148,6 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// Minecraft Options - defaults minecraft options
-window.addEventListener('DOMContentLoaded', () => {
-  // minRam,maxRam
-  const defaultMaxRam = 3584;
-  const defaultMinRam = 2048;
-  if (store.get('minecraftOptionMinRam') == undefined) {
-    store.set('minecraftOptionMinRam', defaultMinRam);
-  }
-  if (store.get('minecraftOptionMaxRam') == undefined) {
-    store.set('minecraftOptionMaxRam', defaultMaxRam);
-  }
-
-  // jvm
-  const defaultJvm = [];
-  if (store.get('minecraftOptionJvm') == undefined) {
-    store.set('minecraftOptionJvm', defaultJvm);
-  }
-
-  // heightRes,widthRes,fullscreenRes
-  const defaultHeightRes = 1080;
-  const defaultWidthRes = 1920;
-  const defaultFullscreenRes = true;
-  if (store.get('minecraftOptionHeightRes') == undefined) {
-    store.set('minecraftOptionHeightRes', defaultHeightRes);
-  }
-  if (store.get('minecraftOptionWidthRes') == undefined) {
-    store.set('minecraftOptionWidthRes', defaultWidthRes);
-  }
-  if (store.get('minecraftOptionFullscreenRes') == undefined) {
-    store.set('minecraftOptionFullscreenRes', defaultFullscreenRes);
-  }
-});
-
 // Launcher Options - options.js
 window.addEventListener('DOMContentLoaded', () => {
   if (window.launcherOptions !== undefined) {

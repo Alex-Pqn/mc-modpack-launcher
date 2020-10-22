@@ -131,6 +131,36 @@ app.whenReady().then(() => {
     store.set('launcherOptionDebuggingMode', false);
   }
 
+  // store default values : minRam,maxRam
+  const defaultMaxRam = 3584;
+  const defaultMinRam = 2048;
+  if (store.get('minecraftOptionMinRam') == undefined) {
+    store.set('minecraftOptionMinRam', defaultMinRam);
+  }
+  if (store.get('minecraftOptionMaxRam') == undefined) {
+    store.set('minecraftOptionMaxRam', defaultMaxRam);
+  }
+
+  // store default values : jvm
+  const defaultJvm = [];
+  if (store.get('minecraftOptionJvm') == undefined) {
+    store.set('minecraftOptionJvm', defaultJvm);
+  }
+
+  // store default values : heightRes,widthRes,fullscreenRes
+  const defaultHeightRes = 1080;
+  const defaultWidthRes = 1920;
+  const defaultFullscreenRes = true;
+  if (store.get('minecraftOptionHeightRes') == undefined) {
+    store.set('minecraftOptionHeightRes', defaultHeightRes);
+  }
+  if (store.get('minecraftOptionWidthRes') == undefined) {
+    store.set('minecraftOptionWidthRes', defaultWidthRes);
+  }
+  if (store.get('minecraftOptionFullscreenRes') == undefined) {
+    store.set('minecraftOptionFullscreenRes', defaultFullscreenRes);
+  }
+
   // create window
   setTimeout(() => {
     createWindow();
