@@ -40,11 +40,11 @@ packageChoiceDisplay = () => {
     packageChoice();
   }
 };
-// storeSet download link (packs resources choice)
+// storeSet download link (package with pr choice)
 packageChoiceWithPrLink = () => {
   store.set(
     'launcherModpackLink',
-    'https://www.dropbox.com/s/yjwbkebg771dxwr/clientPackage.zip?dl=1'
+    'https://www.dropbox.com/s/zzbbm18pq5pofls/clientPackage.zip?dl=1'
   );
 };
 
