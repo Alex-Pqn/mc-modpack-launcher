@@ -50,13 +50,14 @@ packageChoice = () => {
       packageChoiceContainer.style.display = 'none';
       textStatus.style.display = 'initial';
       textInfo.style.display = 'initial';
-      packageChoiceWithPrLink();
+      advancedConfigsPackageChoice();
       authSend(u, p);
     });
   document.getElementById('package-choice-no').addEventListener('click', () => {
     packageChoiceContainer.style.display = 'none';
     textStatus.style.display = 'initial';
     textInfo.style.display = 'initial';
+    normalConfigsPackageChoice();
     authSend(u, p);
   });
 };

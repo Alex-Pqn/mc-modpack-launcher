@@ -40,13 +40,21 @@ packageChoiceDisplay = () => {
     packageChoice();
   }
 };
-// storeSet download link (package with pr choice)
-packageChoiceWithPrLink = () => {
+// storeSet download link (Advanced Package - Configs)
+advancedConfigsPackageChoice = () => {
   store.set(
     'launcherModpackLink',
-    'https://www.dropbox.com/s/zzbbm18pq5pofls/clientPackage.zip?dl=1'
+    'https://www.dropbox.com/s/d5mxcsetdsgj96n/clientPackage.zip?dl=1'
   );
 };
+// storeSet download link (Normal Package - Configs)
+normalConfigsPackageChoice = () => {
+  store.set(
+    'launcherModpackLink',
+    'https://www.dropbox.com/s/njbzjspycoev92o/clientPackage.zip?dl=1'
+  );
+}
+
 
 // Authenticator - authenticator.js
 const ipc = require('electron').ipcRenderer;
@@ -245,7 +253,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   spAppdataFolder = () => {
     if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\shaderpacks`)) {
-      openRpAppdataFolder(appdataUserFolder);
+      openSpAppdataFolder(appdataUserFolder);
     }
   };
 });
