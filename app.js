@@ -93,7 +93,7 @@ createWindow = () => {
     // storeSet download link (default package choice)
     store.set(
       'launcherModpackLink',
-      'https://www.dropbox.com/s/7e2qq1vycayqnji/clientPackage.zip?dl=1'
+      'https://www.dropbox.com/s/3xcajkn9v83gejq/clientPackage.zip?dl=1'
     );
   });
 };

@@ -44,14 +44,14 @@ packageChoiceDisplay = () => {
 advancedConfigsPackageChoice = () => {
   store.set(
     'launcherModpackLink',
-    'https://www.dropbox.com/s/ibmzvsouypakaop/clientPackage.zip?dl=1'
+    'https://www.dropbox.com/s/h2cbpsatmmlf68m/clientPackage.zip?dl=1'
   );
 };
 // storeSet download link (Normal Package - Configs)
 normalConfigsPackageChoice = () => {
   store.set(
     'launcherModpackLink',
-    'https://www.dropbox.com/s/7e2qq1vycayqnji/clientPackage.zip?dl=1'
+    'https://www.dropbox.com/s/3xcajkn9v83gejq/clientPackage.zip?dl=1'
   );
 }
 
