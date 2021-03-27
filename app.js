@@ -93,7 +93,7 @@ createWindow = () => {
     // storeSet download link (default package choice)
     store.set(
       'launcherModpackLink',
-      'https://www.dropbox.com/s/3xcajkn9v83gejq/clientPackage.zip?dl=1'
+      'https://www.dropbox.com/s/ybql0d7htdlkrc8/clientPackage.zip?dl=1'
     );
   });
 };
@@ -209,20 +209,19 @@ ipcMain.on('login', (event, data) => {
         customArgs: JVMUser,
         version: {
           number: '1.16.5',
-          type: 'release',
-          custom: '1.16.5-OptiFine_HD_U_G7'
+          type: 'release'
         },
         window: {
           width: widthRes,
           height: heightRes,
           fullscreen: fullscreenRes,
         },
-        // forge: `${appdataPathUser}/.MMLauncher/forge.jar`,
+        forge: `${appdataPathUser}/.MMLauncher/forge.jar`,
         memory: {
           max: `${maxRamUser}M`,
           min: `${minRamUser}M`,
         },
-        timeout: 3500,
+        timeout: 3500
       };
 
       launcher
