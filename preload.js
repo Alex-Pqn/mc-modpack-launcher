@@ -160,6 +160,42 @@ window.addEventListener('DOMContentLoaded', () => {
     store.set('launcherOptionDebuggingMode', true);
   };
 });
+// Modpack reset option
+resetModpack = () => {
+  // consistent files - that will not be deleted
+  const consistentFiles = [
+    "options.txt", 
+    "optionsof.txt", 
+    "optionsshaders.txt", 
+    "usercache.json", 
+    "realms_persistence.json", 
+    "saves", 
+    "screenshots", 
+    "launcher_accounts.json", 
+    "launcher_msa_credentials.json", 
+    "launcher_profiles.json", 
+    "launcher_settings.json", 
+    "launcher_ui_state.json"
+  ]
+
+  fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\`).forEach(file => {
+    let deleteFile = true
+    for(let i = 0; i < consistentFiles.length; i++) {
+      if (consistentFiles[i] == file) {
+        deleteFile = false
+      }
+      if(i === consistentFiles.length - 1 && deleteFile === true) {
+        try {
+          fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\${file}`, {
+            recursive: true,
+          });
+        } catch (err) {
+          fs.unlinkSync(`${appdataUserFolder}\\.MMLauncher\\${file}`);
+        }
+      }
+    }
+  }); 
+}
 
 // Electron-updater
 
