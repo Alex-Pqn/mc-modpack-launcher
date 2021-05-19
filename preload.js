@@ -31,8 +31,8 @@ ipcRenderer.on('log', (event, data) => {
 
 // Modpack downloader - package choice
 packageChoiceDisplay = () => {
-  // if .MMLauncher exist, skip package choice
-  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher`)) {
+  // if the "mods" folder in ".MMLauncher" exist, skip package choice
+  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
     skipPackageChoice();
   }
   // if .MMLauncher doesn't exist
