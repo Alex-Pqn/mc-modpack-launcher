@@ -279,6 +279,20 @@ launcherOptions = (appdata) => {
     .addEventListener('click', () => {
       openFolder(`${appdata}\\mmlauncher`);
     });
+  // modpack reset
+  document
+  .getElementById('button-reset-launcherOptions')
+  .addEventListener('click', () => {
+    resetModpack();
+    displayStatus(
+      'Le modpack a été réinitialisé avec succès.',
+      succedColor,
+      textColor,
+      containerStatusLauncherOptions,
+      paragraphStatusLauncherOptions,
+      closeTextStatusLauncherOptions
+    );
+  });
   // debugging mode
   document
     .getElementById('button-debugging-launcherOptions')
