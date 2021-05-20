@@ -117,7 +117,14 @@ const closeTextStatusJvm = document.getElementById('close-status-jvm');
 storeJvm = (getJvm) => {
   const inputJvm = document.getElementById('jvm');
   inputJvm.value = getJvm;
-  const defaultJvm = [];
+  const defaultJvm = [
+    "-XX:+UnlockExperimentalVMOptions",
+    "-XX:+UseG1GC",
+    "-XX:G1NewSizePercent=20",
+    "-XX:G1ReservePercent=20",
+    "-XX:MaxGCPauseMillis=50",
+    "-XX:G1HeapRegionSize=32M"
+  ];
   const maxLengthJvm = 500;
 
   // button reset jvm
