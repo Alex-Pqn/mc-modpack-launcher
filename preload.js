@@ -1,17 +1,32 @@
-const { ipcRenderer, remote, shell, app } = require('electron');
-
+const { ipcRenderer, remote, shell } = require('electron');
+const ipc = require('electron').ipcRenderer;
+const fs = require('fs');
+const Cryptr = require('cryptr');
 const Store = require('electron-store');
 const store = new Store();
 
-const fs = require('fs');
-
 const appdataUserFolder = store.get('appdataPathUser');
 
+// open folder
 openFolder = (path) => {
   shell.openPath(path);
 };
+// push in electron store
+pushElectronStore = (storeOptions) => {
+  storeOptions.forEach(opt => {
+    store.set(opt.storeKey, opt.storeValue);
+  })
+};
+// delete in electron store
+deleteElectronStore = (storeKey) => {
+  store.delete(storeKey);
+}
+// open external link (outside the app)
+openExternalLink = (link) => {
+  require('electron').shell.openExternal(link);
+};
 
-// Modpack downloader - authenticator.js
+// MODPACK DOWNLOADER //
 window.launch = (data) => {
   ipcRenderer.send('launch', data);
 };
@@ -24,45 +39,28 @@ ipcRenderer.on('game-launched', (event, data) => {
 ipcRenderer.on('game-launched-error', (event, data) => {
   gameLaunchedError(data);
 });
-// call when debuggingMode activated
+// on debugging-mode activated
 ipcRenderer.on('log', (event, data) => {
   debugLogs(data);
 });
 
-// Modpack downloader - package choice
-packageChoiceDisplay = () => {
-  // if the "mods" folder in ".MMLauncher" exist, skip package choice
-  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
+
+// MODPACK PACKAGE CHOICE //
+// if the "mods" folder in ".MMLauncher" exist, skip package choice
+packageChoice = () => {
+  if (store.get('launcherModpackLink')) {
     skipPackageChoice();
   }
-  // if .MMLauncher doesn't exist
   else {
-    packageChoice();
+    displayPackageChoice();
   }
 };
-// storeSet download link (Advanced Package - Configs)
-advancedConfigsPackageChoice = () => {
-  store.set(
-    'launcherModpackLink',
-    'https://www.dropbox.com/s/oy7boskdvpdhyd5/clientPackage.zip?dl=1'
-  );
-};
-// storeSet download link (Normal Package - Configs)
-normalConfigsPackageChoice = () => {
-  store.set(
-    'launcherModpackLink',
-    'https://www.dropbox.com/s/lxwwemhup0zgax3/clientPackage.zip?dl=1'
-  );
-}
 
 
-// Authenticator - authenticator.js
-const ipc = require('electron').ipcRenderer;
-
+// AUTHENTICATOR
 authSend = (u, p) => {
   ipc.send('login', { u, p });
 };
-
 ipc.on('err', (err) => {
   authError(err);
 });
@@ -70,35 +68,36 @@ ipc.on('done', () => {
   authDone();
 });
 
-// Cryptr - authenticator.js
-const Cryptr = require('cryptr');
+
+// AUTHENTICATOR CRYPTR
 const cryptr = new Cryptr(store.get('authKey') + store.get('OSname'));
 
 window.addEventListener('DOMContentLoaded', () => {
-  const auth = store.get('auth');
-  if (window.getAuthStore !== undefined) {
-    getAuthStore(auth);
+  const getAuth = store.get('auth');
+  
+  // descrypt & send auth informations
+  if (window.displayAuthInformations !== undefined) {
+    function authDecrypt () {
+      if(getAuth) {
+        let authInformations = JSON.parse(getAuth)[0]
+        
+        let uDecrypted = cryptr.decrypt(authInformations.u);
+        let pDecrypted = cryptr.decrypt(authInformations.p);
+        displayAuthInformations(uDecrypted, pDecrypted);
+      }
+    }
+    authDecrypt()
   }
 });
 
 authEncrypt = (u, p) => {
-  const uEncrypted = cryptr.encrypt(u);
-  const pEncrypted = cryptr.encrypt(p);
-  authStore(uEncrypted, pEncrypted);
-};
-authDecrypt = (u, p) => {
-  const uDecrypted = cryptr.decrypt(u);
-  const pDecrypted = cryptr.decrypt(p);
-  displayAuthInformations(uDecrypted, pDecrypted);
-};
-authSetStore = (auth) => {
-  store.set('auth', JSON.stringify(auth));
-};
-authInformationsDelete = () => {
-  store.delete('auth');
+  let uEncrypted = cryptr.encrypt(u);
+  let pEncrypted = cryptr.encrypt(p);
+  storeAuthInformations(uEncrypted, pEncrypted);
 };
 
-// Window - navBarButtons.js
+
+// WINDOW HEADER
 const win = remote.getCurrentWindow();
 
 winMinimize = () => {
@@ -115,12 +114,8 @@ winClose = () => {
   win.close();
 };
 
-// Externals links - openExternalLinks.js
-openExternalLink = (link) => {
-  require('electron').shell.openExternal(link);
-};
 
-// Minecraft Options - options.js
+// MINECRAFT OPTIONS
 const getMinRam = store.get('minecraftOptionMinRam');
 const getMaxRam = store.get('minecraftOptionMaxRam');
 const getHeightRes = store.get('minecraftOptionHeightRes');
@@ -128,40 +123,26 @@ const getWidthRes = store.get('minecraftOptionWidthRes');
 const getFullscreenRes = store.get('minecraftOptionFullscreenRes');
 const getJvm = store.get('minecraftOptionJvm');
 
-// storeSet minecraft options
-storeSet = (minecraftOption, minecraftOptionValue) => {
-  const Store = require('electron-store');
-  const store = new Store();
-  store.set(minecraftOption, minecraftOptionValue);
-};
-
-// display minecraft options values
 window.addEventListener('DOMContentLoaded', () => {
-  if (window.storeRam !== undefined) {
-    storeRam(getMinRam, getMaxRam);
+  // display values
+  if (window.displayRam !== undefined) {
+    displayRam(getMinRam, getMaxRam);
   }
-  if (window.storeJvm !== undefined) {
-    storeJvm(getJvm);
+  if (window.displayJvm !== undefined) {
+    displayJvm(getJvm);
   }
-  if (window.storeRes !== undefined) {
-    storeRes(getHeightRes, getWidthRes, getFullscreenRes);
+  if (window.displayResolution !== undefined) {
+    displayResolution(getHeightRes, getWidthRes, getFullscreenRes);
+  }
+  
+  // open cache folder
+  if (window.openCacheFolder !== undefined) {
+    openCacheFolder(appdataUserFolder);
   }
 });
 
-// Launcher Options - options.js
-window.addEventListener('DOMContentLoaded', () => {
-  if (window.launcherOptions !== undefined) {
-    launcherOptions(appdataUserFolder);
-  }
-  openAppdataCacheFolder = () => {
-    shell.openPath(path);
-  };
-  setStoreDebuggingMode = () => {
-    store.set('launcherOptionDebuggingMode', true);
-  };
-});
-// Modpack reset option
-resetModpack = () => {
+// reset modpack
+resetModpackFolder = () => {
   // consistent files - that will not be deleted
   const consistentFiles = [
     "options.txt", 
@@ -169,16 +150,20 @@ resetModpack = () => {
     "optionsshaders.txt", 
     "usercache.json", 
     "realms_persistence.json", 
-    "saves", 
+    "saves",
+    "logs",
+    "crash-reports",
     "screenshots", 
     "launcher_accounts.json", 
     "launcher_msa_credentials.json", 
     "launcher_profiles.json", 
     "launcher_settings.json", 
-    "launcher_ui_state.json"
+    "launcher_ui_state.json",
+
   ]
 
   fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\`).forEach(file => {
+    console.log(file)
     let deleteFile = true
     for(let i = 0; i < consistentFiles.length; i++) {
       if (consistentFiles[i] == file) {
@@ -197,105 +182,96 @@ resetModpack = () => {
   }); 
 }
 
-// Electron-updater
 
-// update check (call in options part)
-checkUpdate = () => {
-  ipcRenderer.send('check-update');
-};
-
-// update available
-ipcRenderer.on('updater_update_available', () => {
-  ipcRenderer.removeAllListeners('updater_update_available');
-  console.log('Electron Updater : Update for the launcher detected.');
-
-  if (window.updateAvailable !== undefined) {
-    updateAvailable();
-  }
-
-  document.getElementById('updater-restart').style.display = 'none';
-  document.getElementById('updater').style.display = 'flex';
-  document.getElementById('updater-available').style.display = 'flex';
-
-  // if exists, delete "mods" and "config" folders
-  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
-    fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`, {
-      recursive: true,
-    });
-  }
-  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\config`)) {
-    fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, {
-      recursive: true,
-    });
-  }
-});
-
-// update not available
-ipcRenderer.on('updater_update_not_available', () => {
-  if (window.NoUpdateAvailable !== undefined) {
-    NoUpdateAvailable();
-  }
-  console.log('Electron Updater : No update detected for the launcher.');
-});
-
-// update downloaded
-ipcRenderer.on('updater_update_downloaded', () => {
-  setTimeout(() => {
-    ipcRenderer.removeAllListeners('updater_update_downloaded');
-    console.log(
-      'Electron Updater : Update finished, waiting to restart the launcher.'
-    );
-
-    document.getElementById('updater-available').style.display = 'none';
-    document.getElementById('updater-restart').style.display = 'flex';
-    document
-      .getElementById('button-updater-restart')
-      .addEventListener('click', () => {
-        ipcRenderer.send('restart_app');
-      });
-  }, 3000);
-});
-
-// update error
-ipcRenderer.on('updater_error', (err) => {
-  console.error(`Electron Updater Error : ${err}`);
-  if (window.updateError !== undefined) {
-    updateError();
-  }
-});
-
-// Path & Open Folders - openPrFolders.js
+// SHADERPACKS & RESOURCEPACKS FOLDERS
 window.addEventListener('DOMContentLoaded', () => {
-  if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher`)) {
-    if (window.openAppdataFolders !== undefined) {
-      openAppdataFolders();
-    }
-  } else if (window.openAppdataFoldersError !== undefined) {
-    openAppdataFoldersError();
-  }
-
-  rpAppdataFolder = () => {
+  resourcepacksAppdataFolder = () => {
     if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\resourcepacks`)) {
-      openRpAppdataFolder(appdataUserFolder);
+      openFolder(`${appdataUserFolder}\\.MMLauncher\\resourcepacks`);
+    }else {
+      resourcepacksFolderError()
     }
   };
-  spAppdataFolder = () => {
+  shaderpacksAppdataFolder = () => {
     if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\shaderpacks`)) {
-      openSpAppdataFolder(appdataUserFolder);
+      openFolder(`${appdataUserFolder}\\.MMLauncher\\shaderpacks`);
+    }else {
+      shaderpacksFolderError()
     }
   };
 });
 
-// ModsList - modsList.js
+
+// MODS LIST
 window.addEventListener('DOMContentLoaded', () => {
   if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
     const modsFolderLength = fs.readdirSync(
       `${appdataUserFolder}\\.MMLauncher\\mods`
     );
-    if (window.getModsList !== undefined) {
-      getModsList(modsFolderLength);
+    if (window.displayModsList !== undefined) {
+      displayModsList(modsFolderLength);
     }
   } else if (window.modsListError !== undefined) {
     modsListError();
   }
 });
+
+
+// ELECTRON UPDATER
+checkUpdate = () => {
+  ipcRenderer.send('check-update');
+};
+
+function updateAvailable () {
+  ipcRenderer.on('updater_update_available', () => {
+    ipcRenderer.removeAllListeners('updater_update_available');
+  
+    if (window.launcherUpdateAvailable !== undefined) {
+      launcherUpdateAvailable();
+    }
+  
+    // if exists, delete "mods" and "config" folders
+    if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\mods`)) {
+      fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\mods`, {
+        recursive: true,
+      });
+    }
+    if (fs.existsSync(`${appdataUserFolder}\\.MMLauncher\\config`)) {
+      fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\config`, {
+        recursive: true,
+      });
+    }
+  });
+}
+updateAvailable()
+
+function updateNotAvailable () {
+  ipcRenderer.on('updater_update_not_available', () => {
+    if (window.launcherUpdateNotAvailable !== undefined) {
+      launcherUpdateNotAvailable();
+    }
+  });
+}
+updateNotAvailable()
+
+function updateDownloaded () {
+  ipcRenderer.on('updater_update_downloaded', () => {
+    setTimeout(() => {
+      ipcRenderer.removeAllListeners('updater_update_downloaded');
+      if (window.launcherUpdateDownloaded !== undefined) {
+        launcherUpdateDownloaded()
+      }
+    }, 3000);
+  });
+}
+updateDownloaded()
+
+// update error
+function updateError () {
+  ipcRenderer.on('updater_error', (err) => {
+    if (window.launcherUpdateError !== undefined) {
+      launcherUpdateError(err);
+    }
+  });
+} 
+updateError()

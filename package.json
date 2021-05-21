@@ -31,20 +31,20 @@
   "build": {
     "appId": "com.mmlauncher.app",
     "productName": "Marie Madeleine Launcher",
-    "copyright": "Copyright © 2020-2021 Alex-Pqn",
+    "copyright": "Copyright © 2021-2022 Alex-Pqn",
     "compression": "maximum",
     "directories": {
       "output": "release"
     },
     "win": {
       "target": "nsis",
-      "icon": "assets/img/icon/win/icon.ico"
+      "icon": "public/assets/img/icon/win/icon.ico"
     },
     "publish": [
       {
         "provider": "github",
         "owner": "Alex-Pqn",
-        "repo": "marie-madeleine-launcher"
+        "repo": "mc-modpack-launcher"
       }
     ],
     "nsis": {
@@ -56,10 +56,10 @@
   },
   "scripts": {
     "start": "electron .",
-    "sass": "sass --watch ./sass/main.scss:./assets/css/style.css --style compressed",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/img/icon/mac/icon.icns --prune=true --out=release-builds",
-    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/img/icon/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Shopping List\"",
-    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/img/icon/png/icon.png --prune=true --out=release-builds",
+    "sass": "sass --watch ./public/sass/main.scss:./public/css/style.css --style compressed",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=public/assets/img/icon/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/assets/img/icon/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Shopping List\"",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=public/assets/img/icon/png/icon.png --prune=true --out=release-builds",
     "build": "electron-builder --win",
     "publish": "electron-builder build --win --publish always",
     "lint": "eslint .",
@@ -67,12 +67,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alex-Pqn/marie-madeleine-launcher.git"
+    "url": "git+https://github.com/Alex-Pqn/mc-modpack-launcher.git"
   },
   "author": "Alex-Pqn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Alex-Pqn/marie-madeleine-launcher/issues"
+    "url": "https://github.com/Alex-Pqn/mc-modpack-launcher/issues"
   },
-  "homepage": "https://github.com/Alex-Pqn/marie-madeleine-launcher#readme"
+  "homepage": "https://github.com/Alex-Pqn/mc-modpack-launcher#readme"
 }

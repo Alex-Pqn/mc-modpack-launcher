@@ -1,0 +1,183 @@
+//Pack
+.pack {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: auto;
+        width: 100%;
+        height: 100%;
+        &__container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            margin-bottom: 335px;
+
+            //Parts
+            &__parts {
+                background-color: $background-parts;
+                border-radius: .7em;
+                & p {
+                    margin-bottom: 7px;
+                }
+            }
+            @media screen and (min-width: 0px) {
+                &__parts {
+                    padding: 11.5px 13.5px;
+                    margin-top: 15px;
+                    & h2 {
+                        @include parts-h2-pack-options_default
+                    }
+                    & p {
+                        line-height: 25px;
+                    }
+                }
+            }
+            @media screen and (min-width: 1350px) {
+                &__parts {
+                    padding: 13.5px 15.5px;
+                    margin-top: 20px;
+                    & h2 {
+                        @include parts-h2-pack-options_1350px
+                    }
+                    & p {
+                        font-size: 1.1em;
+                        line-height: 25px;
+                    }
+                }
+            }
+            @media screen and (min-width: 1920px) {
+                &__parts {
+                    padding: 15.5px 17.5px;
+                    margin-top: 20px;
+                    & h2 {
+                        @include parts-h2-pack-options_1920px
+                    }
+                    & p {
+                        font-size: 1.2em;
+                        line-height: 25px;
+                    }
+                }
+            }
+
+            //Mods
+            &__mods {
+                display: flex;
+                flex-direction: column;
+                & #error-mods-list {
+                    display: none;
+                    width: 100%;
+                }
+                & #button-reset_modpack {
+                  display: flex;
+                }
+                @media screen and (min-width: 0px) {
+                    & #error-mods-list {
+                        @include parts-error-pack-options_default
+                    }
+                }
+                @media screen and (min-width: 1350px) {
+                    & #error-mods-list {
+                        @include parts-error-pack-options_1350px
+                    }
+                }
+                @media screen and (min-width: 1920px) {
+                    & #error-mods-list {
+                        @include parts-error-pack-options_1920px
+                    }
+                }
+                & button {
+                    margin-top: 5px;
+                    margin-bottom: 12px;
+                }
+                &__list {
+                    background-color: rgba(255, 255, 255, 0.15);
+                    padding: 10px 13px;
+                    border-radius: .5em;
+                    overflow: auto;
+                    display: none;
+                    & article {
+                        font-size: .94em;
+                    }
+                }
+            }
+            @media screen and (min-width: 0px) {
+                &__mods {
+                    height: 70%;
+                    & button {
+                        font-size: 1em;
+                        padding: 4px;
+                    }
+                }
+            }
+            @media screen and (min-width: 1350px) {
+                &__mods {
+                    height: 50%;
+                    & button {
+                        font-size: 1.05em;
+                        padding: 5px;
+                    }
+                    &__list {
+                        & article {
+                            padding-top: 5px;
+                        }
+                    }
+                }
+            }
+            @media screen and (min-width: 1920px) {
+                &__mods {
+                    height: 45%;
+                    & button {
+                        font-size: 1.15em;
+                        padding: 6px;
+                    }
+                    &__list {
+                        & article {
+                            padding-top: 6px;
+                        }
+                    }
+                }
+            }
+
+            //Pr
+            &__pr {
+                & button {
+                    margin-left: 3px;
+                    font-size: .82em;
+                    padding: 3.3px 3.7px;
+                }
+            }
+            
+            // Reset modpack
+            &__reset-modpack {
+              & #button-reset_modpack {
+                padding: 5px 8px;
+                font-size: 1em;
+              }
+            }
+        }
+        @media screen and (min-width: 0px) {
+            &__container {
+                width: 92%;
+            }
+        }
+        @media screen and (min-width: 1080px) {
+            &__container {
+                width: 88%;
+            }
+        }
+        @media screen and (min-width: 1350px) {
+            &__container {
+                width: 85%;
+            }  
+        }
+        @media screen and (min-width: 1920px) {
+            &__container {
+                width: 80%;
+            }  
+        }
+    }
+} 

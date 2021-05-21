@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <!--Language & UTF-->
+        <meta charset='utf-8'>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-typed'">
+        <!--CDN Fonts-->
+        <link href="https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap" rel="stylesheet">
+        <!--Importations & Responsive-->
+        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' type='text/css' href='../css/style.css'>
+    </head>
+    <body>
+        <div id="main-container">
+            <!--Updater-->
+            <div class="updater" id="updater">
+                <!--available-->
+                <div class="updater__available">
+                    <h3>
+                        Mise à jour détectée ! 
+                    </h3>
+                    <p>
+                        Une nouvelle mise à jour pour le Marie Madeleine Launcher est en cours de téléchargement.
+                    </p>
+                    <p>
+                        Cette opération peut durer quelques secondes...
+                    </p>
+                    <p id="typed-status-container">.
+                        <span id="typed-status"></span>
+                    </p>
+                    <p> 
+                        <span id="typed-info"></span>
+                    </p>
+                </div>
+                <!--restart-->
+                <div class="updater__restart" id="updater-restart">
+                    <h3>
+                        Téléchargement terminé !
+                    </h3>
+                    <p>
+                        Il est nécessaire de redémarrer le launcher afin d'appliquer la mise à jour.
+                    </p>
+                    <button id="button-updater-restart">
+                        Redémarrer
+                    </button>
+                </div>
+            </div>
+            <!--Header-->
+            <header>
+                <div class="header">
+                    <div class="header__title">
+                        <img src="../assets/img/icon/png/icon.png">
+                        <h3>
+                          Modpack Launcher
+                        </h3>
+                    </div>
+                    <nav class="header__nav">
+                        <ul>
+                            <li id="minimize">
+                                <i class="fas fa-window-minimize"></i>
+                            </li>
+                            <li id="maximize">
+                                <i class="far fa-window-maximize"></i>
+                            </li>
+                            <li id="close">
+                                <i class="fas fa-times"></i>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <main class="pack">
+                <!--Main-nav-->
+                <div class="main-nav">
+                    <!--top-->
+                    <div class="main-nav__top">
+                        <h3>
+                            Navigation
+                        </h3>
+                        <ul>
+                            <li>
+                                <a href="index.html">
+                                    Accueil
+                                </a>
+                            </li>
+                            <li>
+                                <a href="options.html">
+                                    Options
+                                </a>
+                            </li>
+                            <li class="main-nav__active">
+                                <span>
+                                    Pack
+                                </span>
+                            </li>
+                            <li>
+                                <a href="about.html">
+                                    À propos
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--bottom-->
+                    <div class="main-nav__bottom">
+                        <div class="main-nav__bottom__icons">
+                            <a href="" id="github-open-link">
+                                <i id="github-icon" class="fab fa-github"></i>
+                            </a>
+                            <a href="" id="discord-open-link">
+                                <i id="discord-icon" class="fab fa-discord"></i>
+                            </a>
+                            <a href="" id="twitter-open-link">
+                                <i id="twitter-icon" class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="main-nav__bottom__credit">
+                            <p>
+                              <!-- Generated JS Content -->
+                              <span class="dynamic-copyright"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pack__content">
+                    <div class="pack__content__container">
+
+                        <!--Mods-->
+                        <div class="pack__content__container__parts pack__content__container__mods">
+                            <h2>
+                                Liste des Mods
+                            </h2>
+                            <p>
+                                Retrouvez ci-dessous la liste des mods utilisés et chargés dans le launcher.
+                            </p>
+                            <button id="button-reload-mods-list">
+                                Recharger la liste
+                            </button>
+                            <p id="error-mods-list">
+                                Il est nécessaire d'avoir lancé le jeu au minimum une fois.
+                            </p>
+                            <section class="pack__content__container__mods__list">
+                                <!--Generate JS Content-->
+                            </section>
+                        </div>
+
+                        <!--Resourcepacks/Shaderpacks-->
+                        <div class="pack__content__container__parts pack__content__container__pr">
+                            <h2>
+                                Packs de ressource
+                            </h2>
+                            <p>
+                                Vous pouvez personnaliser votre jeu avec des ressources-packs et shaders-packs.
+                            </p>
+                            <p>
+                                Accédez à ces dossiers ci-dessous !
+                            </p>
+                            <div id="pr-buttons">
+                                <p>
+                                    <strong>
+                                        Ressource-packs :
+                                    </strong>
+                                    <button id="rp-folder">
+                                        Ouvrir le dossier
+                                    </button>
+                                </p>
+                                <p>
+                                    <strong>
+                                        Shader-packs :
+                                    </strong>
+                                    <button id="sp-folder">
+                                        Ouvrir le dossier
+                                    </button>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Reset modpack -->
+                        <div class="last-option pack__content__container__parts pack__content__container__reset-modpack">
+                          <h2>
+                            Réinitialisation
+                          </h2>
+                          <p>
+                            Réinitialisez votre jeu pour repartir sur de bonnes bases !
+                          </p>
+                          <p id="info-warn">
+                            La réinitialisation du modpack est irréversible.
+                          </p>
+                          <p>
+                            Certaines données sont tout de même conservées, notamment les : options en jeu, screenshots, mondes solo, logs et crash-reports.
+                          </p>
+                          <button id="button-reset_modpack">
+                            Réinitialiser mon jeu
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <link href="../stylesheet/font-awesome/css/all.min.css" rel="stylesheet">
+        <script nonce="typed" src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+
+        <script src="../js/pack/openPrFolders.js"></script>
+        <script src="../js/pack/resetModpack.js"></script>
+        <script src="../js/pack/modsList.js"></script>
+
+        <script src="../js/typed.js"></script>
+        <script src="../js/openExternalLinks.js"></script>
+        <script src="../js/dynamicBackground.js"></script>
+        <script src="../js/consoleWarn.js"></script>
+        <script src="../js/navBarButtons.js"></script>
+        <script src="../js/updater.js"></script>
+        <script src="../js/options/global.js"></script>
+        <script src="../js/dynamicCopyright.js"></script>
+    </body>
+</html>

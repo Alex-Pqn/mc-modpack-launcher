@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <!--Language & UTF-->
+        <meta charset='utf-8'>
+        <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-typed'">
+        <!--CDN Fonts-->
+        <link href="https://fonts.googleapis.com/css2?family=Karla:wght@700&display=swap" rel="stylesheet">
+        <!--Importations & Responsive-->
+        <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' type='text/css' href='../css/style.css'>
+    </head>
+    <body>
+        <div id="main-container">
+            <!--Updater-->
+            <div class="updater" id="updater">
+                <!--available-->
+                <div class="updater__available">
+                    <h3>
+                        Mise à jour détectée ! 
+                    </h3>
+                    <p>
+                        Une nouvelle mise à jour pour le Marie Madeleine Launcher est en cours de téléchargement.
+                    </p>
+                    <p>
+                        Cette opération peut durer quelques secondes...
+                    </p>
+                    <p id="typed-status-container">.
+                        <span id="typed-status"></span>
+                    </p>
+                    <p> 
+                        <span id="typed-info"></span>
+                    </p>
+                </div>
+                <!--restart-->
+                <div class="updater__restart" id="updater-restart">
+                    <h3>
+                        Téléchargement terminé !
+                    </h3>
+                    <p>
+                        Il est nécessaire de redémarrer le launcher afin d'appliquer la mise à jour.
+                    </p>
+                    <button id="button-updater-restart">
+                        Redémarrer
+                    </button>
+                </div>
+            </div>
+            <!--Header-->
+            <header>
+                <div class="header">
+                    <div class="header__title">
+                        <img src="../assets/img/icon/png/icon.png">
+                        <h3>
+                          Modpack Launcher
+                        </h3>
+                    </div>
+                    <nav class="header__nav">
+                        <ul>
+                            <li id="minimize">
+                                <i class="fas fa-window-minimize"></i>
+                            </li>
+                            <li id="maximize">
+                                <i class="far fa-window-maximize"></i>
+                            </li>
+                            <li id="close">
+                                <i class="fas fa-times"></i>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <main class="index">
+                <!--Main-nav-->
+                <div class="main-nav" id="main-nav">
+                    <!--top-->
+                    <div class="main-nav__top">
+                        <h3>
+                            Navigation
+                        </h3>
+                        <ul> 
+                            <li class="main-nav__active">
+                                <span>
+                                    Accueil
+                                </span>
+                            </li>
+                            <li>
+                                <a href="options.html">
+                                    Options
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pack.html">
+                                    Pack
+                                </a>
+                            </li>
+                            <li>
+                                <a href="about.html">
+                                    À propos
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--bottom-->
+                    <div class="main-nav__bottom">
+                        <div class="main-nav__bottom__icons">
+                            <a href="" id="github-open-link">
+                                <i id="github-icon" class="fab fa-github"></i>
+                            </a>
+                            <a href="" id="discord-open-link">
+                                <i id="discord-icon" class="fab fa-discord"></i>
+                            </a>
+                            <a href="" id="twitter-open-link">
+                                <i id="twitter-icon" class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                        <div class="main-nav__bottom__credit">
+                            <p>
+                              <!-- Generated JS Content -->
+                              <span class="dynamic-copyright"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!--display when game launched-->
+                <div class="game-launched" id="game-launched">
+                    <div id="game-launched-logs" class="game-launched__logs">
+                        <article>
+                            <p>
+                                Logs de démarrage...
+                            </p>
+                        </article>
+                        <!--Generate JS Content-->
+                    </div>
+                </div>
+
+                <!--separator-->
+                <div class="index__sep"></div>
+
+                <div class="index__content">
+
+                    <!--Audio-player-->
+                    <div class="index__content__audio-player">
+                        <audio id="audio-player" preload="metadata" loop controls>
+                            <source src="../assets/audio/minecraft.mp3" type="audio/mp3">
+                            Votre navigateur n'est pas compatible avec le lecteur audio.
+                        </audio>
+                    </div>
+
+                    <div id="mojang-login">
+                        <!--Login-form-->
+                        <div class="index__content__login-form">
+                            <div class="index__content__login-form__title">
+                                <h3>
+                                    Compte Mojang
+                                </h3>
+                            </div>
+                            <!--username-->
+                            <label for="username">
+                                E-mail / Pseudo
+                            </label>
+                            <input type="text" id="u" name="username" spellcheck="false" required>
+                            <!--password-->
+                            <label for="password">
+                                Mot de passe
+                            </label>
+                            <input type="password" id="p" name="password" required>
+                            <!--remember-->
+                            <div class="index__content__login-form__remember">
+                                <label for="checkbox">Se souvenir de moi ?</label>
+                                <input type="checkbox" name="checkbox" id="authRemember">
+                            </div>
+                            <!--error-->
+                            <p id="status-form">
+                                <!--Generate JS Content-->
+                            </p>
+                            <p id="info-form">
+                                <!--Generate JS Content-->
+                            </p>
+                            <div class="index__content__login-form__package-choice" id="package-choice">
+                                <p>
+                                    Pour la première installation, souhaitez vous installer Optifine et ajouter ainsi 9 resourcepacks et 27 shaders par défaut (~300MB à télécharger en plus) ?
+                                </p>
+                                <button id="package-choice-yes">
+                                    Oui
+                                </button>
+                                <button id="package-choice-no">
+                                    Non
+                                </button>
+                            </div>
+                            <!--send-->
+                            <input type="submit" id="submit" value="Se connecter | Lancer le Jeu">
+                        </div>
+                        <!--Java-info-->
+                        <p class="index__content__java-info">
+                            Il est obligatoire d'avoir
+                            <a href="" id="java-open-link">
+                                JAVA 8
+                            </a>
+                            installé.
+                        </p>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <link href="../stylesheet/font-awesome/css/all.min.css" rel="stylesheet">
+        <script nonce="typed" src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+        
+        <script src="../js/index/audioPlayer.js"></script>
+        <script src="../js/index/authenticator.js"></script>
+
+        <script src="../js/typed.js"></script>
+        <script src="../js/openExternalLinks.js"></script>
+        <script src="../js/dynamicBackground.js"></script>
+        <script src="../js/consoleWarn.js"></script>
+        <script src="../js/navBarButtons.js"></script>
+        <script src="../js/updater.js"></script>
+        <script src="../js/options/global.js"></script>
+        <script src="../js/dynamicCopyright.js"></script>
+    </body>
+</html>

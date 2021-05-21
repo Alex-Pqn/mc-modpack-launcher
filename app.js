@@ -1,31 +1,30 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
-
 const Store = require('electron-store');
 const store = new Store();
-
 const { autoUpdater } = require('electron-updater');
-
-// DEV TOOLS
-// require('electron-reload')(__dirname, {
-//   electron: require(`${__dirname}/node_modules/electron`),
-// });
-// Object.defineProperty(app, 'isPackaged', {
-//   get() {
-//     return true;
-//   },
-// });
+const { setTimeout } = require('timers');
+const { defaultMinecraftOpt } = require('./globalValues');
 
 let win;
 let appdataPathUser;
+const IMG_DIR = '/public/assets/img/icon/png/';
+const ASSET_DIR = '/public/html/';
 
-const IMG_DIR = '/assets/img/icon/png/';
-const ASSET_DIR = '/assets/html/';
+// DEV TOOLS
+require('electron-reload')(__dirname, {
+  electron: require(`${__dirname}/node_modules/electron`),
+});
+Object.defineProperty(app, 'isPackaged', {
+  get() {
+    return true;
+  },
+});
 
 const debuggingMode = store.get('launcherOptionDebuggingMode');
 
-// main window launcher creation
+// window creation
 createWindow = () => {
   win = new BrowserWindow({
     width: 900,
@@ -58,19 +57,23 @@ createWindow = () => {
     })
   );
 
+  // READY TO SHOW //
   win.once('ready-to-show', () => {
-    // path user
+    // store path user
     appdataPathUser = app.getPath('appData');
     store.set('appdataPathUser', appdataPathUser);
 
+    // check launcher update
+    autoUpdater.checkForUpdatesAndNotify();
+    
     // show window
     win.show();
 
     // debugging mode
     if (debuggingMode === true) {
-      store.set('launcherOptionDebuggingModeLauncherClose', true);
+      store.set('launcherClose', true);
     } else {
-      store.set('launcherOptionDebuggingModeLauncherClose', false);
+      store.set('launcherClose', false);
     }
     store.set('launcherOptionDebuggingMode', false);
 
@@ -89,20 +92,13 @@ createWindow = () => {
       const OSname = require('os').userInfo().username;
       store.set('OSname', OSname);
     }
-
-    // storeSet download link (default package choice)
-    store.set(
-      'launcherModpackLink',
-      'https://www.dropbox.com/s/lxwwemhup0zgax3/clientPackage.zip?dl=1'
-    );
   });
 };
 
-// app updater
+// ELECTRON UPDATER //
 ipcMain.on('check-update', () => {
   autoUpdater.checkForUpdatesAndNotify();
 });
-
 autoUpdater.on('update-available', () => {
   win.webContents.send('updater_update_available');
 });
@@ -120,57 +116,41 @@ ipcMain.on('restart_app', () => {
   autoUpdater.quitAndInstall();
 });
 
-// app ready
+// APP READY //
 app.whenReady().then(() => {
-  // check update app
-  autoUpdater.checkForUpdatesAndNotify();
-
   // debugging mode
   if (debuggingMode === undefined) {
     store.set('launcherOptionDebuggingMode', false);
   }
 
   // store default values : minRam,maxRam
-  const defaultMaxRam = 3584;
-  const defaultMinRam = 2048;
   if (store.get('minecraftOptionMinRam') == undefined) {
-    store.set('minecraftOptionMinRam', defaultMinRam);
+    store.set('minecraftOptionMinRam', defaultMinecraftOpt.defaultMinRam);
   }
   if (store.get('minecraftOptionMaxRam') == undefined) {
-    store.set('minecraftOptionMaxRam', defaultMaxRam);
+    store.set('minecraftOptionMaxRam', defaultMinecraftOpt.defaultMaxRam);
   }
 
   // store default values : jvm
-  const defaultJvm = [
-    "-XX:+UnlockExperimentalVMOptions",
-    "-XX:+UseG1GC",
-    "-XX:G1NewSizePercent=20",
-    "-XX:G1ReservePercent=20",
-    "-XX:MaxGCPauseMillis=50",
-    "-XX:G1HeapRegionSize=32M"
-  ];
+
   if (store.get('minecraftOptionJvm') == undefined) {
-    store.set('minecraftOptionJvm', defaultJvm);
+    store.set('minecraftOptionJvm', defaultMinecraftOpt.defaultJvm);
   }
 
   // store default values : heightRes,widthRes,fullscreenRes
-  const defaultHeightRes = 1080;
-  const defaultWidthRes = 1920;
-  const defaultFullscreenRes = true;
+
   if (store.get('minecraftOptionHeightRes') == undefined) {
-    store.set('minecraftOptionHeightRes', defaultHeightRes);
+    store.set('minecraftOptionHeightRes', defaultMinecraftOpt.defaultHeightRes);
   }
   if (store.get('minecraftOptionWidthRes') == undefined) {
-    store.set('minecraftOptionWidthRes', defaultWidthRes);
+    store.set('minecraftOptionWidthRes', defaultMinecraftOpt.defaultWidthRes);
   }
   if (store.get('minecraftOptionFullscreenRes') == undefined) {
-    store.set('minecraftOptionFullscreenRes', defaultFullscreenRes);
+    store.set('minecraftOptionFullscreenRes', defaultMinecraftOpt.defaultFullscreenRes);
   }
 
   // create window
-  setTimeout(() => {
-    createWindow();
-  }, 750);
+  createWindow();
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -190,19 +170,17 @@ app.on('close', function (event) {
   return false;
 });
 
-// login, auth, launch & opts minecraft launcher
+// LAUNCH MINECRAFT WITH OPTS //
 ipcMain.on('login', (event, data) => {
   const { Client, Authenticator } = require('minecraft-launcher-core');
   const launcher = new Client();
 
-  const maxRamUser = store.get('minecraftOptionMaxRam');
-  const minRamUser = store.get('minecraftOptionMinRam');
-
+  const maxRam = store.get('minecraftOptionMaxRam');
+  const minRam = store.get('minecraftOptionMinRam');
   const heightRes = store.get('minecraftOptionHeightRes');
   const widthRes = store.get('minecraftOptionWidthRes');
   const fullscreenRes = store.get('minecraftOptionFullscreenRes');
-
-  const JVMUser = store.get('minecraftOptionJvm');
+  const JVM = store.get('minecraftOptionJvm');
 
   Authenticator.getAuth(data.u, data.p)
     .then((e) => {
@@ -213,7 +191,7 @@ ipcMain.on('login', (event, data) => {
         removePackage: true,
         authorization: e,
         root: `${appdataPathUser}/.MMLauncher/`,
-        customArgs: JVMUser,
+        customArgs: JVM,
         version: {
           number: '1.16.5',
           type: 'release'
@@ -225,8 +203,8 @@ ipcMain.on('login', (event, data) => {
         },
         forge: `${appdataPathUser}/.MMLauncher/forge.jar`,
         memory: {
-          max: `${maxRamUser}M`,
-          min: `${minRamUser}M`,
+          max: `${maxRam}G`,
+          min: `${minRam}G`,
         },
         timeout: 3500
       };
@@ -236,13 +214,13 @@ ipcMain.on('login', (event, data) => {
         .then(() => {
           win.webContents.send('game-launched');
 
-          if (store.get('launcherOptionDebuggingModeLauncherClose') !== true) {
+          if (store.get('launcherClose') !== true) {
             setTimeout(() => {
               app.quit();
-            }, 7500);
+            }, 8000);
           }
 
-          store.set('launcherOptionDebuggingModeLauncherClose', false);
+          store.set('launcherClose', false);
         })
         .catch((err) => {
           win.webContents.send('game-launched-error', err);
