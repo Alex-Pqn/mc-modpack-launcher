@@ -13,14 +13,14 @@ const IMG_DIR = '/public/assets/img/icon/png/';
 const ASSET_DIR = '/public/html/';
 
 // DEV TOOLS
-require('electron-reload')(__dirname, {
-  electron: require(`${__dirname}/node_modules/electron`),
-});
-Object.defineProperty(app, 'isPackaged', {
-  get() {
-    return true;
-  },
-});
+// require('electron-reload')(__dirname, {
+//   electron: require(`${__dirname}/node_modules/electron`),
+// });
+// Object.defineProperty(app, 'isPackaged', {
+//   get() {
+//     return true;
+//   },
+// });
 
 const debuggingMode = store.get('launcherOptionDebuggingMode');
 
