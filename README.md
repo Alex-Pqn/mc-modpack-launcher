@@ -1,5 +1,5 @@
-# Modpack Launcher
-It's the code source of the Marie Madeleine Launcher application and an updater repository check (with electron-updater).
+# Minecraft Modpack Launcher
+It's the code source of a Minecraft Modpack Launcher application and an updater repository check (with electron-updater).
 
 This application was made with Electron and is only compatible with Windows OS.
 
@@ -33,4 +33,4 @@ You can start the project with `npm start`.
 ### Advanced start
 You can start the project with `npm start` and `npm run sass` (for activate the in real time sass compilation).
 
-Also, you can un-comments the lines 11 at 18 in app.js file for activate the Dev tools (allows to reload the application in real time).
+Also, you can un-comments the lines 18 at 25 in app.js file for activate the Dev tools (allows to reload the application in real time).
