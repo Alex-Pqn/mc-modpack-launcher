@@ -33,4 +33,4 @@ You can start the project with `npm start`.
 ### Advanced start
 You can start the project with `npm start` and `npm run sass` (for activate the in real time sass compilation).
 
-Also, you can un-comments the lines 11 at 18 in app.js file for activate the Dev tools (allows to reload the application in real time).
+Also, you can un-comments the lines 18 at 25 in app.js file for activate the Dev tools (allows to reload the application in real time).
