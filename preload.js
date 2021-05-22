@@ -7,6 +7,27 @@ const store = new Store();
 
 const appdataUserFolder = store.get('appdataPathUser');
 
+let { modpackLink, defaultMinecraftOpt, globalOpt, consoleWarning, audioPlayer, authValidator, dynamicBackground, externalLink, typedOpt, cryptOpt, modpackConsistentFiles } = require('./globalValues');
+
+// return global values in globalValues.js
+getData = () => {
+  if(window.data !== undefined) {
+    let globalValues = [
+      modpackLink, 
+      defaultMinecraftOpt, 
+      globalOpt, 
+      consoleWarning, 
+      audioPlayer, 
+      authValidator, 
+      dynamicBackground, 
+      externalLink, 
+      typedOpt, 
+      cryptOpt
+    ]
+    data(globalValues)
+  } 
+}
+
 // open folder
 openFolder = (path) => {
   shell.openPath(path);
@@ -115,7 +136,7 @@ winClose = () => {
 };
 
 
-// MINECRAFT OPTIONS
+// OPTIONS
 const getMinRam = store.get('minecraftOptionMinRam');
 const getMaxRam = store.get('minecraftOptionMaxRam');
 const getHeightRes = store.get('minecraftOptionHeightRes');
@@ -140,47 +161,6 @@ window.addEventListener('DOMContentLoaded', () => {
     openCacheFolder(appdataUserFolder);
   }
 });
-
-// reset modpack
-resetModpackFolder = () => {
-  // consistent files - that will not be deleted
-  const consistentFiles = [
-    "options.txt", 
-    "optionsof.txt", 
-    "optionsshaders.txt", 
-    "usercache.json", 
-    "realms_persistence.json", 
-    "saves",
-    "logs",
-    "crash-reports",
-    "screenshots", 
-    "launcher_accounts.json", 
-    "launcher_msa_credentials.json", 
-    "launcher_profiles.json", 
-    "launcher_settings.json", 
-    "launcher_ui_state.json",
-
-  ]
-
-  fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\`).forEach(file => {
-    console.log(file)
-    let deleteFile = true
-    for(let i = 0; i < consistentFiles.length; i++) {
-      if (consistentFiles[i] == file) {
-        deleteFile = false
-      }
-      if(i === consistentFiles.length - 1 && deleteFile === true) {
-        try {
-          fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\${file}`, {
-            recursive: true,
-          });
-        } catch (err) {
-          fs.unlinkSync(`${appdataUserFolder}\\.MMLauncher\\${file}`);
-        }
-      }
-    }
-  }); 
-}
 
 
 // SHADERPACKS & RESOURCEPACKS FOLDERS
@@ -217,11 +197,39 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// RESET MODPACK //
+resetModpackFolder = () => {
+  // consistent files - that will not be deleted
+  const consistentFiles = modpackConsistentFiles
+
+  fs.readdirSync(`${appdataUserFolder}\\.MMLauncher\\`).forEach(file => {
+    let deleteFile = true
+    for(let i = 0; i < consistentFiles.length; i++) {
+      if (consistentFiles[i] == file) {
+        deleteFile = false
+      }
+      if(i === consistentFiles.length - 1 && deleteFile === true) {
+        try {
+          fs.rmdirSync(`${appdataUserFolder}\\.MMLauncher\\${file}`, {
+            recursive: true,
+          });
+        } catch (err) {
+          fs.unlinkSync(`${appdataUserFolder}\\.MMLauncher\\${file}`);
+        }
+      }
+    }
+  }); 
+}
+
+
 // ELECTRON UPDATER
+
+// check update
 checkUpdate = () => {
   ipcRenderer.send('check-update');
 };
 
+// update available
 function updateAvailable () {
   ipcRenderer.on('updater_update_available', () => {
     ipcRenderer.removeAllListeners('updater_update_available');
@@ -245,6 +253,7 @@ function updateAvailable () {
 }
 updateAvailable()
 
+// update not available
 function updateNotAvailable () {
   ipcRenderer.on('updater_update_not_available', () => {
     if (window.launcherUpdateNotAvailable !== undefined) {
@@ -254,6 +263,7 @@ function updateNotAvailable () {
 }
 updateNotAvailable()
 
+// update downloaded
 function updateDownloaded () {
   ipcRenderer.on('updater_update_downloaded', () => {
     setTimeout(() => {

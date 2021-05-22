@@ -1,20 +1,28 @@
 // Resolution config
-const defaultHeight = 1080;
-const defaultWidth = 1920;
-const defaultFullscreenBoolean = true;
+let defaultHeight
+let defaultWidth
+let defaultFullscreenBoolean
+
+// get global values
+getData()
+function data (globalValues) {
+  defaultHeight = globalValues[1].defaultHeightRes
+  defaultWidth = globalValues[1].defaultWidthRes
+  defaultFullscreenBoolean = globalValues[1].defaultFullscreenRes
+}
 
 const containerStatusRes = document.getElementById('container-status-res');
 const paragraphStatusRes = document.getElementById('status-res');
 const closeTextStatusRes = document.getElementById('close-status-res');
 const inputHeightRes = document.getElementById('height-res');
 const inputWidthRes = document.getElementById('width-res');
-const inputFullscreenRes = document.getElementById('fullscreen-res');
+const inputFullscreen = document.getElementById('fullscreen-res');
 
 // display resolution - call preload
 function displayResolution (height, width, fullscreenBoolean) {
   inputHeightRes.value = height;
   inputWidthRes.value = width;
-  inputFullscreenRes.checked = fullscreenBoolean;
+  inputFullscreen.checked = fullscreenBoolean;
 }
 
 // save button
@@ -22,10 +30,10 @@ function saveResolution () {
   document.getElementById('button-save-res').addEventListener('click', () => {
     let height = Math.floor(inputHeightRes.value)
     let width = Math.floor(inputWidthRes.value)
-    let fullscreenBoolean = inputFullscreenRes.checked
+    let fullscreenBoolean = inputFullscreen.checked
     
     storeResolution(height, width, fullscreenBoolean);
-    displayStatus(changeMessage, succedColor, textColor, containerStatusRes, paragraphStatusRes, closeTextStatusRes
+    displayStatus(successMessage, succedColor, textColor, containerStatusRes, paragraphStatusRes, closeTextStatusRes
     );
   });
 }
@@ -36,7 +44,7 @@ function resetResolution () {
   document.getElementById('button-reset-res').addEventListener('click', () => {
     storeResolution(defaultHeight, defaultWidth, defaultFullscreenBoolean);
     displayResolution(defaultHeight, defaultWidth, defaultFullscreenBoolean)
-    displayStatus(defaultValueMessage, warningColor, textColor, containerStatusRes, paragraphStatusRes, closeTextStatusRes
+    displayStatus(resetMessageStatus, warningColor, textColor, containerStatusRes, paragraphStatusRes, closeTextStatusRes
     );
   });
 }

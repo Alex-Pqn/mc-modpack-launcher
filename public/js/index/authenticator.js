@@ -1,5 +1,26 @@
-const advancedModpackLink = "https://www.dropbox.com/s/oy7boskdvpdhyd5/clientPackage.zip?dl=1"
-const normalModpackLink = "https://www.dropbox.com/s/lxwwemhup0zgax3/clientPackage.zip?dl=1" 
+let advancedModpackLink
+let normalModpackLink
+
+let uName
+let pName
+let uMinLength
+let pMinLength
+let uMaxLength
+let pMaxLength
+
+// get global values
+getData()
+function data (globalValues) {
+  advancedModpackLink = globalValues[0].advanced
+  normalModpackLink = globalValues[0].normal
+  
+  uName = globalValues[5].u.name
+  pName = globalValues[5].p.name
+  uMinLength = globalValues[5].u.minLength
+  pMinLength = globalValues[5].p.minLength
+  uMaxLength = globalValues[5].u.maxLength
+  pMaxLength = globalValues[5].p.maxLength
+}
 
 const button = document.getElementById('submit');
 const uInput = document.getElementById('u');
@@ -116,20 +137,20 @@ function mojangLogin () {
     const u = uInput.value;
     const p = pInput.value;
   
-    const argumentsList = [
+    let argumentsList = [
       {
         value: u,
-        name: 'Votre e-mail/pseudo',
+        name: uName,
         stepValidation: false,
-        minLength: 3,
-        maxLength: 45,
+        minLength: uMinLength,
+        maxLength: uMaxLength,
       },
       {
         value: p,
-        name: 'Votre mot de passe',
+        name: pName,
         stepValidation: false,
-        minLength: 3,
-        maxLength: 35,
+        minLength: pMinLength,
+        maxLength: pMaxLength,
       },
     ];
     

@@ -4,6 +4,24 @@ const modpackLink = {
   normal: "https://www.dropbox.com/s/lxwwemhup0zgax3/clientPackage.zip?dl=1" 
 }
 
+// modpack consistent files
+const modpackConsistentFiles = [
+  "options.txt", 
+  "optionsof.txt", 
+  "optionsshaders.txt", 
+  "usercache.json", 
+  "realms_persistence.json", 
+  "saves",
+  "logs",
+  "crash-reports",
+  "screenshots", 
+  "launcher_accounts.json", 
+  "launcher_msa_credentials.json", 
+  "launcher_profiles.json", 
+  "launcher_settings.json", 
+  "launcher_ui_state.json",
+]
+
 // console warning
 const consoleWarning = {
   en: "DO NOT PASTE CODE/COMMANDS LINES INTO THE CONSOLE, WHOEVER ASKED YOU TO DO, IT COULD BE A MALICIOUS CODE FOR GETTING YOUR CONFIDENTIAL INFORMATION.",
@@ -24,7 +42,8 @@ const defaultMinecraftOpt = {
     "-XX:G1ReservePercent=20",
     "-XX:MaxGCPauseMillis=50",
     "-XX:G1HeapRegionSize=32M"
-  ]
+  ],
+  maxLengthJvm: 250
 }
 
 // typed
@@ -91,4 +110,4 @@ const authValidator = {
   }
 }
 
-module.exports = { modpackLink, defaultMinecraftOpt, globalOpt, consoleWarning, audioPlayer, authValidator, dynamicBackground, externalLink, typedOpt, cryptOpt };
+module.exports = { modpackLink, defaultMinecraftOpt, globalOpt, consoleWarning, audioPlayer, authValidator, dynamicBackground, externalLink, typedOpt, cryptOpt, modpackConsistentFiles };

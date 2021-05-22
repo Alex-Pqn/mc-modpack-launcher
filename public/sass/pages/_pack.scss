@@ -71,9 +71,6 @@
                     display: none;
                     width: 100%;
                 }
-                & #button-reset_modpack {
-                  display: flex;
-                }
                 @media screen and (min-width: 0px) {
                     & #error-mods-list {
                         @include parts-error-pack-options_default
@@ -155,7 +152,15 @@
             &__reset-modpack {
               & #button-reset_modpack {
                 padding: 5px 8px;
-                font-size: 1em;
+                font-size: .97em;
+                background-color: rgba(158, 1, 1, 0.8);
+                border: 2px solid rgba(201, 0, 0, 0.6);
+                color: white;
+                opacity: .65;
+                border-radius: .2em;
+                &:hover {
+                  opacity: .75;
+                }
               }
             }
         }

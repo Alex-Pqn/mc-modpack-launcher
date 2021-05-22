@@ -1,5 +1,12 @@
-const maximumBackground = 14
-const defaultBackgroundKey = -1
+let maximumBackground
+let defaultBackgroundKey
+
+// get global values
+getData()
+function data (globalValues) {
+  maximumBackground = globalValues[6].maximumBackground
+  defaultBackgroundKey = globalValues[6].defaultBackgroundKey
+}
 
 // if no background key is defined, define key
 // MODIFIED WITH PORT TO 1.9.0

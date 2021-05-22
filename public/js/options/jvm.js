@@ -1,13 +1,14 @@
 // JVM config
-const defaultJvm = [
-  "-XX:+UnlockExperimentalVMOptions",
-  "-XX:+UseG1GC",
-  "-XX:G1NewSizePercent=20",
-  "-XX:G1ReservePercent=20",
-  "-XX:MaxGCPauseMillis=50",
-  "-XX:G1HeapRegionSize=32M"
-];
-const maxLengthJvm = 350;
+
+let defaultJvm
+let maxLengthJvm
+
+// get global values
+getData()
+function data (globalValues) {
+  defaultJvm = globalValues[1].defaultJvm
+  maxLengthJvm = globalValues[1].maxLengthJvm
+}
 
 const containerStatusJvm = document.getElementById('container-status-jvm');
 const paragraphStatusJvm = document.getElementById('status-jvm');
@@ -24,7 +25,7 @@ function resetJvm () {
   document.getElementById('button-reset-jvm').addEventListener('click', () => {
     storeJvm(defaultJvm);
     displayJvm(defaultJvm)
-    displayStatus(defaultValueMessage, warningColor, textColor, containerStatusJvm, paragraphStatusJvm, closeTextStatusJvm);
+    displayStatus(resetMessageStatus, warningColor, textColor, containerStatusJvm, paragraphStatusJvm, closeTextStatusJvm);
   });
 }
 resetJvm()
@@ -36,7 +37,7 @@ function saveJvm () {
       displayStatus(`Vous ne pouvez pas inscrire une valeur supérieur à ${maxLengthJvm} caractères.`, errorColor, textColor, containerStatusJvm, paragraphStatusJvm, closeTextStatusJvm);
     } else {
       storeJvm(inputJvm.value);
-      displayStatus(changeMessage, succedColor, textColor, containerStatusJvm, paragraphStatusJvm, closeTextStatusJvm);
+      displayStatus(successMessage, succedColor, textColor, containerStatusJvm, paragraphStatusJvm, closeTextStatusJvm);
     }
   });
 }

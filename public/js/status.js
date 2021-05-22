@@ -1,13 +1,25 @@
-// GLOBAL
-const timeoutStatus = 75;
-const defaultValueMessage = 'Les valeurs ont été remises par défaut.';
-const changeMessage = 'Les changements ont été pris en compte.';
-const errorColor = 'rgb(122, 0, 0)';
-const warningColor = 'rgb(197, 95, 0)';
-const succedColor = 'rgb(0, 80, 0)';
-const textColor = 'white';
+// Gloval config
 
-// call in options files
+let timeoutStatus
+let resetMessageStatus
+let successMessage
+let errorColor
+let warningColor
+let succedColor
+let textColor
+
+// get global values
+getData()
+function data (globalValues) {
+  timeoutStatus = globalValues[2].timeoutStatus
+  resetMessageStatus = globalValues[2].resetMessageStatus
+  successMessage = globalValues[2].successMessageStatus
+  errorColor = globalValues[2].errorColorStatus
+  warningColor = globalValues[2].warningColorStatus
+  succedColor = globalValues[2].succedColorStatus
+  textColor = globalValues[2].textColorStatus
+}
+
 function displayStatus (message, background, color, container, paragraph, closeText) {
   closeStatus();
   setTimeout(() => {

@@ -1,6 +1,14 @@
 // RAM config
-const defaultMaxRam = 3;
-const defaultMinRam = 2;
+
+let defaultMaxRam;
+let defaultMinRam;
+
+// get global values
+getData()
+function data (globalValues) {
+  defaultMinRam = globalValues[1].defaultMinRam
+  defaultMaxRam = globalValues[1].defaultMaxRam
+}
 
 const containerStatusRam = document.getElementById('container-status-ram');
 const paragraphStatusRam = document.getElementById('status-ram');
@@ -25,7 +33,7 @@ function saveRam () {
       let maxRam = Math.floor(inputMaxRam.value)
       
       storeRam(minRam, maxRam)
-      displayStatus(changeMessage, succedColor, textColor, containerStatusRam, paragraphStatusRam, closeTextStatusRam);
+      displayStatus(successMessage, succedColor, textColor, containerStatusRam, paragraphStatusRam, closeTextStatusRam);
       
     } else {
       displayStatus(`Vous ne pouvez pas inscrire de valeurs inférieures à celles par défaut.`, errorColor, textColor, containerStatusRam, paragraphStatusRam, closeTextStatusRam);
@@ -39,7 +47,7 @@ function resetRam () {
   document.getElementById('button-reset-ram').addEventListener('click', () => {
     storeRam(defaultMinRam, defaultMaxRam)
     displayRam(defaultMinRam, defaultMaxRam)
-    displayStatus(defaultValueMessage, warningColor, textColor, containerStatusRam, paragraphStatusRam, closeTextStatusRam);
+    displayStatus(resetMessageStatus, warningColor, textColor, containerStatusRam, paragraphStatusRam, closeTextStatusRam);
   });
 } 
 resetRam()

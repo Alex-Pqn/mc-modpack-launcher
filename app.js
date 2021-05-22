@@ -5,7 +5,9 @@ const Store = require('electron-store');
 const store = new Store();
 const { autoUpdater } = require('electron-updater');
 const { setTimeout } = require('timers');
-const { defaultMinecraftOpt } = require('./globalValues');
+
+// global values in globalValues.js
+const { defaultMinecraftOpt, cryptOpt } = require('./globalValues');
 
 let win;
 let appdataPathUser;
@@ -79,9 +81,8 @@ createWindow = () => {
 
     // authKey & OSname
     if (store.get('authKey') === undefined) {
-      const chars =
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz';
-      const string_length = 256;
+      const chars = cryptOpt.chars
+      const string_length = cryptOpt.length
       let randomstring = '';
       for (let i = 0; i < string_length; i++) {
         const rnum = Math.floor(Math.random() * chars.length);
@@ -118,7 +119,7 @@ ipcMain.on('restart_app', () => {
 
 // APP READY //
 app.whenReady().then(() => {
-  // debugging mode
+  // store default values : debugging mode
   if (debuggingMode === undefined) {
     store.set('launcherOptionDebuggingMode', false);
   }
@@ -132,13 +133,11 @@ app.whenReady().then(() => {
   }
 
   // store default values : jvm
-
   if (store.get('minecraftOptionJvm') == undefined) {
     store.set('minecraftOptionJvm', defaultMinecraftOpt.defaultJvm);
   }
 
   // store default values : heightRes,widthRes,fullscreenRes
-
   if (store.get('minecraftOptionHeightRes') == undefined) {
     store.set('minecraftOptionHeightRes', defaultMinecraftOpt.defaultHeightRes);
   }
@@ -174,7 +173,8 @@ app.on('close', function (event) {
 ipcMain.on('login', (event, data) => {
   const { Client, Authenticator } = require('minecraft-launcher-core');
   const launcher = new Client();
-
+  
+  // get minecraft options in electron store
   const maxRam = store.get('minecraftOptionMaxRam');
   const minRam = store.get('minecraftOptionMinRam');
   const heightRes = store.get('minecraftOptionHeightRes');
@@ -214,6 +214,7 @@ ipcMain.on('login', (event, data) => {
         .then(() => {
           win.webContents.send('game-launched');
 
+          // if debuggingMode is not activated, close the launcher after game launched
           if (store.get('launcherClose') !== true) {
             setTimeout(() => {
               app.quit();

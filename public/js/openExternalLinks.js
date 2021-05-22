@@ -1,7 +1,16 @@
-const githubLink = "https://github.com/Alex-Pqn"
-const twitterLink = "https://twitter.com/Sokaaaa_"
-const discordLink = "https://discord.gg/jC4r3T9"
-const javaLink = "https://www.java.com/fr/download/"
+let githubLink
+let twitterLink
+let discordLink
+let javaLink
+
+// get global values
+getData()
+function data (globalValues) {
+  githubLink = globalValues[7].github
+  twitterLink = globalValues[7].twitter
+  discordLink = globalValues[7].discord
+  javaLink = globalValues[7].java
+}
 
 document.getElementById('github-open-link').addEventListener('click', () => {
   openExternalLink(githubLink);
