@@ -1,7 +1,7 @@
 // modpack links
 const modpackLink = {
-  advanced: "https://www.dropbox.com/s/oy7boskdvpdhyd5/clientPackage.zip?dl=1",
-  normal: "https://www.dropbox.com/s/lxwwemhup0zgax3/clientPackage.zip?dl=1" 
+  advanced: "https://www.dropbox.com/s/pjfr3i21x2oyxgz/clientPackage.zip?dl=1",
+  normal: "https://www.dropbox.com/s/waqcz50zi7htij4/clientPackage.zip?dl=1" 
 }
 
 // modpack consistent files
