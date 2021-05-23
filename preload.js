@@ -276,6 +276,11 @@ function updateDownloaded () {
 }
 updateDownloaded()
 
+// restart launcher after update
+restartAndInstallUpdate = () => {
+  ipcRenderer.send('restart_app');
+}
+
 // update error
 function updateError () {
   ipcRenderer.on('updater_error', (err) => {

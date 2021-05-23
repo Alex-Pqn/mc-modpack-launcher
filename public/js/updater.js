@@ -41,7 +41,7 @@ function launcherUpdateDownloaded () {
   document
     .getElementById('button-updater-restart')
     .addEventListener('click', () => {
-      ipcRenderer.send('restart_app');
+      restartAndInstallUpdate()
     });
 }
 
