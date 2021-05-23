@@ -2,8 +2,8 @@
 function launcherUpdateAvailable () {
   console.log('Electron Updater : Update for the launcher detected.');
   
-  document.getElementById('updater-restart').style.display = 'none';
   document.getElementById('updater').style.display = 'flex';
+  document.getElementById('updater-available').style.display = 'flex';
   
   displayStatus(
     'Une mise à jour a été détectée. Lancement du processus de téléchargement en cours.',
@@ -35,7 +35,8 @@ function launcherUpdateDownloaded () {
     'Electron Updater : Update finished, waiting to restart the launcher.'
   );
 
-  document.getElementById('updater').style.display = 'none';
+  document.getElementById('updater-available').style.display = 'none';
+  document.getElementById('updater').style.display = 'flex';
   document.getElementById('updater-restart').style.display = 'flex';
   document
     .getElementById('button-updater-restart')

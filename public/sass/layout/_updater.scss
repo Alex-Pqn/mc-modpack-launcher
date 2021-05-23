@@ -11,6 +11,7 @@
     height: 100%;
     width: 100%;
     &__available {
+        display: none;
         flex-direction: column;
     }
     &__restart {
