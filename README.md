@@ -3,8 +3,6 @@ It's the code source of a Minecraft Modpack Launcher application and an updater 
 
 This application was made with Electron and is only compatible with Windows OS.
 
-![](https://media.giphy.com/media/g7a9J40lDGb8JQzPER/giphy.gif)
-
 - - -
 
 ## Security Policy
